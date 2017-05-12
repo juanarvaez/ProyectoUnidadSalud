@@ -13,25 +13,53 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{citaMedicaMedController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateCitaMedicaMedLabel_fechaProgramada}" for="fechaProgramada" />
-                        <p:calendar id="fechaProgramada" pattern="MM/dd/yyyy HH:mm:ss" value="#{citaMedicaMedController.selected.fechaProgramada}" title="#{bundle.EditCitaMedicaMedTitle_fechaProgramada}"  showOn="button"/>
+                        <p:calendar id="fechaProgramada" 
+                                    pattern="MM/dd/yyyy"
+                                    value="#{citaMedicaMedController.selected.fechaProgramada}"
+                                    title="#{bundle.EditCitaMedicaMedTitle_fechaProgramada}"
+                                    showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateCitaMedicaMedLabel_horaInicio}" for="horaInicio" />
-                        <p:calendar id="horaInicio" pattern="HH:mm:ss" value="#{citaMedicaMedController.selected.horaInicio}" title="#{bundle.EditCitaMedicaMedTitle_horaInicio}"  showOn="button"/>
+                        <p:calendar id="horaInicio"
+                                    pattern="h:mm a"
+                                    value="#{citaMedicaMedController.selected.horaInicio}"
+                                    title="#{bundle.EditCitaMedicaMedTitle_horaInicio}"
+                                    timeOnly="true"
+                                    timeZone="America/Bogota"
+                                    locale="es"/>
                         <p:outputLabel value="#{bundle.CreateCitaMedicaMedLabel_horaFin}" for="horaFin" />
-                        <p:calendar id="horaFin" pattern="HH:mm:ss" value="#{citaMedicaMedController.selected.horaFin}" title="#{bundle.EditCitaMedicaMedTitle_horaFin}"  showOn="button"/>
+                        <p:calendar id="horaFin"
+                                    pattern="h:mm a"
+                                    value="#{citaMedicaMedController.selected.horaFin}"
+                                    title="#{bundle.EditCitaMedicaMedTitle_horaFin}"
+                                    timeOnly="true"
+                                    timeZone="America/Bogota"
+                                    locale="es"/>
                         <p:outputLabel value="#{bundle.CreateCitaMedicaMedLabel_pacienteID}" for="pacienteID" />
-                        <p:selectOneMenu filter="true" id="pacienteID" value="#{citaMedicaMedController.selected.pacienteID}" required="true" requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_pacienteID}">
+                        <p:selectOneMenu filter="true"
+                                         id="pacienteID" 
+                                         value="#{citaMedicaMedController.selected.pacienteID}"
+                                         required="true"
+                                         requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_pacienteID}">
                             <f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
                                            var="pacienteIDItem"
                                            itemValue="#{pacienteIDItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateCitaMedicaMedLabel_tipocitaID}" for="tipocitaID" />
-                        <p:selectOneMenu filter="true"  id="tipocitaID" value="#{citaMedicaMedController.selected.tipocitaID}" required="true" requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_tipocitaID}">
+                        <p:selectOneMenu filter="true"
+                                         id="tipocitaID"
+                                         value="#{citaMedicaMedController.selected.tipocitaID}"
+                                         required="true"
+                                         requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_tipocitaID}">
                             <f:selectItems value="#{tipoCitaMedController.itemsAvailableSelectOne}"
                                            var="tipocitaIDItem"
                                            itemValue="#{tipocitaIDItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateCitaMedicaMedLabel_usuariossistemaID}" for="usuariossistemaID" />
-                        <p:selectOneMenu filter="true"  id="usuariossistemaID" value="#{citaMedicaMedController.selected.usuariossistemaID}" required="true" requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_usuariossistemaID}">
+                        <p:selectOneMenu filter="true"
+                                         id="usuariossistemaID"
+                                         value="#{citaMedicaMedController.selected.usuariossistemaID}"
+                                         required="true"
+                                         requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_usuariossistemaID}">
                             <f:selectItems value="#{usuariosSistemaController.itemsAvailableSelectOne}"
                                            var="usuariossistemaIDItem"
                                            itemValue="#{usuariossistemaIDItem}"/>

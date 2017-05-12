@@ -11,49 +11,48 @@
     </h:head>
     <h1 class="text-center">Agenda</h1>
     <h:form id="CitaMedicaMedListForm">
-        <p:panel header="#{bundle.ListCitaMedicaMedTitle}">
             <p:dataTable id="datalist" value="#{citaMedicaMedController.items}" var="item"
                          selectionMode="single" selection="#{citaMedicaMedController.selected}"
                          paginator="true"
                          rowKey="#{item.id}"
                          rows="10"
-                         rowsPerPageTemplate="10,20,30,40,50"
+                         rowsPerPageTemplate="5,10,15"
                          >
 
                 <p:ajax event="rowSelect"   update="agendButton viewButton"/>
                 <p:ajax event="rowUnselect" update="agendButton viewButton"/>
 
+                <!--
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCitaMedicaMedTitle_id}"/>
                     </f:facet>
                     <h:outputText value="#{item.id}"/>
                 </p:column>
+                -->
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}"/>
                     </f:facet>
                     <h:outputText value="#{item.fechaProgramada}">
-                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                    </h:outputText>
-                </p:column>
-                <!--
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaInicio}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.horaInicio}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
+                        <f:convertDateTime pattern="MM/dd/yyyy"
+                                       type="date"
+                                       timeZone="America/Bogota"
+                                       timeStyle="short"/>
                     </h:outputText>
                 </p:column>
                 <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaFin}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.horaFin}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:outputText>
-                </p:column>-->
+                <f:facet name="header">
+                    <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaInicio}"/>
+                </f:facet>
+                <h:outputText value="#{item.horaInicio}">
+                    <f:convertDateTime pattern="h:mm a"
+                                       type="time"
+                                       timeZone="America/Bogota"
+                                       timeStyle="short"
+                                       locale="es_CO"/>
+                </h:outputText>
+            </p:column>
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCitaMedicaMedTitle_estado}"/>
@@ -78,12 +77,14 @@
                     </f:facet>
                     <h:outputText value="#{item.tipocitaID.nombre}"/>
                 </p:column>
+                <!--
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCitaMedicaMedTitle_usuariossistemaID}"/>
                     </f:facet>
                     <h:outputText value="#{item.usuariossistemaID.nombres}"/>
                 </p:column>
+                -->
                         <p:column headerText="Acciones">
                             <p:commandLink title="Iniciar Atención"  action="#{consultaMedicaMedController.prepareCreateconsultaMedicaMedPaciente(item,cargarVistaController)}" ajax="false" >                                    
                                 <p:graphicImage  library="img" name="historia_clinica.png"/>
@@ -91,10 +92,9 @@
                         </p:column>                
                 <f:facet name="footer">
                     <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CitaMedicaMedViewForm" oncomplete="PF('CitaMedicaMedViewDialog').show()" disabled="#{empty citaMedicaMedController.selected}"/>
-                    <p:commandButton id="agendButton" icon="ui-icon-trash"  value="Atender" actionListener="#{citaMedicaMedController.atender}" update="datalist" disabled="#{empty citaMedicaMedController.selected}"/>
+                     <p:commandButton id="agendButton" icon="ui-icon-circle-check"  value="Atender" actionListener="#{citaMedicaMedController.atender}" update="datalist" disabled="#{empty citaMedicaMedController.selected}"/>
                 </f:facet>
             </p:dataTable>
-        </p:panel>
     </h:form>
 
     <ui:include src="View.xhtml"/>

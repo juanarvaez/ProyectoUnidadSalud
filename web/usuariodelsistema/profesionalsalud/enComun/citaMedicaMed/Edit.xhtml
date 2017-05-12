@@ -12,14 +12,27 @@
             <h:form id="CitaMedicaMedEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{citaMedicaMedController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCitaMedicaMedLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{citaMedicaMedController.selected.id}" title="#{bundle.EditCitaMedicaMedTitle_id}" required="true" requiredMessage="#{bundle.EditCitaMedicaMedRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditCitaMedicaMedLabel_fechaProgramada}" for="fechaProgramada" />
-                        <p:calendar id="fechaProgramada" pattern="MM/dd/yyyy HH:mm:ss" value="#{citaMedicaMedController.selected.fechaProgramada}" title="#{bundle.EditCitaMedicaMedTitle_fechaProgramada}"  showOn="button"/>
+                        <p:calendar id="fechaProgramada"
+                                    pattern="MM/dd/yyyy"
+                                    value="#{citaMedicaMedController.selected.fechaProgramada}"
+                                    title="#{bundle.EditCitaMedicaMedTitle_fechaProgramada}"
+                                    showOn="button"/>
                         <p:outputLabel value="#{bundle.EditCitaMedicaMedLabel_horaInicio}" for="horaInicio" />
-                        <p:calendar id="horaInicio" pattern="HH:mm:ss" value="#{citaMedicaMedController.selected.horaInicio}" title="#{bundle.EditCitaMedicaMedTitle_horaInicio}"  showOn="button"/>
+                        <p:calendar id="horaInicio"
+                                    pattern="h:mm a" value="#{citaMedicaMedController.selected.horaInicio}"
+                                    title="#{bundle.EditCitaMedicaMedTitle_horaInicio}" 
+                                    timeOnly="true"
+                                    timeZone="America/Bogota"
+                                    locale="es"/>
                         <p:outputLabel value="#{bundle.EditCitaMedicaMedLabel_horaFin}" for="horaFin" />
-                        <p:calendar id="horaFin" pattern="HH:mm:ss" value="#{citaMedicaMedController.selected.horaFin}" title="#{bundle.EditCitaMedicaMedTitle_horaFin}"  showOn="button"/>
+                        <p:calendar id="horaFin"
+                                    pattern="h:mm a"
+                                    value="#{citaMedicaMedController.selected.horaFin}"
+                                    title="#{bundle.EditCitaMedicaMedTitle_horaFin}" 
+                                    timeOnly="true"
+                                    timeZone="America/Bogota"
+                                    locale="es"/>
                         <p:outputLabel value="#{bundle.EditCitaMedicaMedLabel_estado}" for="estado" />
                         <p:inputText id="estado" value="#{citaMedicaMedController.selected.estado}" title="#{bundle.EditCitaMedicaMedTitle_estado}" />
                         <p:outputLabel value="#{bundle.EditCitaMedicaMedLabel_pacienteID}" for="pacienteID" />
@@ -44,7 +57,7 @@
                                            itemValue="#{usuariossistemaIDItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{citaMedicaMedController.update}" value="#{bundle.Save}" update="display,:CitaMedicaMedListForm:datalist" oncomplete="handleSubmit(args, 'CitaMedicaMedEditDialog');"/>
+                    <p:commandButton actionListener="#{citaMedicaMedController.update}" value="#{bundle.Save}" update="display,:CitaMedicaMedListForm:datalist" oncomplete="handleSubmit(args, 'CitaMedicaMedEditDialog');" onclick="CitaMedicaMedEditDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CitaMedicaMedEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

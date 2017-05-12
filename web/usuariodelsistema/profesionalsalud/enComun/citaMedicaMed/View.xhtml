@@ -12,28 +12,31 @@
             <h:form id="CitaMedicaMedViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{citaMedicaMedController.selected != null}">
-                        <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_id}"/>
-                        <h:outputText value="#{citaMedicaMedController.selected.id}" title="#{bundle.ViewCitaMedicaMedTitle_id}"/>
                         <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_fechaProgramada}"/>
                         <h:outputText value="#{citaMedicaMedController.selected.fechaProgramada}" title="#{bundle.ViewCitaMedicaMedTitle_fechaProgramada}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy"
+                                       type="date"
+                                       timeZone="America/Bogota"
+                                       timeStyle="short"  />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_horaInicio}"/>
                         <h:outputText value="#{citaMedicaMedController.selected.horaInicio}" title="#{bundle.ViewCitaMedicaMedTitle_horaInicio}">
-                            <f:convertDateTime pattern="HH:mm:ss" />
+                            <f:convertDateTime pattern="h:mm a"
+                                               type="time"
+                                               timeZone="America/Bogota"
+                                               timeStyle="short"
+                                               locale="es_CO" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_horaFin}"/>
                         <h:outputText value="#{citaMedicaMedController.selected.horaFin}" title="#{bundle.ViewCitaMedicaMedTitle_horaFin}">
-                            <f:convertDateTime pattern="HH:mm:ss" />
+                            <f:convertDateTime pattern="h:mm a"
+                                               type="time"
+                                               timeZone="America/Bogota"
+                                               timeStyle="short"
+                                               locale="es_CO" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_estado}"/>
                         <h:outputText value="#{citaMedicaMedController.selected.estado}" title="#{bundle.ViewCitaMedicaMedTitle_estado}"/>
-                        <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_pacienteID}"/>
-                        <h:outputText value="#{citaMedicaMedController.selected.pacienteID}" title="#{bundle.ViewCitaMedicaMedTitle_pacienteID}"/>
-                        <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_tipocitaID}"/>
-                        <h:outputText value="#{citaMedicaMedController.selected.tipocitaID}" title="#{bundle.ViewCitaMedicaMedTitle_tipocitaID}"/>
-                        <h:outputText value="#{bundle.ViewCitaMedicaMedLabel_usuariossistemaID}"/>
-                        <h:outputText value="#{citaMedicaMedController.selected.usuariossistemaID}" title="#{bundle.ViewCitaMedicaMedTitle_usuariossistemaID}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="CitaMedicaMedViewDialog.hide()"/>
                 </h:panelGroup>

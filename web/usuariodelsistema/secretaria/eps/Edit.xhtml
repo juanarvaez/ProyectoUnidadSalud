@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EpsEditDlg" widgetVar="EpsEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEpsTitle}">
+            <h:form id="EpsEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{epsController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEpsLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{epsController.selected.id}" title="#{bundle.EditEpsTitle_id}" required="true" requiredMessage="#{bundle.EditEpsRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditEpsLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{epsController.selected.nombre}" title="#{bundle.EditEpsTitle_nombre}" required="true" requiredMessage="#{bundle.EditEpsRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.EditEpsLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{epsController.selected.codigo}" title="#{bundle.EditEpsTitle_codigo}" />
+                        <p:outputLabel value="#{bundle.EditEpsLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{epsController.selected.direccion}" title="#{bundle.EditEpsTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.EditEpsLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{epsController.selected.telefono}" title="#{bundle.EditEpsTitle_telefono}" />
+                        <p:outputLabel value="#{bundle.EditEpsLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{epsController.selected.tipo}" title="#{bundle.EditEpsTitle_tipo}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{epsController.update}" value="#{bundle.Save}" update="display,:EpsListForm:datalist" oncomplete="handleSubmit(args, 'EpsEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EpsEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

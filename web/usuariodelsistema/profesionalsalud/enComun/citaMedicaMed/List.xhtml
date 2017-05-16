@@ -56,18 +56,6 @@
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaFin}"/>
-                </f:facet>
-                <h:outputText value="#{item.horaFin}">
-                    <f:convertDateTime pattern="h:mm a"
-                                       type="time"
-                                       timeZone="America/Bogota"
-                                       timeStyle="short"
-                                       locale="es_CO"/>
-                </h:outputText>
-            </p:column>
-            <p:column>
-                <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_estado}"/>
                 </f:facet>
                 <h:outputText value="#{item.estado}"/>

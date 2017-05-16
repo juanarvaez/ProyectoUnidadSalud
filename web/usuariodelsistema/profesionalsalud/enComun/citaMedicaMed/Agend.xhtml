@@ -35,13 +35,13 @@
                         <h:outputText value="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}"/>
                     </f:facet>
                     <h:outputText value="#{item.fechaProgramada}">
-                        <f:convertDateTime pattern="MM/dd/yyyy"
+                        <f:convertDateTime pattern="MM/dd/yyyy/h:mm a"
                                        type="date"
                                        timeZone="America/Bogota"
                                        timeStyle="short"/>
                     </h:outputText>
                 </p:column>
-                <p:column>
+                <!--<p:column>
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaInicio}"/>
                 </f:facet>
@@ -52,7 +52,7 @@
                                        timeStyle="short"
                                        locale="es_CO"/>
                 </h:outputText>
-            </p:column>
+            </p:column>-->
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{bundle.ListCitaMedicaMedTitle_estado}"/>

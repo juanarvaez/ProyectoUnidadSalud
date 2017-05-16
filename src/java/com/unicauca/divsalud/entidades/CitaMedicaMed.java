@@ -47,9 +47,11 @@ public class CitaMedicaMed implements Serializable {
     private Integer id;
     @Column(name = "FECHA_PROGRAMADA")
     @Temporal(TemporalType.TIMESTAMP)
+    @Basic(optional = false)
     private Date fechaProgramada;
     @Column(name = "HORA_INICIO")
     @Temporal(TemporalType.TIME)
+    @Basic(optional = false)
     private Date horaInicio;
     @Column(name = "HORA_FIN")
     @Temporal(TemporalType.TIME)

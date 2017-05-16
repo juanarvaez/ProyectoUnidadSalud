@@ -37,6 +37,7 @@ public class UsuarioSessionController implements Serializable {
     private boolean haySesion;
     private boolean errorSesion;
     private UsuariosSistema actual;
+    private static UsuariosSistema actualSingleton;
 
     public UsuarioSessionController() {
     }
@@ -44,9 +45,16 @@ public class UsuarioSessionController implements Serializable {
     public UsuariosSistema getActual() {
         return actual;
     }
+    public static UsuariosSistema getActualSingleton() {
+        return actualSingleton;
+    }
 
     public void setActual(UsuariosSistema actual) {
+        if (actualSingleton==null) {
+            actualSingleton = new UsuariosSistema();
+        }
         this.actual = actual;
+        UsuarioSessionController.actualSingleton = this.actual;
     }
     
 
@@ -124,6 +132,7 @@ public class UsuarioSessionController implements Serializable {
             try {
                 req.login(this.nombreDeUsuario, this.contrasenia);
                 actual = this.ejbUsuarioTipo.buscarPorNombreUsuario(req.getUserPrincipal().getName()).get(0).getUsuariosSistema();
+                actualSingleton = actual;
                 req.getServletContext().log("Autenticacion exitosa");
                 this.haySesion = true; 
                 this.errorSesion = false;

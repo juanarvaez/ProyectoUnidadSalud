@@ -11,14 +11,14 @@
     </h:head>
     <h1 class="text-center">Agenda</h1>
     <h:form id="CitaMedicaMedListForm">
-            <p:dataTable id="datalist" value="#{citaMedicaMedController.items}" var="item"
+            <p:dataTable id="datalist" value="#{citaMedicaMedController.agend}" var="item"
                          selectionMode="single" selection="#{citaMedicaMedController.selected}"
                          paginator="true"
                          rowKey="#{item.id}"
                          rows="10"
                          rowsPerPageTemplate="5,10,15"
                          >
-
+                
                 <p:ajax event="rowSelect"   update="agendButton viewButton"/>
                 <p:ajax event="rowUnselect" update="agendButton viewButton"/>
 

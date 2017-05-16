@@ -11,6 +11,7 @@ import com.unicauca.divsalud.sessionbeans.UsuariosSistemaFacade;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -97,6 +98,20 @@ public class CitaMedicaMedController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    public List<CitaMedicaMed> getAgend() {
+        ArrayList<CitaMedicaMed> itemsMedico = new ArrayList<>();
+        int idSingleton = UsuarioSessionController.getActualSingleton().getId();
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        for (CitaMedicaMed citaMedicaMed : items) {
+            int idUsuarioCita = citaMedicaMed.getUsuariossistemaID().getId();
+            if (idSingleton==idUsuarioCita ) {
+                itemsMedico.add(citaMedicaMed);
+            }
+        }
+        return itemsMedico;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

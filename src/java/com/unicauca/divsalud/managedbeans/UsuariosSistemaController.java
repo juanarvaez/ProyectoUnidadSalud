@@ -137,21 +137,23 @@ public class UsuariosSistemaController implements Serializable {
     public void registrarUsuario() {
         RequestContext requestContext = RequestContext.getCurrentInstance();
         usuarioSistema.setContrasena(Cifrar.sha256(usuarioSistema.getContrasena()));
-        
+        usuarioSistema.setCargo(tipoUsuario.getNombre());
         usuarioEJB.create(usuarioSistema);
 
         GrupoUsuarioTipo gut = new GrupoUsuarioTipo();
         GrupoUsuarioTipoPK gutPk = new GrupoUsuarioTipoPK();
         gutPk.setIdTipo(tipoUsuario.getId());
         gutPk.setIdUsuario(usuarioSistema.getId());
-
+        
+        gut.setTipoUsuario(tipoUsuario);
+        gut.setUsuariosSistema(usuarioSistema);
         gut.setGrupoUsuarioTipoPK(gutPk);
         gut.setLogin(usuarioSistema.getLogin());
         ejbGrupoUsuarioTipo.create(gut);
 
         items = usuarioEJB.findAll();
         usuarioSistema = new UsuariosSistema();
-        this.tipoUsuario = new TipoUsuario();
+        tipoUsuario = new TipoUsuario();
         requestContext.execute("PF('RegistroExitoso').show()");
 
     }

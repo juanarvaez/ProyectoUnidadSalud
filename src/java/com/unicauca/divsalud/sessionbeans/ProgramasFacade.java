@@ -6,15 +6,13 @@
 package com.unicauca.divsalud.sessionbeans;
 
 import com.unicauca.divsalud.entidades.Programas;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
- * @author ROED26
+ * @author Albert Muñoz
  */
 @Stateless
 public class ProgramasFacade extends AbstractFacade<Programas> {
@@ -30,12 +28,5 @@ public class ProgramasFacade extends AbstractFacade<Programas> {
     public ProgramasFacade() {
         super(Programas.class);
     }
-
-    public List<Programas> buscarPorIdPrograma(int idPrograma) {
-        Query query = getEntityManager().createNamedQuery("Programas.findByIdPrograma");
-        query.setParameter("idProgram", idPrograma);
-        List<Programas> resultList = query.getResultList();
-        return resultList;
-    }
-
+    
 }

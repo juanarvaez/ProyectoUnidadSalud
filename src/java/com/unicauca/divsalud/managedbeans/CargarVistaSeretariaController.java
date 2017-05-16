@@ -50,9 +50,31 @@ public class CargarVistaSeretariaController implements Serializable {
     public void cargarRecursos(){
        this.ruta = "/usuariodelsistema/secretaria/inicio/recursos_inicio.xhtml";
     }
+     //////////Recursos////////
     public void cargarEps(){
-       this.ruta = "/usuariodelsistema/secretaria/eps/List.xhtml";
+       this.ruta = "/usuariodelsistema/secretaria/recursos/eps/List.xhtml";
     }
+    
+    public void cargarFacultad(){
+       this.ruta = "/usuariodelsistema/secretaria/recursos/facultad/List.xhtml";
+    }
+    
+    public void cargarPrograma(){
+       this.ruta = "/usuariodelsistema/secretaria/recursos/programas/List.xhtml";
+    }
+    public void cargarProcedimientos(){
+       this.ruta = "/usuariodelsistema/secretaria/recursos/procedimientosCupsMed/List.xhtml";
+    }
+    public void cargarEnfermedades(){
+       this.ruta = "/usuariodelsistema/secretaria/recursos/enfermedadesCie10Med/List.xhtml";
+    }
+    public void cargarMedicamentos(){
+       this.ruta = "/usuariodelsistema/secretaria/recursos/medicamentoMed/List.xhtml";
+    }
+    public void cargarAlergenos(){
+       this.ruta = "/usuariodelsistema/secretaria/recursos/alergenoMed/List.xhtml";
+    }
+    /////////
     /*Rutas para la gestión de citas*/
    public void cargarGestionarCitas() {
         this.ruta = "/usuariodelsistema/profesionalsalud/enComun/citaMedicaMed/List.xhtml";

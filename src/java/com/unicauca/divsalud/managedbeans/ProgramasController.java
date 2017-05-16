@@ -18,7 +18,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.ValueChangeEvent;
 
 @Named("programasController")
 @SessionScoped
@@ -57,18 +56,18 @@ public class ProgramasController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProgramasCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleProgramas").getString("ProgramasCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("ProgramasUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleProgramas").getString("ProgramasUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("ProgramasDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleProgramas").getString("ProgramasDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -81,41 +80,7 @@ public class ProgramasController implements Serializable {
         }
         return items;
     }
-    public void seleccionPrograma(ValueChangeEvent e) {
 
-        String departamentoSeleccionado = e.getNewValue().toString();
-
-        switch (departamentoSeleccionado) {
-            case "1":
-                items = getFacade().buscarPorIdPrograma(1);
-                break;
-            case "2":
-                items = getFacade().buscarPorIdPrograma(2);
-                break;
-            case "3":
-                items = getFacade().buscarPorIdPrograma(3);
-                break;
-            case "4":
-                items = getFacade().buscarPorIdPrograma(4);
-                break;
-            case "5":
-                items = getFacade().buscarPorIdPrograma(5);
-                break;
-            case "6":
-                items = getFacade().buscarPorIdPrograma(6);
-                break;
-            case "7":
-                items = getFacade().buscarPorIdPrograma(7);
-                break;
-            case "8":
-                items = getFacade().buscarPorIdPrograma(8);
-                break;
-            case "9":
-                items = getFacade().buscarPorIdPrograma(9);
-                break;
-        }
-
-    }
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -135,11 +100,11 @@ public class ProgramasController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleProgramas").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleProgramas").getString("PersistenceErrorOccured"));
             }
         }
     }

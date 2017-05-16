@@ -1,9 +1,9 @@
 package com.unicauca.divsalud.managedbeans;
 
-import com.unicauca.divsalud.entidades.Facultad;
+import com.unicauca.divsalud.entidades.MedicamentoMed;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil.PersistAction;
-import com.unicauca.divsalud.sessionbeans.FacultadFacade;
+import com.unicauca.divsalud.sessionbeans.MedicamentoMedFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,23 +19,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("facultadController")
+@Named("medicamentoMedController")
 @SessionScoped
-public class FacultadController implements Serializable {
+public class MedicamentoMedController implements Serializable {
 
     @EJB
-    private com.unicauca.divsalud.sessionbeans.FacultadFacade ejbFacade;
-    private List<Facultad> items = null;
-    private Facultad selected;
+    private com.unicauca.divsalud.sessionbeans.MedicamentoMedFacade ejbFacade;
+    private List<MedicamentoMed> items = null;
+    private MedicamentoMed selected;
 
-    public FacultadController() {
+    public MedicamentoMedController() {
     }
 
-    public Facultad getSelected() {
+    public MedicamentoMed getSelected() {
         return selected;
     }
 
-    public void setSelected(Facultad selected) {
+    public void setSelected(MedicamentoMed selected) {
         this.selected = selected;
     }
 
@@ -45,36 +45,36 @@ public class FacultadController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private FacultadFacade getFacade() {
+    private MedicamentoMedFacade getFacade() {
         return ejbFacade;
     }
 
-    public Facultad prepareCreate() {
-        selected = new Facultad();
+    public MedicamentoMed prepareCreate() {
+        selected = new MedicamentoMed();
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleProgramas").getString("FacultadCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleMedicamentosMed").getString("MedicamentoMedCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleProgramas").getString("FacultadUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleMedicamentosMed").getString("MedicamentoMedUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleProgramas").getString("FacultadDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleMedicamentosMed").getString("MedicamentoMedDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Facultad> getItems() {
+    public List<MedicamentoMed> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -100,47 +100,47 @@ public class FacultadController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleProgramas").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleMedicamentosMed").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleProgramas").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleMedicamentosMed").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public Facultad getFacultad(java.lang.Integer id) {
+    public MedicamentoMed getMedicamentoMed(java.lang.String id) {
         return getFacade().find(id);
     }
 
-    public List<Facultad> getItemsAvailableSelectMany() {
+    public List<MedicamentoMed> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Facultad> getItemsAvailableSelectOne() {
+    public List<MedicamentoMed> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Facultad.class)
-    public static class FacultadControllerConverter implements Converter {
+    @FacesConverter(forClass = MedicamentoMed.class)
+    public static class MedicamentoMedControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            FacultadController controller = (FacultadController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "facultadController");
-            return controller.getFacultad(getKey(value));
+            MedicamentoMedController controller = (MedicamentoMedController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "medicamentoMedController");
+            return controller.getMedicamentoMed(getKey(value));
         }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
+        java.lang.String getKey(String value) {
+            java.lang.String key;
+            key = value;
             return key;
         }
 
-        String getStringKey(java.lang.Integer value) {
+        String getStringKey(java.lang.String value) {
             StringBuilder sb = new StringBuilder();
             sb.append(value);
             return sb.toString();
@@ -151,11 +151,11 @@ public class FacultadController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Facultad) {
-                Facultad o = (Facultad) object;
-                return getStringKey(o.getId());
+            if (object instanceof MedicamentoMed) {
+                MedicamentoMed o = (MedicamentoMed) object;
+                return getStringKey(o.getCodigo());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Facultad.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), MedicamentoMed.class.getName()});
                 return null;
             }
         }

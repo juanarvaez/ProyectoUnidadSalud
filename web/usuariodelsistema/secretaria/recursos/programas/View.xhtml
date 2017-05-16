@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProgramasViewDlg" widgetVar="ProgramasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleProgramas.ViewProgramasTitle}">
+            <h:form id="ProgramasViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{programasController.selected != null}">
+                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_id}"/>
+                        <h:outputText value="#{programasController.selected.id}" title="#{bundleProgramas.ViewProgramasTitle_id}"/>
+                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_nombre}"/>
+                        <h:outputText value="#{programasController.selected.nombre}" title="#{bundleProgramas.ViewProgramasTitle_nombre}"/>
+                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_facultad}"/>
+                        <h:outputText value="#{programasController.selected.facultad}" title="#{bundleProgramas.ViewProgramasTitle_facultad}"/>
+                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_estado}"/>
+                        <p:selectBooleanCheckbox value="#{programasController.selected.estado}" disabled="true"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundleProgramas.Close}" onclick="ProgramasViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

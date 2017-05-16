@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </h:head>
+    <h1 class="text-center">Lista de Medicamentos</h1>    
+
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle}"></h:outputText>
+        </ui:define>
+
+        
+            <h:form id="MedicamentoMedListForm">
+                <p:panel header="#{bundleMedicamentosMed.ListMedicamentoMedTitle}">
+                    <p:dataTable id="datalist" value="#{medicamentoMedController.items}" var="item"
+                                 selectionMode="single" selection="#{medicamentoMedController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.codigo}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle_codigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle_concentracion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.concentracion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle_viaIdx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.viaIdx}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle_preIdx}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.preIdx}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleMedicamentosMed.ListMedicamentoMedTitle_estado}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleMedicamentosMed.Create}" actionListener="#{medicamentoMedController.prepareCreate}" update=":MedicamentoMedCreateForm" oncomplete="PF('MedicamentoMedCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleMedicamentosMed.View}" update=":MedicamentoMedViewForm" oncomplete="PF('MedicamentoMedViewDialog').show()" disabled="#{empty medicamentoMedController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleMedicamentosMed.Edit}" update=":MedicamentoMedEditForm" oncomplete="PF('MedicamentoMedEditDialog').show()" disabled="#{empty medicamentoMedController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleMedicamentosMed.Delete}" actionListener="#{medicamentoMedController.destroy}" update="datalist" disabled="#{empty medicamentoMedController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        
+
+</html>

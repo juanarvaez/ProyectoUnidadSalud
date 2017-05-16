@@ -5,7 +5,7 @@
  */
 package com.unicauca.divsalud.sessionbeans;
 
-import com.unicauca.divsalud.entidades.Eps;
+import com.unicauca.divsalud.entidades.ViaAdministracionMed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Albert Muñoz
  */
 @Stateless
-public class EpsFacade extends AbstractFacade<Eps> {
+public class ViaAdministracionMedFacade extends AbstractFacade<ViaAdministracionMed> {
 
     @PersistenceContext(unitName = "divisionsaludPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class EpsFacade extends AbstractFacade<Eps> {
         return em;
     }
 
-    public EpsFacade() {
-        super(Eps.class);
+    public ViaAdministracionMedFacade() {
+        super(ViaAdministracionMed.class);
     }
     
 }

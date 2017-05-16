@@ -84,5 +84,29 @@
             <base-name>/BundleDiagnostico</base-name>
             <var>bundleDiagnostico</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleAlergeno</base-name>
+            <var>bundleAlergeno</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleEnfermedadesCie10</base-name>
+            <var>bundleEnfermedadesCie10</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleEps</base-name>
+            <var>bundleEps</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleMedicamentosMed</base-name>
+            <var>bundleMedicamentosMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleProcedimientosCups</base-name>
+            <var>bundleProcedimientosCups</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleProgramas</base-name>
+            <var>bundleProgramas</var>
+        </resource-bundle>
     </application>
 </faces-config>

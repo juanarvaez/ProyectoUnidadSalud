@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </h:head>
-    <h1 class="text-center">Lista de Alergeno</h1>    
+    <h1 class="text-center">Lista de Alérgeno</h1>    
 
         <ui:define name="title">
             <h:outputText value="#{bundleAlergeno.ListAlergenoMedTitle}"></h:outputText>
@@ -44,15 +44,15 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundleAlergeno.ListAlergenoMedTitle_estado}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundleAlergeno.ListAlergenoMedTitle_idxTipoAlergeno}"/>
                             </f:facet>
                             <h:outputText value="#{item.idxTipoAlergeno}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundleAlergeno.ListAlergenoMedTitle_estado}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleAlergeno.Create}" actionListener="#{alergenoMedController.prepareCreate}" update=":AlergenoMedCreateForm" oncomplete="PF('AlergenoMedCreateDialog').show()"/>

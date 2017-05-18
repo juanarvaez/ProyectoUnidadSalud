@@ -20,7 +20,7 @@
 
         
             <h:form id="ProgramasListForm">
-                <p:panel header="#{bundleProgramas.ListProgramasTitle}">
+                
                     <p:dataTable id="datalist" value="#{programasController.items}" var="item"
                                  selectionMode="single" selection="#{programasController.selected}"
                                  paginator="true"
@@ -63,7 +63,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleProgramas.Delete}" actionListener="#{programasController.destroy}" update="datalist" disabled="#{empty programasController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

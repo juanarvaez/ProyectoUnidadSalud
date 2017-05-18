@@ -20,7 +20,7 @@
 
         
             <h:form id="MedicamentoMedListForm">
-                <p:panel header="#{bundleMedicamentosMed.ListMedicamentoMedTitle}">
+               
                     <p:dataTable id="datalist" value="#{medicamentoMedController.items}" var="item"
                                  selectionMode="single" selection="#{medicamentoMedController.selected}"
                                  paginator="true"
@@ -76,7 +76,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleMedicamentosMed.Delete}" actionListener="#{medicamentoMedController.destroy}" update="datalist" disabled="#{empty medicamentoMedController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

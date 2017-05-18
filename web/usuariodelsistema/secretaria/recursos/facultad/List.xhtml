@@ -20,7 +20,7 @@
 
         
             <h:form id="FacultadListForm">
-                <p:panel header="#{bundleProgramas.ListFacultadTitle}">
+                
                     <p:dataTable id="datalist" value="#{facultadController.items}" var="item"
                                  selectionMode="single" selection="#{facultadController.selected}"
                                  paginator="true"
@@ -57,7 +57,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleProgramas.Delete}" actionListener="#{facultadController.destroy}" update="datalist" disabled="#{empty facultadController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

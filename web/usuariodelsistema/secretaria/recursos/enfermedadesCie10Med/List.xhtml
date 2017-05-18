@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </h:head>
-    <h1 class="text-center">Lista de Enfermedades</h1>    
+    <h1 class="text-center">Lista de Diagnosticos</h1>    
 
 
         <ui:define name="title">
@@ -19,7 +19,7 @@
 
         
             <h:form id="EnfermedadesCie10MedListForm">
-                <p:panel header="#{bundleEnfermedadesCie10.ListEnfermedadesCie10MedTitle}">
+                
                     <p:dataTable id="datalist" value="#{enfermedadesCie10MedController.items}" var="item"
                                  selectionMode="single" selection="#{enfermedadesCie10MedController.selected}"
                                  paginator="true"
@@ -56,7 +56,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleEnfermedadesCie10.Delete}" actionListener="#{enfermedadesCie10MedController.destroy}" update="datalist" disabled="#{empty enfermedadesCie10MedController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

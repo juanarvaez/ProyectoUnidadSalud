@@ -406,6 +406,14 @@ public class ConsultaMedicaMedController implements Serializable {
             ejbFacadeAntFamiliarConsultaMed.create(antFamiliarConsulta);
             antFamiliarConsulta = new AntFamiliarConsultaMed();
         }                
-    }    
+    }
+
+        public String getEstadoPaciente(){
+            if(paciente.getEstado().equals("1")){
+                return "Activo";
+            }else{
+                return "Inactivo";
+            }
+        }    
     
 }

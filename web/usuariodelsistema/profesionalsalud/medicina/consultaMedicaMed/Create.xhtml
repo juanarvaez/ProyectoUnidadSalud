@@ -8,12 +8,20 @@
 
     <h:body>
         
-        <p:panel>
+        <!--p:panel>
             <CENTER> <h1>INFORMACIÓN DEL PACIENTE</h1><b/> </CENTER>
             Fecha:#{consultaMedicaMedController.paciente.fechaApertura.toLocaleString()} | Identificacion: #{consultaMedicaMedController.paciente.identificacion} | Nombres: #{consultaMedicaMedController.paciente.nombre1}  #{consultaMedicaMedController.paciente.nombre2} | Apellidos: #{consultaMedicaMedController.paciente.apellido1}  #{consultaMedicaMedController.paciente.apellido2} | Genero: #{consultaMedicaMedController.paciente.sexo} | Fecha Nacimiento: #{consultaMedicaMedController.paciente.fechaNacimiento.toLocaleString()} | Estado: #{consultaMedicaMedController.paciente.estado} |  
              <p:commandButton actionListener="#{consultaMedicaMedController.guardarConsulta}" value="Guardar Consulta"/>
-        </p:panel>
-            
+        </p:panel-->
+        <p:panelGrid columns="7"  rendered="#{consultaMedicaMedController.paciente != null}">
+                        <h:outputText value="Fecha: #{consultaMedicaMedController.paciente.fechaApertura.toLocaleString()}"/>
+                        <h:outputText value="Identificacion: #{consultaMedicaMedController.paciente.identificacion}"/>
+                        <h:outputText value="Nombres: #{consultaMedicaMedController.paciente.nombre1} #{consultaMedicaMedController.paciente.nombre2}"/>
+                        <h:outputText value="Apellidos: #{consultaMedicaMedController.paciente.apellido1}  #{consultaMedicaMedController.paciente.apellido2}"/>
+                        <h:outputText value="Genero: #{consultaMedicaMedController.paciente.sexo}"/>
+                        <h:outputText value="Fecha Nacimiento: #{consultaMedicaMedController.paciente.fechaNacimiento.toLocaleString()}"/>                        
+                        <h:outputText value="Estado: #{consultaMedicaMedController.estadoPaciente}"/>   
+        </p:panelGrid>
         
         <!--
             <h:form id="ConsultaMedicaMedCreateForm">
@@ -68,10 +76,16 @@
             <p:tab title="Datos Acompañante">
                 <p:panel header="#{bundleAcompanianteMed.CreateAcompanianteMedTitle}">
                     <h:panelGroup id="display">
-                        <p:panelGrid columns="4" rendered="#{consultaMedicaMedController.acompaniante != null}">
+                        <p:panelGrid columns="6" rendered="#{consultaMedicaMedController.acompaniante != null}">
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_nombre}" for="nombre" />
-                            <p:inputText id="nombre" value="#{consultaMedicaMedController.acompaniante.nombre}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_nombre}" />
-
+                            <p:inputText id="nombre" value="#{consultaMedicaMedController.acompaniante.nombre}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_nombre}" required="true">
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
+                                <p:ajax event = "keyup" update="nom" />                              
+                            </p:inputText>
+                            <p:message for="nombre" id="nom" class="message" />
+                            
+                            
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_id}" for="id" />
                             <p:selectOneMenu id="id" value="#{consultaMedicaMedController.acompaniante.id}" required="true" requiredMessage="#{bundleAcompanianteMed.EditAcompanianteMedRequiredMessage_id}">
                                 <f:selectItems value="#{parentescoController.itemsAvailableSelectOne}"
@@ -79,11 +93,28 @@
                                                itemLabel="#{idItem.nombre}"
                                                itemValue="#{idItem}"/>
                             </p:selectOneMenu>
+                            <h:outputText value=""/>
+                            
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_telefono}" for="telefono" />
-                            <p:inputText id="telefono" value="#{consultaMedicaMedController.acompaniante.telefono}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_telefono}" />
-
+                            <p:inputText id="telefono" value="#{consultaMedicaMedController.acompaniante.telefono}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_telefono}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumerico"/>
+                                <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                <p:ajax event = "keyup" update="nom1" />                              
+                            </p:inputText>
+                            <p:message for="telefono" id="nom1" class="message" />
+                            
+                            
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_celular}" for="celular" />
-                            <p:inputText id="celular" value="#{consultaMedicaMedController.acompaniante.celular}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_celular}" />
+                            <p:inputText id="celular" value="#{consultaMedicaMedController.acompaniante.celular}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_celular}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumerico"/>
+                                <f:validator validatorId="ValidarCampoNumericoPositivo"/>                                
+                                <p:ajax event = "keyup" update="nom2" />                              
+                            </p:inputText>
+                            <p:message for="celular" id="nom2" class="message" />
+                            
+                            
                         </p:panelGrid>
                     </h:panelGroup>
                 </p:panel>
@@ -93,7 +124,13 @@
                     <p:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}">
 
                     <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_descripcion}" for="motivo" />
-                        <p:inputTextarea rows="4"  cols="80" id="motivo" value="#{consultaMedicaMedController.selected.motivo}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_motivo}" />
+                        <p:inputTextarea rows="4"  cols="80" id="motivo" value="#{consultaMedicaMedController.selected.motivo}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_motivo}" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
+                                <f:validator validatorId="ValidarCampoSoloLetrasNumerosGuionBajoPuntosYespacio"/>
+                                <p:ajax event = "keyup" update="nom3" />                              
+                        </p:inputTextarea>
+                        <p:message for="motivo" id="nom3" class="message" />                        
                         <!--f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
                                        var="pacienteIdxItem"
                                        itemValue="#{pacienteIdxItem}"/-->
@@ -104,7 +141,13 @@
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_enfermedadActual}">
                     <p:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}">
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_descripcion}" for="enfermedadActual" />
-                        <p:inputTextarea rows="4" cols="80" id="enfermedadActual" value="#{consultaMedicaMedController.selected.enfermedadActual}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_enfermedadActual}" />
+                        <p:inputTextarea rows="4" cols="80" id="enfermedadActual" value="#{consultaMedicaMedController.selected.enfermedadActual}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_enfermedadActual}" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
+                                <f:validator validatorId="ValidarCampoSoloLetrasNumerosGuionBajoPuntosYespacio"/>
+                                <p:ajax event = "keyup" update="nom4" />                              
+                        </p:inputTextarea>
+                        <p:message for="enfermedadActual" id="nom4" class="message" />                          
                     </p:panelGrid>
                     <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController)}" value="#{bundleConsultaMedicaMed.Save}" />
                 </p:panel>
@@ -114,24 +157,54 @@
             <p:tab title="Examen físico">
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">
                     
-                    <p:panelGrid columns="6" rendered="#{consultaMedicaMedController.selected != null}">
+                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />
-                        <p:inputText id="peso" value="#{consultaMedicaMedController.selected.peso}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_peso}" />
+                        <p:inputText id="peso" value="#{consultaMedicaMedController.selected.peso}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_peso}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                             
+                                <p:ajax event = "keyup" update="nom5" />                              
+                        </p:inputText>
+                        <p:message for="peso" id="nom5" class="message" />                            
 
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_talla}" for="talla" />
-                        <p:inputText id="talla" value="#{consultaMedicaMedController.selected.talla}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_talla}" />
+                        <p:inputText id="talla" value="#{consultaMedicaMedController.selected.talla}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_talla}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                                 
+                                <p:ajax event = "keyup" update="nom6" />                              
+                        </p:inputText>
+                        <p:message for="talla" id="nom6" class="message" />                               
                         
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_imc}" for="imc" />
-                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" />
+                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                              
+                                <p:ajax event = "keyup" update="nom7" />                              
+                        </p:inputText>
+                        <p:message for="imc" id="nom7" class="message" />                            
 
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_temperatura}" for="temperatura" />
-                        <p:inputText id="temperatura" value="#{consultaMedicaMedController.selected.temperatura}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_temperatura}" />
+                        <p:inputText id="temperatura" value="#{consultaMedicaMedController.selected.temperatura}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_temperatura}" required="true">
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                                
+                                <p:ajax event = "keyup" update="nom8" />                              
+                        </p:inputText>
+                        <p:message for="temperatura" id="nom8" class="message" />                              
                         
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecCardiaca}" for="frecCardiaca" />
-                        <p:inputText id="frecCardiaca" value="#{consultaMedicaMedController.selected.frecCardiaca}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecCardiaca}" />
+                        <p:inputText id="frecCardiaca" value="#{consultaMedicaMedController.selected.frecCardiaca}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecCardiaca}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                               
+                                <p:ajax event = "keyup" update="nom9" />                              
+                        </p:inputText>
+                        <p:message for="frecCardiaca" id="nom9" class="message" />                              
                         
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecRespiratoria}" for="frecRespiratoria" />
-                        <p:inputText id="frecRespiratoria" value="#{consultaMedicaMedController.selected.frecRespiratoria}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecRespiratoria}" />
+                        <p:inputText id="frecRespiratoria" value="#{consultaMedicaMedController.selected.frecRespiratoria}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecRespiratoria}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                                 
+                                <p:ajax event = "keyup" update="nom10" />                              
+                        </p:inputText>
+                        <p:message for="frecRespiratoria" id="nom10" class="message" />                              
                     </p:panelGrid>
                     
                     <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController)}" value="#{bundleConsultaMedicaMed.Save}" />

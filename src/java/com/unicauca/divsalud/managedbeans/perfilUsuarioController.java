@@ -170,11 +170,11 @@ public class perfilUsuarioController implements Serializable {
     public void cambiarContrasena() {
         ValidarEdicionUsuarios validarEdicionUsuario = new ValidarEdicionUsuarios();
         RequestContext requestContext = RequestContext.getCurrentInstance();
-        if (validarEdicionUsuario.validarContrasenaConConfirmacion(this.contrasena, this.confirmarContrasena)) {
+        if (validarEdicionUsuario.validarContrasena(this.contrasena)) {
+            UsuarioSessionController.getActualSingleton().setContrasena(Cifrar.sha256(this.contrasena));
+            UsuarioSessionController.getActualSingleton().setContrasena(Cifrar.sha256(this.contrasena));
             
-            this.usuario.setContrasena(Cifrar.sha256(this.contrasena));
-            
-            this.usuarioEJB.edit(this.usuario);
+            this.usuarioEJB.edit(UsuarioSessionController.getActualSingleton());
             
             this.mostrarContrasena = true;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info. Se cambio la contraseña correctamente.", ""));

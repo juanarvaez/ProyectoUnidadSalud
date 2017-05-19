@@ -217,8 +217,7 @@
                     </p:column>
                     <p:column colspan="5">
                         <p:selectOneMenu filter="true" id="facultad" 
-                                         value="#{pacienteController.facultad.id}" 
-                                         valueChangeListener="#{programasController.seleccionPrograma}" >
+                                         value="#{pacienteController.facultad.id}" >
                             <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
                             <f:selectItems value="#{facultadController.itemsAvailableSelectOne}"
                                            var="facultadItem"

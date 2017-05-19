@@ -20,6 +20,7 @@ ALTER TABLE cita_medica_med DROP INDEX AK_FECHA_PROGRAMADA_UNIQUE;
 ALTER TABLE cita_medica_med DROP INDEX FECHA_PROGRAMADA_2;
 
 --Inserts a la tabla tipo cita medica
+INSERT INTO `tipo_cita_med` (`ID`, `NOMBRE`) VALUES ('1', 'Revisión examenes');
 INSERT INTO `tipo_cita_med` (`ID`, `NOMBRE`) VALUES ('2', 'Control');
 INSERT INTO `tipo_cita_med` (`ID`, `NOMBRE`) VALUES ('3', 'Revisión Exámenes');
 

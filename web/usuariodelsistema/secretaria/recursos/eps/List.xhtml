@@ -20,7 +20,7 @@
 
         
             <h:form id="EpsListForm">
-                <p:panel header="#{bundleEps.ListEpsTitle}">
+               
                     <p:dataTable id="datalist" value="#{epsController.items}" var="item"
                                  selectionMode="single" selection="#{epsController.selected}"
                                  paginator="true"
@@ -57,7 +57,7 @@
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleEps.Delete}" actionListener="#{epsController.destroy}" update="datalist" disabled="#{empty epsController.selected}"/>
                         </f:facet>
                     </p:dataTable>
-                </p:panel>
+                
             </h:form>
 
             <ui:include src="Create.xhtml"/>

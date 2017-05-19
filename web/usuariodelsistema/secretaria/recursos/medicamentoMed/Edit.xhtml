@@ -35,7 +35,7 @@
                                            itemValue="#{preIdxItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{medicamentoMedController.update}" value="#{bundleMedicamentosMed.Save}" update="display,:MedicamentoMedListForm:datalist" oncomplete="handleSubmit(args, 'MedicamentoMedEditDialog');"/>
+                    <p:commandButton actionListener="#{medicamentoMedController.update}" value="#{bundleMedicamentosMed.Save}" update="display,:MedicamentoMedListForm:datalist" oncomplete="handleSubmit(args, 'MedicamentoMedEditDialog');" onclick="MedicamentoMedEditDialog.hide()"/>
                     <p:commandButton value="#{bundleMedicamentosMed.Cancel}" onclick="MedicamentoMedEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

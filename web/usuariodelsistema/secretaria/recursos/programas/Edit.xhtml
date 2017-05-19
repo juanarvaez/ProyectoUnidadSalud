@@ -26,7 +26,7 @@
                         <p:outputLabel value="#{bundleProgramas.EditProgramasLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{programasController.selected.estado}" required="true" requiredMessage="#{bundleProgramas.EditProgramasRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{programasController.update}" value="#{bundleProgramas.Save}" update="display,:ProgramasListForm:datalist" oncomplete="handleSubmit(args, 'ProgramasEditDialog');"/>
+                    <p:commandButton actionListener="#{programasController.update}" value="#{bundleProgramas.Save}" update="display,:ProgramasListForm:datalist" oncomplete="handleSubmit(args, 'ProgramasEditDialog');" onclick="ProgramasEditDialog.hide()"/>
                     <p:commandButton value="#{bundleProgramas.Cancel}" onclick="ProgramasEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

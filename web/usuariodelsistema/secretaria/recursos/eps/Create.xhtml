@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundleEps.CreateEpsLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{epsController.selected.estado}" required="true" requiredMessage="#{bundleEps.EditEpsRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{epsController.create}" value="#{bundleEps.Save}" update="display,:EpsListForm:datalist" oncomplete="handleSubmit(args,'EpsCreateDialog');"/>
+                    <p:commandButton actionListener="#{epsController.create}" value="#{bundleEps.Save}" update="display,:EpsListForm:datalist" oncomplete="handleSubmit(args,'EpsCreateDialog');" onclick="EpsCreateDialog.hide()"/>
                     <p:commandButton value="#{bundleEps.Cancel}" onclick="EpsCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

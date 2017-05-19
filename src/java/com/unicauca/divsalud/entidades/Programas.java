@@ -104,6 +104,8 @@ public class Programas implements Serializable {
     }
 
     public Facultad getFacultad() {
+        //String aux=facultad.getNombre();
+        //Facultad aux2=(aux);
         return facultad;
     }
 
@@ -111,14 +113,6 @@ public class Programas implements Serializable {
         this.facultad = facultad;
     }
 
-    
-//    public Integer getEstado() {
-//        return estado;
-//    }
-//
-//    public void setEstado(Integer estado) {
-//        this.estado = estado;
-//    }
 
     @Override
     public int hashCode() {

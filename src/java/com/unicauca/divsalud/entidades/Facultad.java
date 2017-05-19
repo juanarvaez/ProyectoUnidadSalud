@@ -118,7 +118,8 @@ public class Facultad implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.divsalud.entidades.Facultad[ id=" + id + " ]";
+        return "" + nombre + "";
+        //return "com.unicauca.divsalud.entidades.Facultad[ id=" + id + " ]";
     }
 
     public boolean getEstado() {

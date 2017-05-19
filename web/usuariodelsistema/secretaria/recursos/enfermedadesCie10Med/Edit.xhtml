@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundleEnfermedadesCie10.EditEnfermedadesCie10MedLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{enfermedadesCie10MedController.selected.estado}" required="true" requiredMessage="#{bundleEnfermedadesCie10.EditEnfermedadesCie10MedRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{enfermedadesCie10MedController.update}" value="#{bundleEnfermedadesCie10.Save}" update="display,:EnfermedadesCie10MedListForm:datalist" oncomplete="handleSubmit(args, 'EnfermedadesCie10MedEditDialog');"/>
+                    <p:commandButton actionListener="#{enfermedadesCie10MedController.update}" value="#{bundleEnfermedadesCie10.Save}" update="display,:EnfermedadesCie10MedListForm:datalist" oncomplete="handleSubmit(args, 'EnfermedadesCie10MedEditDialog');" onclick="EnfermedadesCie10MedEditDialog.hide()"/>
                     <p:commandButton value="#{bundleEnfermedadesCie10.Cancel}" onclick="EnfermedadesCie10MedEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

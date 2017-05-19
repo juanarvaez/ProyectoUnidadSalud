@@ -26,7 +26,7 @@
                                            itemValue="#{idxTipoAlergenoItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{alergenoMedController.update}" value="#{bundleAlergeno.Save}" update="display,:AlergenoMedListForm:datalist" oncomplete="handleSubmit(args, 'AlergenoMedEditDialog');"/>
+                    <p:commandButton actionListener="#{alergenoMedController.update}" value="#{bundleAlergeno.Save}" update="display,:AlergenoMedListForm:datalist" oncomplete="handleSubmit(args, 'AlergenoMedEditDialog');" onclick="AlergenoMedEditDialog.hide()"/>
                     <p:commandButton value="#{bundleAlergeno.Cancel}" onclick="AlergenoMedEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

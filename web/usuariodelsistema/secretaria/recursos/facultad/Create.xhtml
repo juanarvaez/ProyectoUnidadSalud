@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundleProgramas.CreateFacultadLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{facultadController.selected.estado}" required="true" requiredMessage="#{bundleProgramas.EditFacultadRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{facultadController.create}" value="#{bundleProgramas.Save}" update="display,:FacultadListForm:datalist" oncomplete="handleSubmit(args,'FacultadCreateDialog');"/>
+                    <p:commandButton actionListener="#{facultadController.create}" value="#{bundleProgramas.Save}" update="display,:FacultadListForm:datalist" oncomplete="handleSubmit(args,'FacultadCreateDialog');" onclick="FacultadCreateDialog.hide()"/>
                     <p:commandButton value="#{bundleProgramas.Cancel}" onclick="FacultadCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

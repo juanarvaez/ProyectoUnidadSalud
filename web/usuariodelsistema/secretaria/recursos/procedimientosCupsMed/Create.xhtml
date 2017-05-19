@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundleProcedimientosCups.CreateProcedimientosCupsMedLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{procedimientosCupsMedController.selected.estado}" required="true" requiredMessage="#{bundleProcedimientosCups.EditProcedimientosCupsMedRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{procedimientosCupsMedController.create}" value="#{bundleProcedimientosCups.Save}" update="display,:ProcedimientosCupsMedListForm:datalist" oncomplete="handleSubmit(args,'ProcedimientosCupsMedCreateDialog');"/>
+                    <p:commandButton actionListener="#{procedimientosCupsMedController.create}" value="#{bundleProcedimientosCups.Save}" update="display,:ProcedimientosCupsMedListForm:datalist" oncomplete="handleSubmit(args,'ProcedimientosCupsMedCreateDialog');" onclick="ProcedimientosCupsMedCreateDialog.hide()"/>
                     <p:commandButton value="#{bundleProcedimientosCups.Cancel}" onclick="ProcedimientosCupsMedCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

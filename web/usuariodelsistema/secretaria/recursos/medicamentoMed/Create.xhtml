@@ -33,7 +33,7 @@
                                            itemValue="#{preIdxItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{medicamentoMedController.create}" value="#{bundleMedicamentosMed.Save}" update="display,:MedicamentoMedListForm:datalist" oncomplete="handleSubmit(args,'MedicamentoMedCreateDialog');"/>
+                    <p:commandButton actionListener="#{medicamentoMedController.create}" value="#{bundleMedicamentosMed.Save}" update="display,:MedicamentoMedListForm:datalist" oncomplete="handleSubmit(args,'MedicamentoMedCreateDialog');" onclick="MedicamentoMedCreateDialog.hide()"/>
                     <p:commandButton value="#{bundleMedicamentosMed.Cancel}" onclick="MedicamentoMedCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -140,23 +140,111 @@
             
             <!-- PESTAÑA PARA REGISTRAR LOS ANTECEDENTES FAMILIARES -->
             <p:tab title="Antecedentes familiares">
+                <p:panel header="#{bundleAntFamiliarMed.CreateAntFamiliaresMedTitle}">
+                    <h:panelGrid columns="2" rendered="#{consultaMedicaMedController.antFamiliarConsulta != null}">
 
+                        <p:dataTable id="datalist" value="#{antFamiliaresMedController.items}" var="item">  
+                            
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Enfermedad"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            
+                            <p:column>                                
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_padre}"/>
+                                </f:facet>                                 
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_padre}">
+                                    <p:ajax listener="#{consultaMedicaMedController.guardarPadre(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abueloP}"/>
+                                </f:facet>
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abueloP}">
+                                    <p:ajax listener="#{consultaMedicaMedController.guardarAbueloP(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>                                
+                            </p:column>                                                
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abuelaP}"/>
+                                </f:facet>                                
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abuelaP}">
+                                    <p:ajax listener="#{consultaMedicaMedController.guardarAbuelaP(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_madre}"/>
+                                </f:facet>                                
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_madre}">
+                                            <p:ajax listener="#{consultaMedicaMedController.guardarMadre(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                            </p:column>      
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abueloM}"/>
+                                </f:facet>                                
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abueloM}">
+                                    <p:ajax listener="#{consultaMedicaMedController.guardarAbueloM(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abuelaM}"/>
+                                </f:facet>                                      
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_abuelaM}">
+                                    <p:ajax listener="#{consultaMedicaMedController.guardarAbuelaM(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_hermanos}"/>
+                                </f:facet>                                
+                                <p:selectBooleanCheckbox label="" value="1" id="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_hermanos}">
+                                    <p:ajax listener="#{consultaMedicaMedController.guardarHermanos(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                            </p:column> 
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_observaciones}"/>
+                                </f:facet>                            
+                                <p:commandButton icon="ui-icon-search">                                    
+                                    <!--<f:setPropertyActionListener value="obs" target = "#{consultaMedicaMedController.guardarObservaciones(item)}"/>-->
+                               </p:commandButton>
+                            </p:column>          
+                            <!--<p:ajax onstart="#{consultaMedicaMedController.prueba()}" event="#{consultaMedicaMedController.prueba()}"></p:ajax>-->
+                        </p:dataTable>
+                    </h:panelGrid>        
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" />
+                </p:panel>
             </p:tab>
+            
             
             <!-- PESTAÑA PARA REGISTRAR LOS ANTECEDENTES PERSONALES -->
-            <p:tab title="Antecedentes personales">
+            <!--<p:tab title="Antecedentes personales">
 
-            </p:tab>
+            </p:tab>-->
             
             <!-- PESTAÑA PARA EL DIAGNOSTICO -->
-            <p:tab title="Diagnóstico">
+            <!--<p:tab title="Diagnóstico">
 
-            </p:tab>
+            </p:tab>-->
             
             <!-- PESTAÑA PARA EL ANALISIS Y CONDUCTA -->
-            <p:tab title="Análisis y conducta">
+            <!--<p:tab title="Análisis y conducta">
 
-            </p:tab>
+            </p:tab>-->
             
             
             

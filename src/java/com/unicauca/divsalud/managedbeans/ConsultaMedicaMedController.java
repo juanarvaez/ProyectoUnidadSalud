@@ -1,6 +1,8 @@
 package com.unicauca.divsalud.managedbeans;
 
 import com.unicauca.divsalud.entidades.AcompanianteMed;
+import com.unicauca.divsalud.entidades.AntFamiliarConsultaMed;
+import com.unicauca.divsalud.entidades.AntFamiliaresMed;
 import com.unicauca.divsalud.entidades.CitaMedicaMed;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
 import com.unicauca.divsalud.entidades.Paciente;
@@ -10,6 +12,7 @@ import com.unicauca.divsalud.sessionbeans.AcompanianteMedFacade;
 import com.unicauca.divsalud.sessionbeans.ConsultaMedicaMedFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +34,15 @@ public class ConsultaMedicaMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.ConsultaMedicaMedFacade ejbFacade;
     @EJB
     private com.unicauca.divsalud.sessionbeans.AcompanianteMedFacade ejbFacadeAcompaniante;
+    @EJB    
+    private com.unicauca.divsalud.sessionbeans.AntFamiliarConsultaMedFacade ejbFacadeAntFamiliarConsultaMed;
+    
+    /*adiciones para antFamiliares*/
+    private List<AntFamiliaresMed> itemsAntFamiliares;
+    private AntFamiliaresMedController antFamiliaresCon = new AntFamiliaresMedController();
+    private AntFamiliaresMed antFamiliares;
+    private AntFamiliarConsultaMed antFamiliarConsulta;
+    private AntFamiliarConsultaMedController antFamiliarMedCon = new AntFamiliarConsultaMedController();
     
     private List<ConsultaMedicaMed> items = null;
     private ConsultaMedicaMed selected;
@@ -49,6 +61,14 @@ public class ConsultaMedicaMedController implements Serializable {
         this.selected = selected;
     }
 
+    public AntFamiliaresMedController getAntFamiliaresCon() {
+        return antFamiliaresCon;
+    }
+
+    public void setAntFamiliaresCon(AntFamiliaresMedController antFamiliaresCon) {
+        this.antFamiliaresCon = antFamiliaresCon;
+    }
+    
     public Paciente getPaciente() {
         return paciente;
     }
@@ -99,17 +119,18 @@ public class ConsultaMedicaMedController implements Serializable {
     
     
 
-    public void create(CargarVistaController cargarVista) {
+    public void create(CargarVistaController cargarVista, List<AntFamiliaresMed> item) {
         ejbFacadeAcompaniante.create(acompaniante);        
         selected.setAcompanianteMedIdx(acompaniante);
         selected.setPacienteIdx(paciente);
+        ejbFacade.create(selected);
+        /*
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleConsultaMedicaMed").getString("ConsultaMedicaMedCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
-        }
-        cargarVista.cargarGestionarAgenda();
-
-        
+        }*/
+        this.guardarAntecedentes(selected,item);  
+        cargarVista.cargarGestionarAgenda();       
     }
 
     public void update() {
@@ -211,56 +232,180 @@ public class ConsultaMedicaMedController implements Serializable {
         }
 
     }
-
-    
-    
-    /*NUEVOS METODOS*/  
-    
-//    AcompanianteMedController acompanianteMedCon = new AcompanianteMedController();  
-//    AntFamiliarConsultaMedController antFamiliarCon = new AntFamiliarConsultaMedController();
-//    ConsultaSistemasCuerpoMedController consultaSisCuerpoMedCon = new ConsultaSistemasCuerpoMedController();
-//    DiagnosticosController diagnosticoCon = new DiagnosticosController();
-    
-    /*NUEVAS VARIABLES*/
-    
-    //prepara los objetos para que se cargue la vista
-//    public void prepareCreateconsultaMedicaMed(CargarVistaController cargarVista){
-//        
-//        selected = new ConsultaMedicaMed();
-//        initializeEmbeddableKey();
-//        
-//        acompanianteMedCon.prepareCreate();
-//        antFamiliarCon.prepareCreate();
-//        consultaSisCuerpoMedCon.prepareCreate();
-//        diagnosticoCon.prepareCreate();                
-//        
-//        cargarVista.cargarHistoriaMedicaMed();        
-//    }
+            
     
     public void prepareCreateconsultaMedicaMedPaciente(CitaMedicaMed cita, CargarVistaController cargarVista){
         selected = new ConsultaMedicaMed();
         acompaniante = new AcompanianteMed();
+        antFamiliarConsulta = new AntFamiliarConsultaMed();
+        
         initializeEmbeddableKey();        
         paciente = new Paciente();
         paciente = cita.getPacienteID();
+        
+        antFamiliares = new AntFamiliaresMed();
+        antFamiliaresCon.prepareCreate();
+        
         cargarVista.cargarHistoriaMedicaMed();        
     }    
     
-        public void prepareCreateconsultaMedicaMed(CargarVistaController cargarVista){
+    public void prepareCreateconsultaMedicaMed(CargarVistaController cargarVista){
         selected = new ConsultaMedicaMed();
         acompaniante = new AcompanianteMed();
-        initializeEmbeddableKey();        
+        antFamiliarConsulta = new AntFamiliarConsultaMed();
+        
+        initializeEmbeddableKey();       
+        
+        antFamiliares = new AntFamiliaresMed();
+        antFamiliaresCon.prepareCreate();
 //        paciente = new Paciente();
 //        paciente = cita.getPacienteID();
         cargarVista.cargarHistoriaMedicaMed();        
-    } 
+    }                    
     
-//    public void guardarConsulta(){
-//        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleConsultaMedicaMed").getString("ConsultaMedicaMedCreated"));
-//        if (!JsfUtil.isValidationFailed()) {
-//            items = null;    // Invalidate list of items to trigger re-query.
-//        }
-//        
-//    }
+    //funciones para guardar antFamiliares
+    public List<AntFamiliaresMed> getItemsAntFamiliares() {
+        return itemsAntFamiliares;
+    }
+
+    public void setItemsAntFamiliares(List<AntFamiliaresMed> itemsAntFamiliares) {
+        this.itemsAntFamiliares = itemsAntFamiliares;
+    }
+
+    public AntFamiliaresMed getAntFamiliares() {
+        return antFamiliares;
+    }
+
+    public void setAntFamiliares(AntFamiliaresMed antFamiliares) {
+        this.antFamiliares = antFamiliares;
+    }
+
+    public AntFamiliarConsultaMed getAntFamiliarConsulta() {
+        return antFamiliarConsulta;
+    }
+
+    public void setAntFamiliarConsulta(AntFamiliarConsultaMed antFamiliarConsulta) {
+        this.antFamiliarConsulta = antFamiliarConsulta;
+    }
+    
+    
+    
+    /* METODOS PARA AJAX*/
+    List<AntFamiliaresMed> padre = new ArrayList<>(); 
+    List<AntFamiliaresMed> abueloP = new ArrayList<>(); 
+    List<AntFamiliaresMed> abuelaP = new ArrayList<>(); 
+    List<AntFamiliaresMed> madre = new ArrayList<>(); 
+    List<AntFamiliaresMed> abueloM = new ArrayList<>(); 
+    List<AntFamiliaresMed> abuelaM = new ArrayList<>(); 
+    List<AntFamiliaresMed> hermanos = new ArrayList<>();
+    List<AntFamiliaresMed> observaciones = new ArrayList();
+    
+    public void guardarPadre(AntFamiliaresMed item){
+        System.out.println(item.toString());
+        if(!padre.contains(item))
+            padre.add(item);
+        else
+            padre.remove(item);        
+    }
+    
+    public void guardarAbueloP(AntFamiliaresMed item){
+        System.out.println(item.getIdx() + " " + item.getNombre());                
+        if(!abueloP.contains(item))
+            abueloP.add(item);
+        else
+            abueloP.remove(item);
+    }
+    
+    public void guardarAbuelaP(AntFamiliaresMed item){
+        System.out.println(item.toString());                
+        if(!abuelaP.contains(item))
+            abuelaP.add(item);
+        else
+            abuelaP.remove(item);
+    }
+    
+    public void guardarMadre(AntFamiliaresMed item){
+        System.out.println(item.toString());                
+        if(!madre.contains(item))
+            madre.add(item);
+        else
+            madre.remove(item);
+    }
+    
+    public void guardarAbueloM(AntFamiliaresMed item){
+        System.out.println(item.toString());                
+        if(!abueloM.contains(item))
+            abueloM.add(item);
+        else
+            abueloM.remove(item);
+    }
+    
+    public void guardarAbuelaM(AntFamiliaresMed item){
+        System.out.println(item.toString());                
+        if(!abuelaM.contains(item))
+            abuelaM.add(item);
+        else
+            abuelaM.remove(item);
+    }
+    
+    public void guardarHermanos(AntFamiliaresMed item){
+        System.out.println(item.toString());                
+        if(!hermanos.contains(item))
+            hermanos.add(item);
+        else
+            hermanos.remove(item);
+    }       
+    
+    public void guardarObservaciones(AntFamiliaresMed item){
+        System.out.println("observacion con item: " + item.toString());
+        System.out.println("valor de obs: " + antFamiliarConsulta.getObservaciones());
+    }
+    
+    private void guardarAntecedentes(ConsultaMedicaMed select, List<AntFamiliaresMed> item) {
+        for (AntFamiliaresMed it : item) {
+            if(padre.contains(it))
+                antFamiliarConsulta.setPadre(1);
+            else
+                antFamiliarConsulta.setPadre(0);
+            
+            if(abueloP.contains(it))
+                antFamiliarConsulta.setAbueloP(1);
+            else
+                antFamiliarConsulta.setAbueloP(0);
+            
+            if(abuelaP.contains(it))
+                antFamiliarConsulta.setAbuelaP(1);
+            else
+                antFamiliarConsulta.setAbuelaP(0);
+            
+            if(abuelaP.contains(it))
+                antFamiliarConsulta.setMadre(1);
+            else
+                antFamiliarConsulta.setMadre(0);
+            
+            if(abuelaP.contains(it))
+                antFamiliarConsulta.setAbueloM(1);
+            else
+                antFamiliarConsulta.setAbueloM(0);
+            
+            if(abuelaP.contains(it))
+                antFamiliarConsulta.setAbuelaM(1);
+            else
+                antFamiliarConsulta.setAbuelaM(0);
+            
+            if(hermanos.contains(it))
+                antFamiliarConsulta.setHermanos(1);
+            else
+                antFamiliarConsulta.setHermanos(0);
+            
+            antFamiliarConsulta.setObservaciones("observacion en proceso de programar");
+           
+            antFamiliarConsulta.setAntFamiliaresMedIdx(it);
+            antFamiliarConsulta.setConsultaMedicaMedIdx(select);
+            
+            ejbFacadeAntFamiliarConsultaMed.create(antFamiliarConsulta);
+            antFamiliarConsulta = new AntFamiliarConsultaMed();
+        }                
+    }    
     
 }

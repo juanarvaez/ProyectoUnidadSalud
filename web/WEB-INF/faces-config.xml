@@ -108,5 +108,9 @@
             <base-name>/BundleProgramas</base-name>
             <var>bundleProgramas</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleAntecedenteFamiliarMed</base-name>
+            <var>bundleAntecedenteFamiliarMed</var>
+        </resource-bundle>
     </application>
 </faces-config>

@@ -12,9 +12,7 @@
             <h:form id="AlergenoMedCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{alergenoMedController.selected != null}">
-                        <p:outputLabel value="#{bundleAlergeno.CreateAlergenoMedLabel_idx}" for="idx" />
-                        <p:inputText id="idx" value="#{alergenoMedController.selected.idx}" title="#{bundleAlergeno.CreateAlergenoMedTitle_idx}" required="true" requiredMessage="#{bundleAlergeno.CreateAlergenoMedRequiredMessage_idx}"/>
-                        <p:outputLabel value="#{bundleAlergeno.CreateAlergenoMedLabel_nombre}" for="nombre" />
+                         <p:outputLabel value="#{bundleAlergeno.CreateAlergenoMedLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{alergenoMedController.selected.nombre}" title="#{bundleAlergeno.CreateAlergenoMedTitle_nombre}" />
                         <p:outputLabel value="#{bundleAlergeno.CreateAlergenoMedLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{alergenoMedController.selected.estado}" required="true" requiredMessage="#{bundleAlergeno.EditAlergenoMedRequiredMessage_estado}"/>

@@ -57,7 +57,7 @@
                                            itemValue="#{usuariossistemaIDItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{citaMedicaMedController.update}" value="#{bundle.Save}" update="display,:CitaMedicaMedListForm:datalist" oncomplete="handleSubmit(args, 'CitaMedicaMedEditDialog');" onclick="CitaMedicaMedEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{citaMedicaMedController.update}" value="Guardar cita" update="display,:CitaMedicaMedListForm:datalist" oncomplete="handleSubmit(args, 'CitaMedicaMedEditDialog');" onclick="CitaMedicaMedEditDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CitaMedicaMedEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

@@ -51,7 +51,7 @@
                                            itemValue="#{acompanianteMedIdxItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{consultaMedicaMedController.update}" value="#{bundleConsultaMedicaMed.Save}" update="display,:ConsultaMedicaMedListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConsultaMedicaMedEditDialog');"/>
+                    <p:commandButton actionListener="#{consultaMedicaMedController.update}" value="#{bundleConsultaMedicaMed.Save}" update="display,:ConsultaMedicaMedListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ConsultaMedicaMedEditDialog');" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                     <p:commandButton value="#{bundleConsultaMedicaMed.Cancel}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

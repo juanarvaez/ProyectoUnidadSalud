@@ -299,7 +299,7 @@
                             <!--<p:ajax onstart="#{consultaMedicaMedController.prueba()}" event="#{consultaMedicaMedController.prueba()}"></p:ajax>-->
                         </p:dataTable>
                     </h:panelGrid>        
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" />
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                 </p:panel>
             </p:tab>
             

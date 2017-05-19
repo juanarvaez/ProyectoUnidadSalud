@@ -22,3 +22,9 @@ ALTER TABLE cita_medica_med DROP INDEX FECHA_PROGRAMADA_2;
 --Inserts a la tabla tipo cita medica
 INSERT INTO `tipo_cita_med` (`ID`, `NOMBRE`) VALUES ('2', 'Control');
 INSERT INTO `tipo_cita_med` (`ID`, `NOMBRE`) VALUES ('3', 'Revisión Exámenes');
+
+
+INSERT INTO `tipo_alergeno_med` (`IDX`, `NOMBRE`) VALUES ('1', 'Alimento');
+INSERT INTO `tipo_alergeno_med` (`IDX`, `NOMBRE`) VALUES ('2', 'Medicamento');
+INSERT INTO `tipo_alergeno_med` (`IDX`, `NOMBRE`) VALUES ('3', 'Animales');
+INSERT INTO `presentacion_medicamento_med` (`IDX`, `NOMBRE_PRESEN`) VALUES ('1', '500 mg'), ('2', '250 mg')

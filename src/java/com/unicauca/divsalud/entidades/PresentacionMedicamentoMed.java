@@ -97,7 +97,8 @@ public class PresentacionMedicamentoMed implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.divsalud.entidades.PresentacionMedicamentoMed[ idx=" + idx + " ]";
+        return "" + nombrePresen + "";
+        //return "com.unicauca.divsalud.entidades.PresentacionMedicamentoMed[ idx=" + idx + " ]";
     }
     
 }

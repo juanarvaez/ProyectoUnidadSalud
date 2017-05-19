@@ -69,7 +69,7 @@
                                            itemValue="#{usuariossistemaIDItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{citaMedicaMedController.create}" value="#{bundle.Save}" update="display,:CitaMedicaMedListForm:datalist" oncomplete="handleSubmit(args,'CitaMedicaMedCreateDialog');" onclick="CitaMedicaMedCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{citaMedicaMedController.create}" value="Guardar cita" update="display,:CitaMedicaMedListForm:datalist" oncomplete="handleSubmit(args,'CitaMedicaMedCreateDialog');" onclick="CitaMedicaMedCreateDialog.hide()"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CitaMedicaMedCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

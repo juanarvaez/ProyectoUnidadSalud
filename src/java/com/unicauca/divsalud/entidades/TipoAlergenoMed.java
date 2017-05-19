@@ -96,7 +96,8 @@ public class TipoAlergenoMed implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.divsalud.entidades.TipoAlergenoMed[ idx=" + idx + " ]";
+        return "" + nombre + "";
+        //return "com.unicauca.divsalud.entidades.TipoAlergenoMed[ idx=" + idx + " ]";
     }
     
 }

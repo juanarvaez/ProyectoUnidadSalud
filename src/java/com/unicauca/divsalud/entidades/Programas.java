@@ -136,7 +136,8 @@ public class Programas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.divsalud.entidades.Programas[ id=" + id + " ]";
+        return "" + nombre + "";
+        //return "com.unicauca.divsalud.entidades.Programas[ id=" + id + " ]";
     }
 
     public boolean getEstado() {

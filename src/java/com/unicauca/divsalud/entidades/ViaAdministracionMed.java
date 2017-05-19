@@ -97,7 +97,8 @@ public class ViaAdministracionMed implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.divsalud.entidades.ViaAdministracionMed[ idx=" + idx + " ]";
+        return "" + nombreAdminis + "";
+        //return "com.unicauca.divsalud.entidades.ViaAdministracionMed[ idx=" + idx + " ]";
     }
     
 }

@@ -109,6 +109,55 @@
                     <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController)}" value="#{bundleConsultaMedicaMed.Save}" />
                 </p:panel>
             </p:tab>
+            
+            <!-- PESTAÑA PARA REGISTRAR LOS DATOS DELE EXAMEN MEDICO -->
+            <p:tab title="Examen físico">
+                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">
+                    
+                    <p:panelGrid columns="6" rendered="#{consultaMedicaMedController.selected != null}">
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />
+                        <p:inputText id="peso" value="#{consultaMedicaMedController.selected.peso}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_peso}" />
+
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_talla}" for="talla" />
+                        <p:inputText id="talla" value="#{consultaMedicaMedController.selected.talla}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_talla}" />
+                        
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_imc}" for="imc" />
+                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" />
+
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_temperatura}" for="temperatura" />
+                        <p:inputText id="temperatura" value="#{consultaMedicaMedController.selected.temperatura}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_temperatura}" />
+                        
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecCardiaca}" for="frecCardiaca" />
+                        <p:inputText id="frecCardiaca" value="#{consultaMedicaMedController.selected.frecCardiaca}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecCardiaca}" />
+                        
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecRespiratoria}" for="frecRespiratoria" />
+                        <p:inputText id="frecRespiratoria" value="#{consultaMedicaMedController.selected.frecRespiratoria}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecRespiratoria}" />
+                    </p:panelGrid>
+                    
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController)}" value="#{bundleConsultaMedicaMed.Save}" />
+                </p:panel>
+            </p:tab>
+            
+            <!-- PESTAÑA PARA REGISTRAR LOS ANTECEDENTES FAMILIARES -->
+            <p:tab title="Antecedentes familiares">
+
+            </p:tab>
+            
+            <!-- PESTAÑA PARA REGISTRAR LOS ANTECEDENTES PERSONALES -->
+            <p:tab title="Antecedentes personales">
+
+            </p:tab>
+            
+            <!-- PESTAÑA PARA EL DIAGNOSTICO -->
+            <p:tab title="Diagnóstico">
+
+            </p:tab>
+            
+            <!-- PESTAÑA PARA EL ANALISIS Y CONDUCTA -->
+            <p:tab title="Análisis y conducta">
+
+            </p:tab>
+            
         </p:wizard>
     </h:form>
 

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+       
+        
+       <CENTER><h1> REPORTES ESTADISTICOS MEDICOS </h1></CENTER><br/>
+        <br/>
+        <h:form>
+            <h:panelGrid styleClass="panelgrid" columns="4"  >
+                 
+            <p:outputLabel for="diagnostico" value="DIAGNOSTICO: " />
+
+            <p:selectOneMenu  id="diagnostico" style="width:150px" value="#{estadisticasMedController.reportesmedicos.diagnostico}">
+                <f:selectItems value="#{enfermedadesCie10MedController.itemsAvailableSelectOne}"
+                                           var="diagnosticosmed"
+                                           itemValue="#{diagnosticosmed.codigo}"
+                                           itemLabel="#{diagnosticosmed.codigo}"
+                                           />
+            </p:selectOneMenu>
+            
+            <p:outputLabel  for="fechadesde" value="DESDE:"/>            
+            <p:calendar id="fechadesde" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button" value="#{estadisticasMedController.reportesmedicos.fechadesde}"/>
+            
+            <p:outputLabel for="facultad" value="FACULTAD:"  />
+            <p:selectOneMenu id="facultad" style="width:150px" value="Seleccione una facultad">
+                <f:selectItems value="#{facultadController.itemsAvailableSelectOne}"
+                                           var="facultades"
+                                           itemValue="#{facultades.id}"
+                                           itemLabel="#{facultades.nombre}"/>
+            </p:selectOneMenu>
+            
+            
+            <p:outputLabel  for="fechahasta" value="HASTA:"/>
+            <p:calendar id="fechahasta" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button" value="#{estadisticasMedController.reportesmedicos.fechahasta}"/>
+           
+            
+            <p:outputLabel for="programa" value="PROGRAMA: " />
+            <p:selectOneMenu id="programa" style="width:150px" value="#{estadisticasMedController.reportesmedicos.programa}">
+                <f:selectItems value="#{programasController.itemsAvailableSelectOne}"
+                                           var="programas"
+                                           itemValue="#{programas.nombre}"
+                                           itemLabel="#{programas.nombre}"/>
+            </p:selectOneMenu>
+            
+            <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.GenerarReporteMed()}" update="panel"  ajax="r" />
+             <!--    <p:barChart  value="#{estadisticasMedController.GenerarReporteMed()}" style="height:300px" legendPosition="ne" xaxisLabel="genero"  yaxisLabel="cantidad" /> 
+                  -->  
+            </h:panelGrid>
+            
+            
+            
+            
+
+          
+         <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
+            
+                <h:outputLabel value="DESDE:" />
+                <h:outputText value="#{estadisticasMedController.convertirFecha(estadisticasMedController.reportesmedicos.fechadesde)}"  />
+                <h:outputLabel value="HASTA:" />
+                <h:outputText value="#{estadisticasMedController.convertirFecha(estadisticasMedController.reportesmedicos.fechahasta)}" />
+        
+               
+                <p:dataTable var="result" value="#{estadisticasMedController.reportesmedicos}" id="re">
+                <p:column headerText="Nombre Programa">
+                    <h:outputText value="#{result.getPrograma()}"  />
+            
+                </p:column>
+ 
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{result.getCantidad()}" />
+                </p:column>
+ 
+                <p:column headerText="Hombres">
+                    <h:outputText value="#{result.getContadorhombres()}" />
+                </p:column>
+ 
+                <p:column headerText="Mujeres">
+                    <h:outputText value="#{result.getContadormujeres()}" />
+                </p:column>
+                <p:column headerText="Diagnostico">
+                    <h:outputText value="#{result.getDiagnostico()}" />
+                </p:column>
+                    
+                    
+                    
+                     
+             
+                    
+            </p:dataTable>
+                 </h:panelGrid>
+
+                     <p:panelGrid  styleClass="panelgrid" id="grafica" >
+             <p:row>
+                    <p:column>    
+                
+                      
+                     <p:chart type="pie" model="#{estadisticasMedController.pieModel2}" style="width:400px;height:300px" />
+                    
+                    </p:column>
+              </p:row>   
+            </p:panelGrid>
+        
+
+            
+        
+           
+          
+          
+            
+          
+          
+           
+            <h:outputLabel value="resultados" />
+            
+            
+             <p:panelGrid  styleClass="panelgrid" columns="3" >
+              
+                 <h:commandButton value="GUARDAR"  >
+                     
+                     <p:dataExporter type="pdf" target="re" fileName="Resultados"/>
+                 </h:commandButton>
+            </p:panelGrid>
+               
+      
+            
+      
+        </h:form>
+    </body>
+</html>

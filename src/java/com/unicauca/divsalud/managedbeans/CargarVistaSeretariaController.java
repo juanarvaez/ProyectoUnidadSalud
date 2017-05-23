@@ -79,4 +79,8 @@ public class CargarVistaSeretariaController implements Serializable {
    public void cargarGestionarCitas() {
         this.ruta = "/usuariodelsistema/profesionalsalud/enComun/citaMedicaMed/List.xhtml";
     }
+    //Ruta para reportes
+    public void cargarReportes()  {
+        this.ruta="/usuariodelsistema/secretaria/estadisticasMedicas/EstadisticasMEDICAS.xhtml";
+    }
 }

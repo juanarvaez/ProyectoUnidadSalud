@@ -10,6 +10,9 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+      <h:head>
+      <h:outputStylesheet name="./css/menu.css"/>
+    </h:head>
 
     <body>
        
@@ -19,22 +22,24 @@ and open the template in the editor.
         <h:form>
             <h:panelGrid styleClass="panelgrid" columns="4"  >
                  
-            <p:outputLabel for="diagnostico" value="DIAGNOSTICO: " />
+            <p:outputLabel  for="diagnostico" value="DIAGNOSTICO: "/>
 
-            <p:selectOneMenu  id="diagnostico" style="width:150px" value="#{estadisticasMedController.reportesmedicos.diagnostico}">
-                <f:selectItems value="#{enfermedadesCie10MedController.itemsAvailableSelectOne}"
+            <p:selectOneMenu  id="diagnostico" style="width:190px" value="#{estadisticasMedController.reportesmedicos.diagnostico}" widgetVar="menu" styleClass="with-placeholder" panelStyleClass="hide-disabled" onchange="menu.jq.removeClass('with-placeholder')" required="true">
+                <f:selectItem  id="marcadiagnostico" itemLabel="Seleccione un diagnostico" itemDisabled="true" /> 
+                <f:selectItems value="#{enfermedadesCie10MedController.itemsAvailableSelectOne}" itemDisabled="false" 
                                            var="diagnosticosmed"
                                            itemValue="#{diagnosticosmed.codigo}"
-                                           itemLabel="#{diagnosticosmed.codigo}"
+                                           itemLabel="#{diagnosticosmed.codigo}"                   
                                            />
             </p:selectOneMenu>
-            
+                      
             <p:outputLabel  for="fechadesde" value="DESDE:"/>            
-            <p:calendar id="fechadesde" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button" value="#{estadisticasMedController.reportesmedicos.fechadesde}"/>
+            <p:calendar id="fechadesde" value="#{estadisticasMedController.reportesmedicos.fechadesde}"  effect="fold"  placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy"/>
             
             <p:outputLabel for="facultad" value="FACULTAD:"  />
-            <p:selectOneMenu id="facultad" style="width:150px" value="Seleccione una facultad">
-                <f:selectItems value="#{facultadController.itemsAvailableSelectOne}"
+            <p:selectOneMenu id="facultad" style="width:190px" value="#{estadisticasMedController.reportesmedicos.facultad}"  widgetVar="menuf" styleClass="with-placeholder" panelStyleClass="hide-disabled" onchange="menuf.jq.removeClass('with-placeholder')" required="true">
+                <f:selectItem  id="marcafacultad" itemLabel="Seleccione una facultad" itemDisabled="true" /> 
+                <f:selectItems value="#{facultadController.itemsAvailableSelectOne}" itemDisabled="false" 
                                            var="facultades"
                                            itemValue="#{facultades.id}"
                                            itemLabel="#{facultades.nombre}"/>
@@ -42,11 +47,11 @@ and open the template in the editor.
             
             
             <p:outputLabel  for="fechahasta" value="HASTA:"/>
-            <p:calendar id="fechahasta" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button" value="#{estadisticasMedController.reportesmedicos.fechahasta}"/>
-           
+            <p:calendar id="fechahasta" effect="fold"  placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" value="#{estadisticasMedController.reportesmedicos.fechahasta}"/>          
             
             <p:outputLabel for="programa" value="PROGRAMA: " />
-            <p:selectOneMenu id="programa" style="width:150px" value="#{estadisticasMedController.reportesmedicos.programa}">
+            <p:selectOneMenu id="programa" style="width:190px" value="#{estadisticasMedController.reportesmedicos.programa}"  widgetVar="menup" styleClass="with-placeholder" panelStyleClass="hide-disabled" onchange="menup.jq.removeClass('with-placeholder')" required="true">
+                <f:selectItem  id="marcaprograma" itemLabel="Seleccione un programa" itemDisabled="true" />
                 <f:selectItems value="#{programasController.itemsAvailableSelectOne}"
                                            var="programas"
                                            itemValue="#{programas.nombre}"

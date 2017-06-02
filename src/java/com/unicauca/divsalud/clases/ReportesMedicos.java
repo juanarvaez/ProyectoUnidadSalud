@@ -31,9 +31,9 @@ public class ReportesMedicos
     
     public ReportesMedicos()
     {
-        
         this.fechadesde = new Date();
         this.fechahasta = new Date();
+        
     }
 
     public String getDiagnostico() {

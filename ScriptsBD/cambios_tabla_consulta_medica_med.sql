@@ -1,0 +1,2 @@
+alter table consulta_medica_med drop index AK_FK_CONSULTA_MEDICA_MED_DIAGNOSTICO_MED1_IDX;
+alter table consulta_medica_med drop diagnostico_med_idx;

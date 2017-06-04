@@ -30,7 +30,7 @@
                 <h:outputText value="#{item.id}"/>
             </p:column>
             -->
-            <p:column>
+            <p:column filterBy="#{item.fechaProgramada}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}"/>
                 </f:facet>
@@ -42,7 +42,7 @@
                 </h:outputText>
             </p:column>
 
-            <p:column>
+            <p:column  filterBy="#{item.horaInicio}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaInicio}"/>
                 </f:facet>
@@ -54,31 +54,31 @@
                                        locale="es_CO"/>
                 </h:outputText>
             </p:column>
-            <p:column>
+            <p:column   filterBy="#{item.estado}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_estado}"/>
                 </f:facet>
                 <h:outputText value="#{item.estado}"/>
             </p:column>
-            <p:column>
+            <p:column  filterBy="#{item.pacienteID.nombre1}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="Nombres"/>
                 </f:facet>
                 <h:outputText value="#{item.pacienteID.nombre1}"/>
             </p:column>
-            <p:column>
+            <p:column filterBy="#{item.pacienteID.apellido1}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="Apellidos"/>
                 </f:facet>
                 <h:outputText value="#{item.pacienteID.apellido1}"/>
             </p:column>
-            <p:column>
+            <p:column filterBy="#{item.tipocitaID.nombre}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_tipocitaID}"/>
                 </f:facet>
                 <h:outputText value="#{item.tipocitaID.nombre}"/>
             </p:column>
-            <p:column>
+            <p:column  filterBy="#{item.usuariossistemaID.nombres}" filterMatchMode="contains">
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_usuariossistemaID}"/>
                 </f:facet>

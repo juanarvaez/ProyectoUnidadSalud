@@ -112,5 +112,9 @@
             <base-name>/BundleAntecedenteFamiliarMed</base-name>
             <var>bundleAntecedenteFamiliarMed</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleSistemaCuerpoMed</base-name>
+            <var>bundleSistemaCuerpoMed</var>
+        </resource-bundle>
     </application>
 </faces-config>

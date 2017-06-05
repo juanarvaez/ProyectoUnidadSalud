@@ -7,10 +7,8 @@ package com.unicauca.divsalud.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,14 +19,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -46,73 +41,46 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ConsultaMedicaMed.findByImc", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.imc = :imc"),
     @NamedQuery(name = "ConsultaMedicaMed.findByTemperatura", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.temperatura = :temperatura"),
     @NamedQuery(name = "ConsultaMedicaMed.findByFrecCardiaca", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.frecCardiaca = :frecCardiaca"),
-    @NamedQuery(name = "ConsultaMedicaMed.findByFrecRespiratoria", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.frecRespiratoria = :frecRespiratoria"),
-    @NamedQuery(name = "ConsultaMedicaMed.findByDiagnosticoMedIdx", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.diagnosticoMedIdx = :diagnosticoMedIdx")})
+    @NamedQuery(name = "ConsultaMedicaMed.findByFrecRespiratoria", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.frecRespiratoria = :frecRespiratoria")})
 public class ConsultaMedicaMed implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMed")
-    private Collection<Diagnosticos> diagnosticosCollection;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
-    private Collection<ConsultaSistemasCuerpoMed> consultaSistemasCuerpoMedCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDX")    
+    @Column(name = "IDX")
     private Integer idx;
-    
     @Column(name = "FECHA")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    
     @Lob
     @Size(max = 2147483647)
-    @Column(name = "MOTIVO")    
+    @Column(name = "MOTIVO")
     private String motivo;
-    
     @Lob
     @Size(max = 2147483647)
-    @Column(name = "ENFERMEDAD_ACTUAL")    
+    @Column(name = "ENFERMEDAD_ACTUAL")
     private String enfermedadActual;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-   
-    @Column(name = "PESO")   
+    @Column(name = "PESO")
     private BigDecimal peso;
-    
-    @Column(name = "TALLA")   
+    @Column(name = "TALLA")
     private BigDecimal talla;
-    
-    @Column(name = "IMC")    
+    @Column(name = "IMC")
     private BigDecimal imc;
-    
-    @Column(name = "TEMPERATURA")    
+    @Column(name = "TEMPERATURA")
     private BigDecimal temperatura;
-    
-    @Column(name = "FREC_CARDIACA")   
+    @Column(name = "FREC_CARDIACA")
     private BigDecimal frecCardiaca;
-    
-    @Column(name = "FREC_RESPIRATORIA")   
+    @Column(name = "FREC_RESPIRATORIA")
     private BigDecimal frecRespiratoria;
-    
     @Lob
     @Size(max = 2147483647)
     @Column(name = "ANALISIS")
     private String analisis;
-    
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DIAGNOSTICO_MED_IDX")
-    private int diagnosticoMedIdx;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
-    private Collection<AntFamiliarConsultaMed> antFamiliarConsultaMedCollection;
-    
     @JoinColumn(name = "PACIENTE_IDX", referencedColumnName = "ID")
     @ManyToOne
     private Paciente pacienteIdx;
-    
     @JoinColumn(name = "ACOMPANIANTE_MED_IDX", referencedColumnName = "IDX")
     @ManyToOne
     private AcompanianteMed acompanianteMedIdx;
@@ -122,11 +90,6 @@ public class ConsultaMedicaMed implements Serializable {
 
     public ConsultaMedicaMed(Integer idx) {
         this.idx = idx;
-    }
-
-    public ConsultaMedicaMed(Integer idx, int diagnosticoMedIdx) {
-        this.idx = idx;
-        this.diagnosticoMedIdx = diagnosticoMedIdx;
     }
 
     public Integer getIdx() {
@@ -217,23 +180,6 @@ public class ConsultaMedicaMed implements Serializable {
         this.analisis = analisis;
     }
 
-    public int getDiagnosticoMedIdx() {
-        return diagnosticoMedIdx;
-    }
-
-    public void setDiagnosticoMedIdx(int diagnosticoMedIdx) {
-        this.diagnosticoMedIdx = diagnosticoMedIdx;
-    }
-
-    @XmlTransient
-    public Collection<AntFamiliarConsultaMed> getAntFamiliarConsultaMedCollection() {
-        return antFamiliarConsultaMedCollection;
-    }
-
-    public void setAntFamiliarConsultaMedCollection(Collection<AntFamiliarConsultaMed> antFamiliarConsultaMedCollection) {
-        this.antFamiliarConsultaMedCollection = antFamiliarConsultaMedCollection;
-    }
-
     public Paciente getPacienteIdx() {
         return pacienteIdx;
     }
@@ -274,25 +220,5 @@ public class ConsultaMedicaMed implements Serializable {
     public String toString() {
         return "com.unicauca.divsalud.entidades.ConsultaMedicaMed[ idx=" + idx + " ]";
     }
-
-    @XmlTransient
-    public Collection<ConsultaSistemasCuerpoMed> getConsultaSistemasCuerpoMedCollection() {
-        return consultaSistemasCuerpoMedCollection;
-    }
-
-    public void setConsultaSistemasCuerpoMedCollection(Collection<ConsultaSistemasCuerpoMed> consultaSistemasCuerpoMedCollection) {
-        this.consultaSistemasCuerpoMedCollection = consultaSistemasCuerpoMedCollection;
-    }
-
-    @XmlTransient
-    public Collection<Diagnosticos> getDiagnosticosCollection() {
-        return diagnosticosCollection;
-    }
-
-    public void setDiagnosticosCollection(Collection<Diagnosticos> diagnosticosCollection) {
-        this.diagnosticosCollection = diagnosticosCollection;
-    }
-    
-    
     
 }

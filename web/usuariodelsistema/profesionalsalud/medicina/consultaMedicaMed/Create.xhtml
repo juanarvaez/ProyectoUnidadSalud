@@ -119,6 +119,8 @@
                     </h:panelGroup>
                 </p:panel>
             </p:tab>
+            
+            
             <p:tab title="Motivo Consulta">
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_motivo}">
                     <p:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}">
@@ -137,6 +139,8 @@
                     </p:panelGrid>
                 </p:panel>
             </p:tab>
+            
+            
             <p:tab title="Enfermedad Actual">
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_enfermedadActual}">
                     <p:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}">
@@ -149,67 +153,9 @@
                         </p:inputTextarea>
                         <p:message for="enfermedadActual" id="nom4" class="message" />                          
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController)}" value="#{bundleConsultaMedicaMed.Save}" />
                 </p:panel>
             </p:tab>
-            
-            <!-- PESTAÑA PARA REGISTRAR LOS DATOS DELE EXAMEN MEDICO -->
-            <p:tab title="Examen físico">
-                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">
-                    
-                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />
-                        <p:inputText id="peso" value="#{consultaMedicaMedController.selected.peso}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_peso}" required="true" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
-                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                             
-                                <p:ajax event = "keyup" update="nom5" />                              
-                        </p:inputText>
-                        <p:message for="peso" id="nom5" class="message" />                            
-
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_talla}" for="talla" />
-                        <p:inputText id="talla" value="#{consultaMedicaMedController.selected.talla}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_talla}" required="true" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
-                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                                 
-                                <p:ajax event = "keyup" update="nom6" />                              
-                        </p:inputText>
-                        <p:message for="talla" id="nom6" class="message" />                               
-                        
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_imc}" for="imc" />
-                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
-                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                              
-                                <p:ajax event = "keyup" update="nom7" />                              
-                        </p:inputText>
-                        <p:message for="imc" id="nom7" class="message" />                            
-
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_temperatura}" for="temperatura" />
-                        <p:inputText id="temperatura" value="#{consultaMedicaMedController.selected.temperatura}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_temperatura}" required="true">
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
-                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                                
-                                <p:ajax event = "keyup" update="nom8" />                              
-                        </p:inputText>
-                        <p:message for="temperatura" id="nom8" class="message" />                              
-                        
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecCardiaca}" for="frecCardiaca" />
-                        <p:inputText id="frecCardiaca" value="#{consultaMedicaMedController.selected.frecCardiaca}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecCardiaca}" required="true" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
-                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                               
-                                <p:ajax event = "keyup" update="nom9" />                              
-                        </p:inputText>
-                        <p:message for="frecCardiaca" id="nom9" class="message" />                              
-                        
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecRespiratoria}" for="frecRespiratoria" />
-                        <p:inputText id="frecRespiratoria" value="#{consultaMedicaMedController.selected.frecRespiratoria}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecRespiratoria}" required="true" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
-                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                                 
-                                <p:ajax event = "keyup" update="nom10" />                              
-                        </p:inputText>
-                        <p:message for="frecRespiratoria" id="nom10" class="message" />                              
-                    </p:panelGrid>
-                    
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController)}" value="#{bundleConsultaMedicaMed.Save}" />
-                </p:panel>
-            </p:tab>
+                                    
             
             <!-- PESTAÑA PARA REGISTRAR LOS ANTECEDENTES FAMILIARES -->
             <p:tab title="Antecedentes familiares">
@@ -291,36 +237,187 @@
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="#{bundleAntFamiliarConsultaMed.CreateAntFamiliarConsultaMedTitle_observaciones}"/>
-                                </f:facet>                            
-                                <p:commandButton icon="ui-icon-search">                                        
-                                    <!--<f:setPropertyActionListener value="obs" target = "#{consultaMedicaMedController.guardarObservaciones(item)}"/>-->
-                               </p:commandButton>
-                            </p:column>          
-                            <!--<p:ajax onstart="#{consultaMedicaMedController.prueba()}" event="#{consultaMedicaMedController.prueba()}"></p:ajax>-->
+                                </f:facet>                                                                                                                            
+                                <p:commandButton id="movieBtn" value="Obs" type="button" icon="ui-icon-search"/>
+                                <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:300px">                                    
+                                    <p:column headerText="Movie" >
+                                        <h:inputTextarea id="obs" rows = "10" cols = "20">
+                                            <f:ajax listener="#{consultaMedicaMedController.recibirTexto}" execute="obs" event="keyup"></f:ajax>
+                                            <f:ajax listener="#{consultaMedicaMedController.guardarObservaciones(item)}" event="keyup"></f:ajax>                                            
+                                        </h:inputTextarea>                                        
+                                    </p:column>                                  
+                                </p:overlayPanel>                                                                
+                            </p:column> 
+                            
                         </p:dataTable>
                     </h:panelGrid>        
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                 </p:panel>
             </p:tab>
             
             
             <!-- PESTAÑA PARA REGISTRAR LOS ANTECEDENTES PERSONALES -->
-            <!--<p:tab title="Antecedentes personales">
+            <p:tab title="Antecedentes personales">
+                <p:growl id="msgs" showDetail="true" />
+ 
+                <h3 style="margin-top:0">Antecedentes Personales</h3>
+                <p:tabView>
+                    <p:tab title="Alergicos">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="columna 1" />                            
+                            <h:outputText value="columna 2" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="10">                            
+                            <h:outputText value="columna inferior 1" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Quirurgicos">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="columna 1" />                            
+                            <h:outputText value="columna 2" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="10">                            
+                            <h:outputText value="columna inferior 1" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Habitos">
+                        <h:panelGrid columns="4" cellpadding="10">
+                            <h:outputText value="columna 1" />                            
+                            <h:outputText value="columna 2" />
+                            <h:outputText value="columna 3" />                            
+                            <h:outputText value="columna 4" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Patologicos">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="columna 1" />                            
+                            <h:outputText value="columna 2" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1" cellpadding="10">                            
+                            <h:outputText value="columna 1 inferior" />                                     
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Ginecostetricos">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <h:outputText value="columna 1" />                            
+                            <h:outputText value="columna 2" />
+                        </h:panelGrid>                        
+                    </p:tab>
+                </p:tabView>               
+                
+            </p:tab>
+            
+            
+            
+            <!-- PESTAÑA PARA REGISTRAR LOS DATOS DELE EXAMEN MEDICO -->
+            <p:tab title="Examen físico">
+                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">
+                    
+                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />
+                        <p:inputText id="peso" value="#{consultaMedicaMedController.selected.peso}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_peso}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>                             
+                                <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
+                                <p:ajax event = "keyup" update="nom5" />                              
+                        </p:inputText>
+                        <p:message for="peso" id="nom5" class="message" />                            
 
-            </p:tab>-->
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_talla}" for="talla" />
+                        <p:inputText id="talla" value="#{consultaMedicaMedController.selected.talla}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_talla}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>
+                                <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
+                                <p:ajax event = "keyup" update="nom6" />                              
+                        </p:inputText>
+                        <p:message for="talla" id="nom6" class="message" />                               
+                        
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_imc}" for="imc" />
+                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" >                                
+                        </p:inputText>
+                        <p:message for="imc" id="nom7" class="message" />                            
+
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_temperatura}" for="temperatura" />
+                        <p:inputText id="temperatura" value="#{consultaMedicaMedController.selected.temperatura}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_temperatura}" required="true">
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>
+                                <f:validator validatorId="ValidarCampoNumericoNoCero"/>                                 
+                                <p:ajax event = "keyup" update="nom8" />                              
+                        </p:inputText>
+                        <p:message for="temperatura" id="nom8" class="message" />                              
+                        
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecCardiaca}" for="frecCardiaca" />
+                        <p:inputText id="frecCardiaca" value="#{consultaMedicaMedController.selected.frecCardiaca}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecCardiaca}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>   
+                                <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
+                                <p:ajax event = "keyup" update="nom9" />                              
+                        </p:inputText>
+                        <p:message for="frecCardiaca" id="nom9" class="message" />                              
+                        
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_frecRespiratoria}" for="frecRespiratoria" />
+                        <p:inputText id="frecRespiratoria" value="#{consultaMedicaMedController.selected.frecRespiratoria}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_frecRespiratoria}" required="true" >
+                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                                <f:validator validatorId="ValidarCampoNumericoConComa"/>  
+                                <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
+                                <p:ajax event = "keyup" update="nom10" />                              
+                        </p:inputText>
+                        <p:message for="frecRespiratoria" id="nom10" class="message" />                              
+                    </p:panelGrid>
+                    
+                    <h4>Examen físico</h4>                                        
+                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.consultaSitemasCuerpo != null}">
+                        <p:dataTable id="tableExamenFisico" value="#{sistemaCuerpoMedController.items}" var="item">  
+                            <p:column>
+                                <h:outputLabel value="#{item.nombre}" />                                
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox label="" value="1">
+                                    <p:ajax listener="#{consultaMedicaMedController.prueba(item)}"></p:ajax>
+                                </p:selectBooleanCheckbox>
+                                <h:outputText value="  Normal   " />
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox label="" value="1" id="botonFisico" >
+                                    <p:ajax listener="#{consultaMedicaMedController.checkBox(item)}" />
+                                    <p:overlayPanel id="moviePanel" for="botonFisico" hideEffect="fade" dynamic="true" style="width:300px">                                    
+                                        <p:column headerText="Movie" >
+                                            <h:inputTextarea id="obs" rows = "10" cols = "20">
+                                                <f:ajax listener="#{consultaMedicaMedController.recibirTextoExamenFisico}" execute="obs" event="keyup"></f:ajax>
+                                                <f:ajax listener="#{consultaMedicaMedController.guardarHallazgo(item)}" event="keyup"></f:ajax>                                                
+                                        </h:inputTextarea>                                        
+                                        </p:column>                                  
+                                    </p:overlayPanel>                                                                          
+                                </p:selectBooleanCheckbox>
+                                <h:outputText value="  Hallazgo" />                                 
+                            </p:column>                
+                        </p:dataTable>
+                        <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                    </p:panelGrid>                                           
+                </p:panel>
+            </p:tab>
+            
+            
             
             <!-- PESTAÑA PARA EL DIAGNOSTICO -->
-            <!--<p:tab title="Diagnóstico">
-
-            </p:tab>-->
+            <p:tab title="Diagnóstico">
+                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">                   
+                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />                        
+                    </p:panelGrid>                                           
+                </p:panel>
+            </p:tab>
+            
             
             <!-- PESTAÑA PARA EL ANALISIS Y CONDUCTA -->
-            <!--<p:tab title="Análisis y conducta">
-
-            </p:tab>-->
-            
-            
-            
+            <p:tab title="Análisis y conducta">
+                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">                   
+                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />                        
+                    </p:panelGrid>                                           
+                </p:panel>
+            </p:tab>
+                                    
         </p:wizard>
     </h:form>
 

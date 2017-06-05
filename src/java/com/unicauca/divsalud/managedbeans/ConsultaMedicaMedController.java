@@ -5,13 +5,17 @@ import com.unicauca.divsalud.entidades.AntFamiliarConsultaMed;
 import com.unicauca.divsalud.entidades.AntFamiliaresMed;
 import com.unicauca.divsalud.entidades.CitaMedicaMed;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
+import com.unicauca.divsalud.entidades.ConsultaSistemasCuerpoMed;
 import com.unicauca.divsalud.entidades.Paciente;
+import com.unicauca.divsalud.entidades.SistemaCuerpoMed;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil.PersistAction;
 import com.unicauca.divsalud.sessionbeans.AcompanianteMedFacade;
 import com.unicauca.divsalud.sessionbeans.ConsultaMedicaMedFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,9 +26,11 @@ import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @Named("consultaMedicaMedController")
 @SessionScoped
@@ -36,6 +42,8 @@ public class ConsultaMedicaMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.AcompanianteMedFacade ejbFacadeAcompaniante;
     @EJB    
     private com.unicauca.divsalud.sessionbeans.AntFamiliarConsultaMedFacade ejbFacadeAntFamiliarConsultaMed;
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.ConsultaSistemasCuerpoMedFacade ejbFacadeConsultaSistemasCuerpoMed;
     
     /*adiciones para antFamiliares*/
     private List<AntFamiliaresMed> itemsAntFamiliares;
@@ -43,6 +51,10 @@ public class ConsultaMedicaMedController implements Serializable {
     private AntFamiliaresMed antFamiliares;
     private AntFamiliarConsultaMed antFamiliarConsulta;
     private AntFamiliarConsultaMedController antFamiliarMedCon = new AntFamiliarConsultaMedController();
+    
+    private ConsultaSistemasCuerpoMedController consultaSistemasCuerpoMedCon;
+    private SistemaCuerpoMedController sistemasCuerpoMedCon;            
+    private ConsultaSistemasCuerpoMed consultaSitemasCuerpo;
     
     private List<ConsultaMedicaMed> items = null;
     private ConsultaMedicaMed selected;
@@ -60,7 +72,15 @@ public class ConsultaMedicaMedController implements Serializable {
     public void setSelected(ConsultaMedicaMed selected) {
         this.selected = selected;
     }
+    
+    public ConsultaSistemasCuerpoMed getConsultaSitemasCuerpo() {
+        return consultaSitemasCuerpo;
+    }
 
+    public void setConsultaSitemasCuerpo(ConsultaSistemasCuerpoMed consultaSitemasCuerpo) {
+        this.consultaSitemasCuerpo = consultaSitemasCuerpo;
+    }
+    
     public AntFamiliaresMedController getAntFamiliaresCon() {
         return antFamiliaresCon;
     }
@@ -110,6 +130,14 @@ public class ConsultaMedicaMedController implements Serializable {
     public void setEjbFacadeAcompaniante(AcompanianteMedFacade ejbFacadeAcompaniante) {
         this.ejbFacadeAcompaniante = ejbFacadeAcompaniante;
     }
+    
+     public ConsultaSistemasCuerpoMedController getConsultaSistemasCuerpoMedCon() {
+        return consultaSistemasCuerpoMedCon;
+    }
+
+    public void setConsultaSistemasCuerpoMedCon(ConsultaSistemasCuerpoMedController consultaSistemasCuerpoMedCon) {
+        this.consultaSistemasCuerpoMedCon = consultaSistemasCuerpoMedCon;
+    }  
 
     public ConsultaMedicaMed prepareCreate() {
         selected = new ConsultaMedicaMed();
@@ -117,8 +145,6 @@ public class ConsultaMedicaMedController implements Serializable {
         return selected;
     }
     
-    
-
     public void create(CargarVistaController cargarVista, List<AntFamiliaresMed> item) {
         ejbFacadeAcompaniante.create(acompaniante);        
         selected.setAcompanianteMedIdx(acompaniante);
@@ -245,6 +271,9 @@ public class ConsultaMedicaMedController implements Serializable {
         
         antFamiliares = new AntFamiliaresMed();
         antFamiliaresCon.prepareCreate();
+        antFamiliarMedCon.prepareCreate();
+        
+        consultaSitemasCuerpo = new ConsultaSistemasCuerpoMed();   
         
         cargarVista.cargarHistoriaMedicaMed();        
     }    
@@ -258,6 +287,9 @@ public class ConsultaMedicaMedController implements Serializable {
         
         antFamiliares = new AntFamiliaresMed();
         antFamiliaresCon.prepareCreate();
+        antFamiliarMedCon.prepareCreate();
+        
+        consultaSitemasCuerpo = new ConsultaSistemasCuerpoMed();
 //        paciente = new Paciente();
 //        paciente = cita.getPacienteID();
         cargarVista.cargarHistoriaMedicaMed();        
@@ -298,7 +330,19 @@ public class ConsultaMedicaMedController implements Serializable {
     List<AntFamiliaresMed> abueloM = new ArrayList<>(); 
     List<AntFamiliaresMed> abuelaM = new ArrayList<>(); 
     List<AntFamiliaresMed> hermanos = new ArrayList<>();
-    List<AntFamiliaresMed> observaciones = new ArrayList();
+    
+    //variables para almacenar las observaciones en la toa de antecedentes familiares
+    List<AntFamiliaresMed> observaciones = new ArrayList();            
+    List<String> textoObservaciones = new ArrayList();
+    
+    //variables para almacenar las observaciones en la toa de sistemas_cuerpo_med
+    List<SistemaCuerpoMed> normal = new ArrayList<>(); 
+    List<SistemaCuerpoMed> hallazgo = new ArrayList<>();
+    
+    //variables para almacenar hallazgos en antecedentes de examen fisico
+    List<SistemaCuerpoMed> hallazgoList = new ArrayList();
+    List<SistemaCuerpoMed> hallazgoListCheck = new ArrayList();
+    List<String> textoHallazgo = new ArrayList();
     
     public void guardarPadre(AntFamiliaresMed item){
         System.out.println(item.toString());
@@ -356,13 +400,69 @@ public class ConsultaMedicaMedController implements Serializable {
             hermanos.remove(item);
     }       
     
+    private String valorObs = "";
+    public void recibirTexto(AjaxBehaviorEvent evt){
+        String texto = "" + ((UIOutput)evt.getSource()).getValue();
+        this.valorObs = texto;
+        System.out.println("presiono en ant familiares " + texto);
+    }
+    /*con esta funcion se almacena lo que digito el medico eh indico como observaciones,
+    en en la toma de antecedentes familiares, en un array
+    para posteriormente ser consultado para almacenar en el modelo
+    */
     public void guardarObservaciones(AntFamiliaresMed item){
-        System.out.println("observacion con item: " + item.toString());
-        System.out.println("valor de obs: " + antFamiliarConsulta.getObservaciones());
+        if(!observaciones.contains(item)){
+            observaciones.add(item);
+            textoObservaciones.add(this.valorObs);
+        }else{           
+            int pos = observaciones.indexOf(item);
+            textoObservaciones.set(pos, this.valorObs);
+        }        
     }
     
-    private void guardarAntecedentes(ConsultaMedicaMed select, List<AntFamiliaresMed> item) {
-        for (AntFamiliaresMed it : item) {
+    /*con esta fnucion se recibe lo que el usuario ah digitado*/
+    private String valorHallazgo = "";
+    public void recibirTextoExamenFisico(AjaxBehaviorEvent evt){
+        //en esta variable se almacena lo que digito el usuario
+        String texto = "" + ((UIOutput)evt.getSource()).getValue();
+        this.valorHallazgo = texto;
+        System.out.println("presiono en examen fisico " + texto);
+    }
+    /*con esta funcion se almacena lo que digito el medico eh indico como hallazgo en un array
+    para posteriormente ser consultado para almacenar en el modelo
+    */
+    public void guardarHallazgo(SistemaCuerpoMed item){
+        if(!hallazgoList.contains(item)){
+            hallazgoList.add(item);
+            textoHallazgo.add(this.valorHallazgo);
+        }else{           
+            int pos = hallazgoList.indexOf(item);
+            textoHallazgo.set(pos, this.valorHallazgo);
+        }        
+    }
+    
+    public void create(CargarVistaController cargarVista, List<AntFamiliaresMed> itemsAntFamiliares, List<SistemaCuerpoMed> itemSistemasCuerpo) {
+        ejbFacadeAcompaniante.create(acompaniante);        
+        selected.setAcompanianteMedIdx(acompaniante);
+        selected.setPacienteIdx(paciente);
+        BigDecimal imc = selected.getPeso().divide(selected.getTalla(), 1, RoundingMode.HALF_UP);
+        selected.setImc(imc);
+        
+        /*
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleConsultaMedicaMed").getString("ConsultaMedicaMedCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }*/
+        
+        ejbFacade.create(selected);
+        this.guardarAntecedentes(selected, itemsAntFamiliares);  
+        this.guardarExamenFisico(selected, itemSistemasCuerpo);                
+        cargarVista.cargarGestionarAgenda();       
+    }
+    
+    private void guardarAntecedentes(ConsultaMedicaMed select, List<AntFamiliaresMed> itemsAntFamiliares) {
+        int pos = 0;
+        for (AntFamiliaresMed it : itemsAntFamiliares) {
             if(padre.contains(it))
                 antFamiliarConsulta.setPadre(1);
             else
@@ -398,7 +498,12 @@ public class ConsultaMedicaMedController implements Serializable {
             else
                 antFamiliarConsulta.setHermanos(0);
             
-            antFamiliarConsulta.setObservaciones("observacion en proceso de programar");
+            if(observaciones.contains(it)){
+                pos = observaciones.indexOf(it);
+                antFamiliarConsulta.setObservaciones(textoObservaciones.get(pos));
+            }
+            else
+                antFamiliarConsulta.setObservaciones("");            
            
             antFamiliarConsulta.setAntFamiliaresMedIdx(it);
             antFamiliarConsulta.setConsultaMedicaMedIdx(select);
@@ -406,14 +511,48 @@ public class ConsultaMedicaMedController implements Serializable {
             ejbFacadeAntFamiliarConsultaMed.create(antFamiliarConsulta);
             antFamiliarConsulta = new AntFamiliarConsultaMed();
         }                
-    }
-
-        public String getEstadoPaciente(){
-            if(paciente.getEstado().equals("1")){
-                return "Activo";
+    }   
+    
+    private void guardarExamenFisico(ConsultaMedicaMed selected, List<SistemaCuerpoMed> itemSistemasCuerpo) {
+        int pos = 0;
+        for (SistemaCuerpoMed it : itemSistemasCuerpo) {
+            if(hallazgoListCheck.contains(it)){
+                if(hallazgoList.contains(it)){                
+                    pos = hallazgoList.indexOf(it);
+                    consultaSitemasCuerpo.setObservaciones(textoHallazgo.get(pos));
+                    consultaSitemasCuerpo.setEstado(1);
+                }else{
+                    consultaSitemasCuerpo.setObservaciones("");
+                    consultaSitemasCuerpo.setEstado(0);
+                }
             }else{
-                return "Inactivo";
+                consultaSitemasCuerpo.setObservaciones("");
+                consultaSitemasCuerpo.setEstado(0);
             }
-        }    
+            consultaSitemasCuerpo.setSistemaCuerpoMedIdx(it);
+            consultaSitemasCuerpo.setConsultaMedicaMedIdx(selected);
+            
+            //se crea ingresan los sitemas del cuerpo al modelo
+            ejbFacadeConsultaSistemasCuerpoMed.create(consultaSitemasCuerpo);
+            //inicializar la variable de sistemasCuerpoMed
+            consultaSitemasCuerpo = new ConsultaSistemasCuerpoMed();
+        }                
+    }
+    
+    public String getEstadoPaciente(){
+        if(paciente.getEstado().equals("1")){
+            return "Activo";
+        }else{
+            return "Inactivo";
+        }
+    }    
+
+    public void checkBox(SistemaCuerpoMed it){
+        System.out.println(it.toString());
+        if(hallazgoListCheck.contains(it))
+            hallazgoListCheck.remove(it);
+        else
+            hallazgoListCheck.add(it);
+    }
     
 }

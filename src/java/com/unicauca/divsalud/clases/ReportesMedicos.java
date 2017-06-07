@@ -5,9 +5,7 @@
  */
 package com.unicauca.divsalud.clases;
 
-import com.unicauca.divsalud.entidades.Facultad;
 import com.unicauca.divsalud.entidades.Paciente;
-import com.unicauca.divsalud.entidades.Programas;
 import java.util.Date;
 
 /**

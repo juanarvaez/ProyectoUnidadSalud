@@ -4,22 +4,16 @@ import com.unicauca.divsalud.entidades.UsuariosSistema;
 import com.unicauca.divsalud.sessionbeans.GrupoUsuarioTipoFacade;
 import com.unicauca.divsalud.sessionbeans.UsuariosSistemaFacade;
 import com.unicauca.divsalud.utilidades.Utilidades;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 @ManagedBean

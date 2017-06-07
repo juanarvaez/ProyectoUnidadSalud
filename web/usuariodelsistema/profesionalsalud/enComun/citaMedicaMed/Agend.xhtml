@@ -13,10 +13,12 @@
     <h:form id="CitaMedicaMedListForm">
             <p:dataTable id="datalist" value="#{citaMedicaMedController.agend}" var="item"
                          selectionMode="single" selection="#{citaMedicaMedController.selected}"
+                         emptyMessage="No hay coincidencias"
                          paginator="true"
                          rowKey="#{item.id}"
                          rows="10"
                          rowsPerPageTemplate="5,10,15"
+                         widgetVar="lista2"
                          >
                 
                 <p:ajax event="rowSelect"   update="agendButton viewButton"/>
@@ -30,17 +32,20 @@
                     <h:outputText value="#{item.id}"/>
                 </p:column>
                 -->
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.fechaProgramada}">
-                        <f:convertDateTime pattern="MM/dd/yyyy/h:mm a"
+                <p:column filterBy="#{item.fechaProgramada}" filterMatchMode="contains" headerText="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}">
+                <f:facet name="filter">
+                    <p:calendar pattern="MM/dd/yyyy" onkeyup="PF('lista2').filter()">
+                        <p:ajax event="dateSelect" listener="#{citaMedicaMedController.manejarFechaSelec2}"/>
+                    </p:calendar>
+                </f:facet>
+                <h:outputText value="#{item.fechaProgramada}">
+                    <f:convertDateTime pattern="MM/dd/yyyy"
                                        type="date"
-                                       timeZone="America/Bogota"
+                                       locale="es_CO"
+                                       timeZone="America/Bogota"    
                                        timeStyle="short"/>
-                    </h:outputText>
-                </p:column>
+                </h:outputText>
+            </p:column>
                 <!--<p:column>
                 <f:facet name="header">
                     <h:outputText value="#{bundle.ListCitaMedicaMedTitle_horaInicio}"/>

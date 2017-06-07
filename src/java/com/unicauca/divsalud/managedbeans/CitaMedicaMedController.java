@@ -1,18 +1,12 @@
 package com.unicauca.divsalud.managedbeans;
 
 import com.unicauca.divsalud.entidades.CitaMedicaMed;
-import com.unicauca.divsalud.entidades.UsuariosSistema;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil.PersistAction;
 import com.unicauca.divsalud.sessionbeans.CitaMedicaMedFacade;
-import com.unicauca.divsalud.sessionbeans.PacienteFacade;
-import com.unicauca.divsalud.sessionbeans.TipoCitaMedFacade;
-import com.unicauca.divsalud.sessionbeans.UsuariosSistemaFacade;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,6 +19,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 @Named("citaMedicaMedController")
 @SessionScoped
@@ -99,6 +95,17 @@ public class CitaMedicaMedController implements Serializable {
         }
         return items;
     }
+    
+    public void manejarFechaSelec(SelectEvent event) 
+    {
+        RequestContext.getCurrentInstance().execute("PF('lista').filter()");
+    }
+    
+    public void manejarFechaSelec2(SelectEvent event) 
+    {
+        RequestContext.getCurrentInstance().execute("PF('lista2').filter()");
+    }
+    
     public List<CitaMedicaMed> getAgend() {
         ArrayList<CitaMedicaMed> itemsMedico = new ArrayList<>();
         int idSingleton = UsuarioSessionController.getActualSingleton().getId();

@@ -21,7 +21,6 @@ import com.unicauca.divsalud.sessionbeans.ActualizacionOdoFacade;
 import com.unicauca.divsalud.sessionbeans.PacienteFacade;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -37,7 +36,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.faces.event.ValueChangeEvent;
 import org.primefaces.context.RequestContext;
 
 @Named("pacienteController")

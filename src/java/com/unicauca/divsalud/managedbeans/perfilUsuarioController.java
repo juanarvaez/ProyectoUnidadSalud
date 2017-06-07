@@ -4,26 +4,16 @@ import com.unicauca.divsalud.cifrado.Cifrar;
 import com.unicauca.divsalud.validadores.ValidarEdicionUsuarios;
 import com.unicauca.divsalud.entidades.UsuariosSistema;
 import com.unicauca.divsalud.sessionbeans.UsuariosSistemaFacade;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 /**
  * Edwin Marulanda

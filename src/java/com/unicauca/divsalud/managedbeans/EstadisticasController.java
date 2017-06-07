@@ -15,14 +15,11 @@ import com.unicauca.divsalud.sessionbeans.ProgramasFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import org.primefaces.model.chart.PieChartModel;
 
 /**

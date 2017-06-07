@@ -13,10 +13,12 @@
     <h:form id="CitaMedicaMedListForm">
         <p:dataTable id="datalist" value="#{citaMedicaMedController.items}" var="item"
                      selectionMode="single" selection="#{citaMedicaMedController.selected}"
+                     emptyMessage="No hay coincidencias"
                      paginator="true"
                      rowKey="#{item.id}"
                      rows="10"
                      rowsPerPageTemplate="5,10,15"
+                     widgetVar="lista"
                      >
 
             <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -30,14 +32,17 @@
                 <h:outputText value="#{item.id}"/>
             </p:column>
             -->
-            <p:column filterBy="#{item.fechaProgramada}" filterMatchMode="contains">
-                <f:facet name="header">
-                    <h:outputText value="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}"/>
+            <p:column filterBy="#{item.fechaProgramada}" filterMatchMode="contains" headerText="#{bundle.ListCitaMedicaMedTitle_fechaProgramada}">
+                <f:facet name="filter">
+                    <p:calendar pattern="MM/dd/yyyy" onkeyup="PF('lista').filter()">
+                        <p:ajax event="dateSelect" listener="#{citaMedicaMedController.manejarFechaSelec}"/>
+                    </p:calendar>
                 </f:facet>
                 <h:outputText value="#{item.fechaProgramada}">
                     <f:convertDateTime pattern="MM/dd/yyyy"
                                        type="date"
-                                       timeZone="America/Bogota"
+                                       locale="es_CO"
+                                       timeZone="America/Bogota"    
                                        timeStyle="short"/>
                 </h:outputText>
             </p:column>

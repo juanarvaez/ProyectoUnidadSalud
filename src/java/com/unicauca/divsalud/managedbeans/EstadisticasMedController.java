@@ -4,11 +4,7 @@
  * and open the template in the editor.
  */
 package com.unicauca.divsalud.managedbeans;
-import com.unicauca.divsalud.clases.DiagnosticoCantidad;
-import com.unicauca.divsalud.clases.IndiceCOP;
-import com.unicauca.divsalud.entidades.DiagnosticoOdo;
 import com.unicauca.divsalud.entidades.Facultad;
-import com.unicauca.divsalud.entidades.ObsOdontograma;
 import com.unicauca.divsalud.entidades.Programas;
 
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
@@ -16,29 +12,18 @@ import com.unicauca.divsalud.entidades.Paciente;
 import com.unicauca.divsalud.clases.ReportesMedicos;
 import com.unicauca.divsalud.entidades.Diagnosticos;
 
-import com.unicauca.divsalud.sessionbeans.ActualizacionOdoFacade;
-import com.unicauca.divsalud.sessionbeans.DiagnosticoOdoFacade;
 import com.unicauca.divsalud.sessionbeans.FacultadFacade;
-import com.unicauca.divsalud.sessionbeans.ObsOdontogramaFacade;
 import com.unicauca.divsalud.sessionbeans.ProgramasFacade;
 import com.unicauca.divsalud.sessionbeans.ConsultaMedicaMedFacade;
 import com.unicauca.divsalud.sessionbeans.DiagnosticosFacade;
 import com.unicauca.divsalud.sessionbeans.PacienteFacade;
 
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.*;
-import java.lang.String;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.PieChartModel;
@@ -47,7 +32,6 @@ import org.primefaces.model.chart.ChartSeries;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
 
 
 @Named(value = "estadisticasMedController")

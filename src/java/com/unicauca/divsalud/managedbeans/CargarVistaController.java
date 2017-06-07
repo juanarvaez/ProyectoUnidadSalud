@@ -8,7 +8,6 @@ package com.unicauca.divsalud.managedbeans;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import org.primefaces.context.RequestContext;
 
 @Named(value = "cargarVistaController")
 @SessionScoped

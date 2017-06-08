@@ -175,10 +175,12 @@ and open the template in the editor.
                     <p:column>    
                         <p:chart type="pie" model="#{estadisticasMedController.pieModel2}" style="width:400px;height:300px" />
                     </p:column>
+                </p:row>   
+                <p:row rendered="#{!estadisticasMedController.tipoReporte}">
                     <p:column>
                         <br/><CENTER><h4> Diagnostico por programa </h4></CENTER><br/><br/>
                     </p:column>
-                </p:row>   
+                </p:row>
                 <p:dataTable var="result" value="#{estadisticasMedController.reportesmedicos}" id="re" rendered="#{!estadisticasMedController.tipoReporte}">
                     <!--<f:facet name="header">
                         <h:outputText value="Diagnostico por programa"></h:outputText>

@@ -22,8 +22,10 @@
                     <p:menuitem value="Gestión de usuarios" action="#{cargarVistaSecretariaController.cargarGestionarUsuarios()}" ajax="false"/>
                     <p:menuitem value="Gestión de recursos" action="#{cargarVistaSecretariaController.cargarRecursos()}" ajax="false"/>
                     <p:menuitem value="Gestión de citas" action="#{cargarVistaSecretariaController.cargarGestionarCitas()}" ajax="false"/>
-                    <p:menuitem value="Reportes" action="#{cargarVistaSecretariaController.cargarReportes()}" ajax="false"/>
-                    
+                    <p:submenu label=" Generar Reportes">
+                            <p:menuitem value="Generales" action="#{cargarVistaSecretariaController.cargarReportes()}" ajax="false"/>
+                            <p:menuitem value="Top 10 diagnosticos mas comunes" action="#{cargarVistaSecretariaController.cargarRegistrarPaciente()}" ajax="false"/>
+                    </p:submenu>
                     
                 </p:menubar>
             </h:form>

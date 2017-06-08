@@ -5,7 +5,10 @@
  */
 package com.unicauca.divsalud.clases;
 
+import com.unicauca.divsalud.entidades.EnfermedadesCie10Med;
+import com.unicauca.divsalud.entidades.Facultad;
 import com.unicauca.divsalud.entidades.Paciente;
+import com.unicauca.divsalud.entidades.Programas;
 import java.util.Date;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Date;
 public class ReportesMedicos
 {
    
-    private String diagnostico;
+    private EnfermedadesCie10Med diagnostico;
     private Date fechadesde= new Date();
     private Date fechahasta= new Date();
     private Paciente paciente;
@@ -31,14 +34,15 @@ public class ReportesMedicos
     {
         this.fechadesde = new Date();
         this.fechahasta = new Date();
+        this.diagnostico = new EnfermedadesCie10Med();
         
     }
 
-    public String getDiagnostico() {
+    public EnfermedadesCie10Med getDiagnostico() {
         return diagnostico;
     }
 
-    public void setDiagnostico(String diagnostico) {
+    public void setDiagnostico(EnfermedadesCie10Med diagnostico) {
         this.diagnostico = diagnostico;
     }
 

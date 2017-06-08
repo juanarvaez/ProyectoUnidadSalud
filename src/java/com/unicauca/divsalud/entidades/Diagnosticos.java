@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Diagnosticos.findAll", query = "SELECT d FROM Diagnosticos d"),
     @NamedQuery(name = "Diagnosticos.findByCodigoCie10", query = "SELECT d FROM Diagnosticos d WHERE d.diagnosticosPK.codigoCie10 = :codigoCie10"),
     @NamedQuery(name = "Diagnosticos.findByIdxConsulta", query = "SELECT d FROM Diagnosticos d WHERE d.diagnosticosPK.idxConsulta = :idxConsulta"),
-    @NamedQuery(name = "Diagnosticos.findByImpresion", query = "SELECT d FROM Diagnosticos d WHERE d.impresion = :impresion")})
+    @NamedQuery(name = "Diagnosticos.findByImpresion", query = "SELECT d FROM Diagnosticos d WHERE d.impresion = :impresion"),
+    @NamedQuery(name = "Diagnosticos.findByConsultaFecha", query = "SELECT d FROM Diagnosticos d WHERE d.diagnosticosPK.codigoCie10 = :codigoCie10 AND(d.consultaMedicaMed.fecha BETWEEN :fechaInicio AND :fechaFin)")})
 public class Diagnosticos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -111,5 +112,5 @@ public class Diagnosticos implements Serializable {
     public String toString() {
         return "com.unicauca.divsalud.entidades.Diagnosticos[ diagnosticosPK=" + diagnosticosPK + " ]";
     }
-    
+
 }

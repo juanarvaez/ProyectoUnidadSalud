@@ -18,6 +18,7 @@ import com.unicauca.divsalud.entidades.Programas;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
 import com.unicauca.divsalud.entidades.Paciente;
 import com.unicauca.divsalud.clases.ReportesMedicos;
+import com.unicauca.divsalud.clases.resultadoEstadistica;
 import com.unicauca.divsalud.entidades.Diagnosticos;
 
 import com.unicauca.divsalud.sessionbeans.ActualizacionOdoFacade;
@@ -51,6 +52,7 @@ import org.primefaces.model.chart.ChartSeries;
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ValueChangeEvent;
 
 @Named(value = "estadisticasMedController")
@@ -79,6 +81,29 @@ public class EstadisticasMedController implements Serializable {
     private List<FacultadDiagnostico> listaDiagnosticoFacultades;
     private List<ProgramaDiagnostico> listaDiagnosticoProgramas;
     private boolean tipoReporte;
+    
+    
+    private List<Diagnosticos> Artes = new ArrayList<>();
+    private List<Diagnosticos> Agrarias = new ArrayList<>();
+    private List<Diagnosticos> Salud = new ArrayList<>();
+    private List<Diagnosticos> Contables = new ArrayList<>();
+    private List<Diagnosticos> Humanas = new ArrayList<>();
+    private List<Diagnosticos> Educacion = new ArrayList<>();
+    private List<Diagnosticos> Derecho = new ArrayList<>();
+    private List<Diagnosticos> Civil = new ArrayList<>();
+    private List<Diagnosticos> Electronica = new ArrayList<>();
+    
+    //@ManagedProperty("#{resulestadisticas}")
+    private List<resultadoEstadistica> rGeneral= new ArrayList<>();
+    private List<resultadoEstadistica> rArtes= new ArrayList<>();
+    private List<resultadoEstadistica> rAgrarias= new ArrayList<>();
+    private List<resultadoEstadistica> rSalud= new ArrayList<>();
+    private List<resultadoEstadistica> rContable= new ArrayList<>();
+    private List<resultadoEstadistica> rHumanas= new ArrayList<>();
+    private List<resultadoEstadistica> rEducacion= new ArrayList<>();
+    private List<resultadoEstadistica> rDerecho= new ArrayList<>();
+    private List<resultadoEstadistica> rCivil= new ArrayList<>();
+    private List<resultadoEstadistica> rElectronica = new ArrayList<>();
 
     private int contadordiagnosticosmedicas;
     private int contadormujeres;
@@ -116,6 +141,104 @@ public class EstadisticasMedController implements Serializable {
         pieModel2 = new PieChartModel();
     }
 
+    public List<resultadoEstadistica> getrGeneral() {
+        return rGeneral;
+    }
+
+    public void setrGeneral(List<resultadoEstadistica> rGeneral) {
+        this.rGeneral = rGeneral;
+    }
+
+    
+    
+    public List<Diagnosticos> getArtes() {
+        return Artes;
+    }
+
+    public void setArtes(List<Diagnosticos> Artes) {
+        this.Artes = Artes;
+    }
+
+    
+    
+    public List<resultadoEstadistica> getrArtes() {
+        return rArtes;
+    }
+
+    public void setrArtes(List<resultadoEstadistica> rArtes) {
+        this.rArtes = rArtes;
+    }
+
+    public List<resultadoEstadistica> getrAgrarias() {
+        return rAgrarias;
+    }
+
+    public void setrAgrarias(List<resultadoEstadistica> rAgrarias) {
+        this.rAgrarias = rAgrarias;
+    }
+
+    public List<resultadoEstadistica> getrSalud() {
+        return rSalud;
+    }
+
+    public void setrSalud(List<resultadoEstadistica> rSalud) {
+        this.rSalud = rSalud;
+    }
+
+    public List<resultadoEstadistica> getrContable() {
+        return rContable;
+    }
+
+    public void setrContable(List<resultadoEstadistica> rContable) {
+        this.rContable = rContable;
+    }
+
+    public List<resultadoEstadistica> getrHumanas() {
+        return rHumanas;
+    }
+
+    public void setrHumanas(List<resultadoEstadistica> rHumanas) {
+        this.rHumanas = rHumanas;
+    }
+
+    public List<resultadoEstadistica> getrEducacion() {
+        return rEducacion;
+    }
+
+    public void setrEducacion(List<resultadoEstadistica> rEducacion) {
+        this.rEducacion = rEducacion;
+    }
+
+    public List<resultadoEstadistica> getrDerecho() {
+        return rDerecho;
+    }
+
+    public void setrDerecho(List<resultadoEstadistica> rDerecho) {
+        this.rDerecho = rDerecho;
+    }
+
+    public List<resultadoEstadistica> getrCivil() {
+        return rCivil;
+    }
+
+    public void setrCivil(List<resultadoEstadistica> rCivil) {
+        this.rCivil = rCivil;
+    }
+
+    public List<resultadoEstadistica> getrElectronica() {
+        return rElectronica;
+    }
+
+    public void setrElectronica(List<resultadoEstadistica> rElectronica) {
+        this.rElectronica = rElectronica;
+    }
+
+    
+
+    
+
+    
+    
     @PostConstruct
     public void init() {
         createPieModel2(0, 0);
@@ -550,7 +673,185 @@ public class EstadisticasMedController implements Serializable {
         pieModel2.set("Mujeres", reportesmedicos.getContadormujeres());
 
     }
+    
+    public int IntegerToBoolean(Boolean booleano){
+    
+        if(booleano==true)
+            return 1;
+        else
+            return 0;
+            
+    }
+    
+    public void generarTop10(){
 
+        List<Diagnosticos> diagnosticos = ejbDiagnosticos.findAll();
+        rGeneral=OrganizarLista(listarDiagnosticos(listaDiagnosticos));
+        
+            for(int i=0;i<diagnosticos.size();i++)
+            {
+                
+                int DiagnosticoIdFacultad=diagnosticos.get(i).getConsultaMedicaMed().getPacienteIdx().getFacultad().getId();
+                if (DiagnosticoIdFacultad==1)
+                {
+                    Artes.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==2)
+                {
+                    Agrarias.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==3)
+                {
+                    Salud.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==4)
+                {
+                    Contables.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==5)
+                {
+                    Humanas.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==6)
+                {
+                    Educacion.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==7)
+                {
+                    Derecho.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==8)
+                {
+                    Civil.add(diagnosticos.get(i));
+                }
+                if (DiagnosticoIdFacultad==9)
+                {
+                    Electronica.add(diagnosticos.get(i));
+                }
+                
+        
+             }
+               //Artes
+            //   System.out.println("Tamaño artes"+Artes.size());
+               rArtes=OrganizarLista(listarDiagnosticos(Artes));
+               rAgrarias=OrganizarLista(listarDiagnosticos(Agrarias));
+               rHumanas=OrganizarLista(listarDiagnosticos(Humanas));
+               rCivil=OrganizarLista(listarDiagnosticos(Civil));
+               rContable=OrganizarLista(listarDiagnosticos(Contables));
+               rDerecho=OrganizarLista(listarDiagnosticos(Derecho));
+               rEducacion=OrganizarLista(listarDiagnosticos(Educacion));
+               rElectronica=OrganizarLista(listarDiagnosticos(Electronica));
+               rSalud=OrganizarLista(listarDiagnosticos(Salud));
+               Artes.clear();
+               Agrarias.clear();
+               Humanas.clear();
+               Civil.clear();
+               Contables.clear();
+               Derecho.clear();
+               Educacion.clear();
+               Electronica.clear();
+               Salud.clear();
+}
+    
+    public List<resultadoEstadistica> listarDiagnosticos(List<Diagnosticos> diagnosticos){
+        
+        List<resultadoEstadistica> resultado =new ArrayList<>();
+         System.out.println("Tamaño diagnostico"+diagnosticos.size());
+        resultadoEstadistica result=new resultadoEstadistica();
+   
+        for(int i=0;i<diagnosticos.size();i++)
+        {
+             System.out.println("Tamaño diagnostico inicio for"+diagnosticos.size());
+     
+                 result=estaDiagnostico(resultado,diagnosticos.get(i));
+                 System.out.println("Diagnostico"+ result.getDiagnostico());
+                System.out.println( result==null);
+            if(result.getDiagnostico().equals(""))
+            {
+                System.out.println("Entro en el if");
+                
+                List<Diagnosticos> auxiliar=new ArrayList<>();
+                System.out.println("Entro en el if1");
+                if(diagnosticos.get(i).getConsultaMedicaMed().getPacienteIdx().getSexo().equals('F'))
+                {   result.aumentarcontador(0);
+                System.out.println("Entro en el if2");
+                }
+                if(diagnosticos.get(i).getConsultaMedicaMed().getPacienteIdx().getSexo().equals('M'))
+                {result.aumentarcontador(1);
+                System.out.println("Entro en el if3");
+                }
+                result.setDiagnostico(diagnosticos.get(i).getEnfermedadesCie10Med().getCodigo());
+                //resultado.add(result);
+                System.out.println("Entro en el if4");
+             }
+            
+            else
+            {
+                 System.out.println("Entro en el else");
+                if(diagnosticos.get(i).getConsultaMedicaMed().getPacienteIdx().getSexo().equals('F'))
+                    result.aumentarcontador(0);
+                if(diagnosticos.get(i).getConsultaMedicaMed().getPacienteIdx().getSexo().equals('M'))
+                    result.aumentarcontador(1);
+                //resultado.add(result);
+                
+            
+            }
+            resultado.add(result);                
+        System.out.println("Tamaño diagnostico fin for"+diagnosticos.size());
+        }
+        return resultado;
+    
+    }
+    
+    public resultadoEstadistica estaDiagnostico(List<resultadoEstadistica> resultado, Diagnosticos diagnostico)
+    {
+    resultadoEstadistica bandera=new resultadoEstadistica();
+    bandera.setDiagnostico("");
+        for(int i=0;i<resultado.size();i++)
+        {
+        
+            if(resultado.get(i).getDiagnostico().equals(diagnostico.getEnfermedadesCie10Med().getCodigo()))
+            {
+                bandera=resultado.get(i);
+                resultado.remove(i);
+            }
+        }   
+    
+    return bandera;
+    }
+    
+    public List<resultadoEstadistica> OrganizarLista(List<resultadoEstadistica> listReportes)
+    {
+        List<resultadoEstadistica> aux=new ArrayList<>();
+         for(int i = 0; i < listReportes.size()- 1; i++)
+        {
+            for(int j = 0; j < listReportes.size() - 1; j++)
+            {
+                if (listReportes.get(j).total() < listReportes.get(j+1).total())
+                {
+                    resultadoEstadistica tmp = listReportes.get(j+1);
+                    listReportes.set(j+1,listReportes.get(j));
+                    listReportes.set(j,tmp);
+                }
+            }
+        }
+    
+         if(listReportes.size()<10)
+             aux=listReportes;
+         else{
+            for(int i=0;i<10;i++)
+            {
+                aux.add(i, listReportes.get(i));
+         
+            }
+                aux=listReportes;
+         }
+         return aux;
+    }
+
+   
+    
+    
     private double calcularporcentaje(int totalHombres, int hombres) {
         double resultado = (double) hombres / totalHombres;
 

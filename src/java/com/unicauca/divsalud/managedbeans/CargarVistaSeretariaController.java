@@ -82,4 +82,7 @@ public class CargarVistaSeretariaController implements Serializable {
     public void cargarReportes()  {
         this.ruta="/usuariodelsistema/secretaria/estadisticasMedicas/EstadisticasMEDICAS.xhtml";
     }
+     public void cargarReportesTop10()  {
+        this.ruta="/usuariodelsistema/secretaria/estadisticasMedicas/Top10Diagnosticos.xhtml";
+    }
 }

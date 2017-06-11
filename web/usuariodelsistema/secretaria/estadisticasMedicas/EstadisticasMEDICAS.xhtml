@@ -147,14 +147,14 @@ and open the template in the editor.
                         <p:outputLabel value="Desde:  " style="font-weight:bold; color: black;"/>
                     </p:column>
                     <p:column style=" font-size: 18px; font-weight:bold; color: black;" colspan="4"  >
-                        <p:outputLabel value="#{estadisticasMedController.reportesmedicos.fechadesde}" />
+                        <p:outputLabel value="#{estadisticasMedController.convertirFecha(estadisticasMedController.reportesmedicos.fechadesde)}" />
                     </p:column>
                     <p:column style="font-size: 18px; font-weight:bold; color: black" colspan="2">
                         <p:outputLabel value="Hasta:  " style="font-weight:bold; color: black;"/>
                     </p:column>
                     <p:column style=" font-size: 18px; font-weight:bold; color: black;" colspan="4"  >
-                        <p:outputLabel value="#{estadisticasMedController.reportesmedicos.fechahasta}" />
-                    </p:column>
+                         <p:outputLabel value="#{estadisticasMedController.convertirFecha(estadisticasMedController.reportesmedicos.fechahasta)}" />
+                   </p:column>
                 </p:row>
                 <p:row rendered="#{!estadisticasMedController.tipoReporte}">
                     <p:column style="font-size: 18px; font-weight:bold; color: black" colspan="2">

@@ -27,6 +27,8 @@ public class MedicamentoMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.MedicamentoMedFacade ejbFacade;
     private List<MedicamentoMed> items = null;
     private MedicamentoMed selected;
+    private String datoBusqueda;
+
 
     public MedicamentoMedController() {
     }
@@ -49,6 +51,19 @@ public class MedicamentoMedController implements Serializable {
         return ejbFacade;
     }
 
+     public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
+
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+    
+    public void buscarMedicamento() {
+        
+        this.items = ejbFacade.buscarMedicamentos(this.datoBusqueda.toLowerCase());
+    }
+    
     public MedicamentoMed prepareCreate() {
         selected = new MedicamentoMed();
         initializeEmbeddableKey();

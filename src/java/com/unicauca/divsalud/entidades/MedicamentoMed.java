@@ -29,7 +29,11 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MedicamentoMed.findByCodigo", query = "SELECT m FROM MedicamentoMed m WHERE m.codigo = :codigo"),
     @NamedQuery(name = "MedicamentoMed.findByNombre", query = "SELECT m FROM MedicamentoMed m WHERE m.nombre = :nombre"),
     @NamedQuery(name = "MedicamentoMed.findByEstado", query = "SELECT m FROM MedicamentoMed m WHERE m.estado = :estado"),
-    @NamedQuery(name = "MedicamentoMed.findByConcentracion", query = "SELECT m FROM MedicamentoMed m WHERE m.concentracion = :concentracion")})
+    @NamedQuery(name = "MedicamentoMed.findByVia", query = "SELECT m FROM MedicamentoMed m WHERE m.viaIdx = :viaIdx"),
+    @NamedQuery(name = "MedicamentoMed.findByPre", query = "SELECT m FROM MedicamentoMed m WHERE m.preIdx = :preIdx"),
+    @NamedQuery(name = "MedicamentoMed.findByConcentracion", query = "SELECT m FROM MedicamentoMed m WHERE m.concentracion = :concentracion"),
+    @NamedQuery(name = "MedicamentoMed.findByMedicamentos", query = "SELECT m FROM MedicamentoMed m WHERE LOWER(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(m.codigo,' '), m.nombre),' '),m.viaIdx.nombreAdminis,' '),m.preIdx.nombrePresen,' '),m.concentracion,' ')) LIKE :busqueda")    
+})
 public class MedicamentoMed implements Serializable {
 
     private static final long serialVersionUID = 1L;

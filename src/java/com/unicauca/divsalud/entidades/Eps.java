@@ -32,8 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Eps.findAll", query = "SELECT e FROM Eps e"),
     @NamedQuery(name = "Eps.findById", query = "SELECT e FROM Eps e WHERE e.id = :id"),
-    @NamedQuery(name = "Eps.findByNombre", query = "SELECT e FROM Eps e WHERE e.nombre = :nombre")
-    })
+    @NamedQuery(name = "Eps.findByNombre", query = "SELECT e FROM Eps e WHERE e.nombre = :nombre"),
+    @NamedQuery(name = "Eps.findByEps", query = "SELECT e FROM Eps e WHERE LOWER(CONCAT(CONCAT(CONCAT(e.id,' '), e.nombre),' ')) LIKE :busqueda")  
+})
 public class Eps implements Serializable {
 
     @Basic(optional = false)

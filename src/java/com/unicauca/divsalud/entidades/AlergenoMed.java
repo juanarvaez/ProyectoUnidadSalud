@@ -30,7 +30,10 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "AlergenoMed.findAll", query = "SELECT a FROM AlergenoMed a"),
     @NamedQuery(name = "AlergenoMed.findByIdx", query = "SELECT a FROM AlergenoMed a WHERE a.idx = :idx"),
     @NamedQuery(name = "AlergenoMed.findByNombre", query = "SELECT a FROM AlergenoMed a WHERE a.nombre = :nombre"),
-    @NamedQuery(name = "AlergenoMed.findByEstado", query = "SELECT a FROM AlergenoMed a WHERE a.estado = :estado")})
+    @NamedQuery(name = "AlergenoMed.findByTipo", query = "SELECT a FROM AlergenoMed a WHERE a.idxTipoAlergeno = :idxTipoAlergeno"),
+    @NamedQuery(name = "AlergenoMed.findByEstado", query = "SELECT a FROM AlergenoMed a WHERE a.estado = :estado"),
+    @NamedQuery(name = "AlergenoMed.findByAlergeno", query = "SELECT a FROM AlergenoMed a WHERE LOWER(CONCAT(CONCAT(CONCAT(CONCAT(a.idx,' '), a.nombre),' '),a.idxTipoAlergeno.nombre,' ')) LIKE :busqueda")  
+})
 public class AlergenoMed implements Serializable {
 
     private static final long serialVersionUID = 1L;

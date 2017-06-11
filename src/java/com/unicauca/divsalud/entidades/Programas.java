@@ -35,8 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Programas.findAll", query = "SELECT p FROM Programas p"),
     @NamedQuery(name = "Programas.findById", query = "SELECT p FROM Programas p WHERE p.id = :id"),
     @NamedQuery(name = "Programas.findByNombre", query = "SELECT p FROM Programas p WHERE p.nombre = :nombre"),
-    @NamedQuery(name = "Programas.findByIdPrograma", query = "SELECT p FROM Programas p WHERE p.facultad.id = :idProgram")
-
+    @NamedQuery(name = "Programas.findByIdPrograma", query = "SELECT p FROM Programas p WHERE p.facultad.id = :idProgram"),
+    @NamedQuery(name = "Programas.findByProgramas", query = "SELECT p FROM Programas p WHERE LOWER(CONCAT(CONCAT(CONCAT(CONCAT(p.id,' '), p.nombre),' ') ,p.facultad.nombre,' ')) LIKE :busqueda")    
 })
 public class Programas implements Serializable {
 
@@ -50,7 +50,7 @@ public class Programas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Column(name = "ID")
     private Integer id;        
     

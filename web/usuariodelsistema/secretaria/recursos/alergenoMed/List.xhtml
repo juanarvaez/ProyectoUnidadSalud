@@ -19,6 +19,13 @@
         
             <h:form id="AlergenoMedListForm">
                 
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar Alérgeno:" />
+                    <p:inputText  placeholder="Digite Código o Descripción" style="width: 300px;"  value="#{alergenoMedController.datoBusqueda}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{alergenoMedController.buscarAlergeno()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
+                
                     <p:dataTable id="datalist" value="#{alergenoMedController.items}" var="item"
                                  selectionMode="single" selection="#{alergenoMedController.selected}"
                                  paginator="true"

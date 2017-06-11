@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Facultad.findAll", query = "SELECT f FROM Facultad f"),
     @NamedQuery(name = "Facultad.findById", query = "SELECT f FROM Facultad f WHERE f.id = :id"),
-    @NamedQuery(name = "Facultad.findByNombre", query = "SELECT f FROM Facultad f WHERE f.nombre = :nombre")})
+    @NamedQuery(name = "Facultad.findByNombre", query = "SELECT f FROM Facultad f WHERE f.nombre = :nombre"),
+    @NamedQuery(name = "Facultad.findByFacultades", query = "SELECT f FROM Facultad f WHERE LOWER(CONCAT(CONCAT(CONCAT(f.id,' '), f.nombre),' ')) LIKE :busqueda")
+})
 public class Facultad implements Serializable {
 
     @Basic(optional = false)

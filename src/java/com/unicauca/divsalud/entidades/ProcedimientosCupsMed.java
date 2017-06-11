@@ -26,7 +26,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProcedimientosCupsMed.findAll", query = "SELECT p FROM ProcedimientosCupsMed p"),
     @NamedQuery(name = "ProcedimientosCupsMed.findByCodigo", query = "SELECT p FROM ProcedimientosCupsMed p WHERE p.codigo = :codigo"),
     @NamedQuery(name = "ProcedimientosCupsMed.findByDescripcion", query = "SELECT p FROM ProcedimientosCupsMed p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "ProcedimientosCupsMed.findByEstado", query = "SELECT p FROM ProcedimientosCupsMed p WHERE p.estado = :estado")})
+    @NamedQuery(name = "ProcedimientosCupsMed.findByEstado", query = "SELECT p FROM ProcedimientosCupsMed p WHERE p.estado = :estado"),
+    @NamedQuery(name = "ProcedimientosCupsMed.findByProcedimientos", query = "SELECT p FROM ProcedimientosCupsMed p WHERE LOWER(CONCAT(CONCAT(CONCAT(p.codigo,' '), p.descripcion),' ')) LIKE :busqueda")
+})
 public class ProcedimientosCupsMed implements Serializable {
 
     private static final long serialVersionUID = 1L;

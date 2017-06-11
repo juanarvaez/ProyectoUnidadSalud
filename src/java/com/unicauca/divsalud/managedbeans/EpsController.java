@@ -27,6 +27,7 @@ public class EpsController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.EpsFacade ejbFacade;
     private List<Eps> items = null;
     private Eps selected;
+    private String datoBusqueda;
 
     public EpsController() {
     }
@@ -48,6 +49,19 @@ public class EpsController implements Serializable {
     private EpsFacade getFacade() {
         return ejbFacade;
     }
+    
+    public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
+
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+    
+    public void buscarEps() {
+        this.items = ejbFacade.buscarEps(this.datoBusqueda.toLowerCase());
+    }
+    
 
     public Eps prepareCreate() {
         selected = new Eps();

@@ -19,7 +19,7 @@
                         <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_estado}"/>
                         <p:selectBooleanCheckbox value="#{alergenoMedController.selected.estado}" disabled="true"/>
                         <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_idxTipoAlergeno}"/>
-                        <h:outputText value="#{alergenoMedController.selected.idxTipoAlergeno}" title="#{bundleAlergeno.ViewAlergenoMedTitle_idxTipoAlergeno}"/>
+                        <h:outputText value="#{alergenoMedController.selected.idxTipoAlergeno.nombre}" title="#{bundleAlergeno.ViewAlergenoMedTitle_idxTipoAlergeno}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundleAlergeno.Close}" onclick="AlergenoMedViewDialog.hide()"/>
                 </h:panelGroup>

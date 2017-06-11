@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EnfermedadesCie10Med.findAll", query = "SELECT e FROM EnfermedadesCie10Med e"),
     @NamedQuery(name = "EnfermedadesCie10Med.findByCodigo", query = "SELECT e FROM EnfermedadesCie10Med e WHERE e.codigo = :codigo"),
     @NamedQuery(name = "EnfermedadesCie10Med.findByDescripcion", query = "SELECT e FROM EnfermedadesCie10Med e WHERE e.descripcion = :descripcion"),
-    @NamedQuery(name = "EnfermedadesCie10Med.findByEstado", query = "SELECT e FROM EnfermedadesCie10Med e WHERE e.estado = :estado")})
+    @NamedQuery(name = "EnfermedadesCie10Med.findByEstado", query = "SELECT e FROM EnfermedadesCie10Med e WHERE e.estado = :estado"),
+    @NamedQuery(name = "EnfermedadesCie10Med.findByDiagnostico", query = "SELECT e FROM EnfermedadesCie10Med e WHERE LOWER(CONCAT(CONCAT(CONCAT(e.codigo,' '), e.descripcion),' ')) LIKE :busqueda")  
+})
 public class EnfermedadesCie10Med implements Serializable {
 
     private static final long serialVersionUID = 1L;

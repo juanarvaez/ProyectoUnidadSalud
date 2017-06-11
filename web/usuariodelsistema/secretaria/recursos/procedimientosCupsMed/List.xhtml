@@ -11,7 +11,11 @@
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </h:head>
     <h1 class="text-center">Lista de Procedimientos Quirurgicos</h1>    
-
+    
+    <h:form id="createButton">
+        <p:commandButton style="font-weight: bold; color: black" id="createButton" icon="ui-icon-plus" value="#{bundleProcedimientosCups.Create}" actionListener="#{procedimientosCupsMedController.prepareCreate}" update=":ProcedimientosCupsMedCreateForm" oncomplete="PF('ProcedimientosCupsMedCreateDialog').show()"/>
+    </h:form>
+    <p:separator/>
 
 
         <ui:define name="title">
@@ -20,17 +24,21 @@
 
         
             <h:form id="ProcedimientosCupsMedListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar Procedimiento Quirúrgico:" />
+                    <p:inputText  placeholder="Digite Código o Descripción" style="width: 300px;"  value="#{procedimientosCupsMedController.datoBusqueda}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{procedimientosCupsMedController.buscarProcedimiento()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
                 
                     <p:dataTable id="datalist" value="#{procedimientosCupsMedController.items}" var="item"
-                                 selectionMode="single" selection="#{procedimientosCupsMedController.selected}"
-                                 paginator="true"
+                                  paginator="true"
                                  rowKey="#{item.codigo}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                       
 
                         <p:column>
                             <f:facet name="header">
@@ -50,12 +58,15 @@
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.estado}" disabled="true"/>
                         </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleProcedimientosCups.Create}" actionListener="#{procedimientosCupsMedController.prepareCreate}" update=":ProcedimientosCupsMedCreateForm" oncomplete="PF('ProcedimientosCupsMedCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleProcedimientosCups.View}" update=":ProcedimientosCupsMedViewForm" oncomplete="PF('ProcedimientosCupsMedViewDialog').show()" disabled="#{empty procedimientosCupsMedController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleProcedimientosCups.Edit}" update=":ProcedimientosCupsMedEditForm" oncomplete="PF('ProcedimientosCupsMedEditDialog').show()" disabled="#{empty procedimientosCupsMedController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleProcedimientosCups.Delete}" actionListener="#{procedimientosCupsMedController.destroy}" update="datalist" disabled="#{empty procedimientosCupsMedController.selected}"/>
-                        </f:facet>
+                        <p:column style="width: 120px">
+                             <f:facet name="header"> 
+                                <h:outputText value="Acciones"/>
+                            </f:facet>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" action="#{procedimientosCupsMedController.seleccionarProcedimientos(item)}" update=":ProcedimientosCupsMedViewForm" oncomplete="PF('ProcedimientosCupsMedViewDialog').show()" />
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" action="#{procedimientosCupsMedController.seleccionarProcedimientos(item)}" update=":ProcedimientosCupsMedEditForm" oncomplete="PF('ProcedimientosCupsMedEditDialog').show()" />
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"   actionListener="#{procedimientosCupsMedController.destroy}" update="datalist" disabled="#{empty procedimientosCupsMedController.selected}"/>
+                        </p:column>
+                        
                     </p:dataTable>
                 
             </h:form>
@@ -63,5 +74,10 @@
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
+            <p:dialog widgetVar="confirmarEliminacion">
+                <form>
+
+                </form>
+            </p:dialog>
         
 </html>

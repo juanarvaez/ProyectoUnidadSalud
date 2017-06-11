@@ -6,6 +6,8 @@ import com.unicauca.divsalud.entidades.AntFamiliaresMed;
 import com.unicauca.divsalud.entidades.CitaMedicaMed;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
 import com.unicauca.divsalud.entidades.ConsultaSistemasCuerpoMed;
+import com.unicauca.divsalud.entidades.Diagnosticos;
+import com.unicauca.divsalud.entidades.DiagnosticosPK;
 import com.unicauca.divsalud.entidades.Paciente;
 import com.unicauca.divsalud.entidades.SistemaCuerpoMed;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil;
@@ -44,6 +46,8 @@ public class ConsultaMedicaMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.AntFamiliarConsultaMedFacade ejbFacadeAntFamiliarConsultaMed;
     @EJB
     private com.unicauca.divsalud.sessionbeans.ConsultaSistemasCuerpoMedFacade ejbFacadeConsultaSistemasCuerpoMed;
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.DiagnosticosFacade ejbFacadeDiagnosticos;
     
     /*adiciones para antFamiliares*/
     private List<AntFamiliaresMed> itemsAntFamiliares;
@@ -62,6 +66,10 @@ public class ConsultaMedicaMedController implements Serializable {
     private CitaMedicaMed citaMedica;
     private AcompanianteMed acompaniante;
 
+    private DiagnosticosController diagnosticosCon = new DiagnosticosController();
+    private Diagnosticos diagnosticos;
+    private DiagnosticosPK diagnosticospk;
+    
     public ConsultaMedicaMedController() {
     }
 
@@ -113,6 +121,22 @@ public class ConsultaMedicaMedController implements Serializable {
         this.acompaniante = acompaniante;
     }
 
+    public Diagnosticos getDiagnosticos() {
+        return diagnosticos;
+    }
+
+    public void setDiagnosticos(Diagnosticos diagnosticos) {
+        this.diagnosticos = diagnosticos;
+    }
+
+    public DiagnosticosPK getDiagnosticospk() {
+        return diagnosticospk;
+    }
+
+    public void setDiagnosticospk(DiagnosticosPK diagnosticospk) {
+        this.diagnosticospk = diagnosticospk;
+    }
+
     protected void setEmbeddableKeys() {
     }
 
@@ -150,6 +174,10 @@ public class ConsultaMedicaMedController implements Serializable {
         selected.setAcompanianteMedIdx(acompaniante);
         selected.setPacienteIdx(paciente);
         ejbFacade.create(selected);
+        //Diagnostico
+        diagnosticospk.setIdxConsulta(selected.getIdx());
+        diagnosticos.setDiagnosticosPK(diagnosticospk);
+        ejbFacadeDiagnosticos.create(diagnosticos);        
         /*
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleConsultaMedicaMed").getString("ConsultaMedicaMedCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -274,6 +302,10 @@ public class ConsultaMedicaMedController implements Serializable {
         antFamiliarMedCon.prepareCreate();
         
         consultaSitemasCuerpo = new ConsultaSistemasCuerpoMed();   
+
+        diagnosticos = new Diagnosticos();
+        diagnosticospk = new DiagnosticosPK();
+        //diagnosticosCon.prepareCreate();
         
         cargarVista.cargarHistoriaMedicaMed();        
     }    

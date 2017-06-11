@@ -400,13 +400,30 @@
             
             
             <!-- PESTAÑA PARA EL DIAGNOSTICO -->
-            <p:tab title="Diagnóstico">
-                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">                   
-                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />                        
-                    </p:panelGrid>                                           
-                </p:panel>
-            </p:tab>
+                <p:tab title="Diagnóstico">
+                    <p:panel header="#{bundleDiagnostico.CreateDiagnosticosTitle_diagnostico}">
+                        <h:panelGroup id="displayd">
+                            <p:panelGrid columns="4" rendered="#{consultaMedicaMedController.diagnosticos != null and consultaMedicaMedController.diagnosticospk != null}">
+                                <p:outputLabel value="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedLabel_codigo}" for="codigoCie10" />
+                                <p:selectOneMenu id="codigoCie10" value="#{consultaMedicaMedController.diagnosticospk.codigoCie10}" required="true" requiredMessage="#{bundleEnfermedadesCie10.EditEnfermedadesCie10MedLabel_codigo}">
+                                    <f:selectItems value="#{enfermedadesCie10MedController.itemsAvailableSelectOne}"
+                                                   var="idItem"
+                                                   itemLabel="#{idItem.codigo} |  #{idItem.descripcion}"
+                                                   itemValue="#{idItem.codigo}"/>
+                                </p:selectOneMenu>
+                                <p:selectOneMenu id="impresion" value="#{consultaMedicaMedController.diagnosticos.impresion}" style="width:200px">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItem itemLabel="Impresion diagnostico" itemValue="Impresion diagnostico" />
+                                    <f:selectItem itemLabel="Confirmado nuevo" itemValue="Confirmado nuevo" />
+                                    <f:selectItem itemLabel="Confirmado repetido" itemValue="Confirmado repetido" />
+                                </p:selectOneMenu>
+
+
+                            </p:panelGrid>
+                        </h:panelGroup>
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>                        
+                    </p:panel>
+                </p:tab>
             
             
             <!-- PESTAÑA PARA EL ANALISIS Y CONDUCTA -->

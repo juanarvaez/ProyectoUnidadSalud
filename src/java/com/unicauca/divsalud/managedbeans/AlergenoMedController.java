@@ -27,6 +27,8 @@ public class AlergenoMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.AlergenoMedFacade ejbFacade;
     private List<AlergenoMed> items = null;
     private AlergenoMed selected;
+    private String datoBusqueda;
+
 
     public AlergenoMedController() {
     }
@@ -47,6 +49,18 @@ public class AlergenoMedController implements Serializable {
 
     private AlergenoMedFacade getFacade() {
         return ejbFacade;
+    }
+    
+     public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
+
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+    
+    public void buscarAlergeno() {
+        this.items = ejbFacade.buscarAlergeno(this.datoBusqueda.toLowerCase());
     }
 
     public AlergenoMed prepareCreate() {

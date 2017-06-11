@@ -27,6 +27,7 @@ public class ProgramasController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.ProgramasFacade ejbFacade;
     private List<Programas> items = null;
     private Programas selected;
+    private String datoBusqueda;
 
     public ProgramasController() {
     }
@@ -37,7 +38,7 @@ public class ProgramasController implements Serializable {
 
     public void setSelected(Programas selected) {
         this.selected = selected;
-    }
+}
 
     protected void setEmbeddableKeys() {
     }
@@ -48,7 +49,27 @@ public class ProgramasController implements Serializable {
     private ProgramasFacade getFacade() {
         return ejbFacade;
     }
+    
+    public void seleccionarProgramas(Programas selected) {
+            this.selected = selected;  
+            //if(selected.getGrupoUsuarioTipoCollection().toArray().length>0){
+              //  GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+                //this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+        //}
+    }
+    
+    public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
 
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+    
+    public void buscarPrograma() {
+        this.items = ejbFacade.buscarProgramasEjb(this.datoBusqueda.toLowerCase());
+    }
+    
     public Programas prepareCreate() {
         selected = new Programas();
         initializeEmbeddableKey();
@@ -159,7 +180,7 @@ public class ProgramasController implements Serializable {
                 return null;
             }
         }
-
+        
+        
     }
-
 }

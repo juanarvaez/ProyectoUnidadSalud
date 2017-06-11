@@ -17,7 +17,7 @@
                         <h:outputText value="#{bundleProgramas.ViewProgramasLabel_nombre}"/>
                         <h:outputText value="#{programasController.selected.nombre}" title="#{bundleProgramas.ViewProgramasTitle_nombre}"/>
                         <h:outputText value="#{bundleProgramas.ViewProgramasLabel_facultad}"/>
-                        <h:outputText value="#{programasController.selected.facultad}" title="#{bundleProgramas.ViewProgramasTitle_facultad}"/>
+                        <h:outputText value="#{programasController.selected.facultad.nombre}" title="#{bundleProgramas.ViewProgramasTitle_facultad}"/>
                         <h:outputText value="#{bundleProgramas.ViewProgramasLabel_estado}"/>
                         <p:selectBooleanCheckbox value="#{programasController.selected.estado}" disabled="true"/>
                     </p:panelGrid>

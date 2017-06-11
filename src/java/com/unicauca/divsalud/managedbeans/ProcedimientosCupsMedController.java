@@ -27,6 +27,7 @@ public class ProcedimientosCupsMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.ProcedimientosCupsMedFacade ejbFacade;
     private List<ProcedimientosCupsMed> items = null;
     private ProcedimientosCupsMed selected;
+    private String datoBusqueda;
 
     public ProcedimientosCupsMedController() {
     }
@@ -47,6 +48,25 @@ public class ProcedimientosCupsMedController implements Serializable {
 
     private ProcedimientosCupsMedFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public void seleccionarProcedimientos(ProcedimientosCupsMed selected) {
+            this.selected = selected;  
+            //if(selected.getGrupoUsuarioTipoCollection().toArray().length>0){
+              //  GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+                //this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+        //}
+    }
+    public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
+
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+    
+    public void buscarProcedimiento() {
+        this.items = ejbFacade.buscarProcedimiento(this.datoBusqueda.toLowerCase());
     }
 
     public ProcedimientosCupsMed prepareCreate() {

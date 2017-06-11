@@ -27,6 +27,7 @@ public class FacultadController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.FacultadFacade ejbFacade;
     private List<Facultad> items = null;
     private Facultad selected;
+    private String datoBusqueda;
 
     public FacultadController() {
     }
@@ -48,7 +49,19 @@ public class FacultadController implements Serializable {
     private FacultadFacade getFacade() {
         return ejbFacade;
     }
+    
+     public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
 
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+
+    public void buscarMedicamento() {
+        this.items = ejbFacade.buscarFacultad(this.datoBusqueda.toLowerCase());
+    }
+    
     public Facultad prepareCreate() {
         selected = new Facultad();
         initializeEmbeddableKey();

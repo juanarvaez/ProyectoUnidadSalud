@@ -19,6 +19,12 @@
 
         
             <h:form id="EnfermedadesCie10MedListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar Diagnóstico:" />
+                    <p:inputText  placeholder="Digite Código o Descripción" style="width: 300px;"  value="#{enfermedadesCie10MedController.datoBusqueda}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{enfermedadesCie10MedController.buscarDiagnostico()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
                 
                     <p:dataTable id="datalist" value="#{enfermedadesCie10MedController.items}" var="item"
                                  selectionMode="single" selection="#{enfermedadesCie10MedController.selected}"

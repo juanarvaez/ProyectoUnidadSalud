@@ -20,6 +20,12 @@
 
         
             <h:form id="MedicamentoMedListForm">
+                <h:panelGrid columns="2" >
+                    <p:outputLabel value="Buscar Medicamento:" />
+                    <p:inputText  placeholder="Digite Código, Nombre, Presentación, Via Administración o Concentración" style="width: 300px;"  value="#{medicamentoMedController.datoBusqueda}" >
+                        <p:ajax event="keyup" update="datalist" listener="#{medicamentoMedController.buscarMedicamento()}" />                                
+                    </p:inputText>                          
+                </h:panelGrid>
                
                     <p:dataTable id="datalist" value="#{medicamentoMedController.items}" var="item"
                                  selectionMode="single" selection="#{medicamentoMedController.selected}"

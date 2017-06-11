@@ -27,6 +27,7 @@ public class EnfermedadesCie10MedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.EnfermedadesCie10MedFacade ejbFacade;
     private List<EnfermedadesCie10Med> items = null;
     private EnfermedadesCie10Med selected;
+    private String datoBusqueda;
 
     public EnfermedadesCie10MedController() {
     }
@@ -47,6 +48,18 @@ public class EnfermedadesCie10MedController implements Serializable {
 
     private EnfermedadesCie10MedFacade getFacade() {
         return ejbFacade;
+    }
+    
+     public String getDatoBusqueda() {
+        return datoBusqueda;
+    }
+
+    public void setDatoBusqueda(String datoBusqueda) {
+        this.datoBusqueda = datoBusqueda;
+    }
+    
+    public void buscarDiagnostico() {
+        this.items = ejbFacade.buscarDiagnostico(this.datoBusqueda.toLowerCase());
     }
 
     public EnfermedadesCie10Med prepareCreate() {

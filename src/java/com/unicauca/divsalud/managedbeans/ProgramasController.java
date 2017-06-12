@@ -76,6 +76,8 @@ public class ProgramasController implements Serializable {
         return selected;
     }
 
+    
+
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleProgramas").getString("ProgramasCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -140,6 +142,10 @@ public class ProgramasController implements Serializable {
 
     public List<Programas> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public void inicializar() {
+        this.selected = new Programas();
     }
 
     @FacesConverter(forClass = Programas.class)

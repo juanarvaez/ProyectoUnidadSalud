@@ -75,6 +75,7 @@ public class ProcedimientosCupsMedController implements Serializable {
         return selected;
     }
 
+   
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleProcedimientosCups").getString("ProcedimientosCupsMedCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -139,6 +140,10 @@ public class ProcedimientosCupsMedController implements Serializable {
 
     public List<ProcedimientosCupsMed> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public void inicializar() {
+        this.selected = new ProcedimientosCupsMed();
     }
 
     @FacesConverter(forClass = ProcedimientosCupsMed.class)

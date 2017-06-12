@@ -14,13 +14,17 @@
                     <p:panelGrid columns="2" rendered="#{epsController.selected != null}">
                         <p:outputLabel value="#{bundleEps.EditEpsLabel_id}" for="id" />
                         <p:inputText id="id" value="#{epsController.selected.id}" title="#{bundleEps.EditEpsTitle_id}" required="true" requiredMessage="#{bundleEps.EditEpsRequiredMessage_id}"/>
+                        <h:outputText value="#{bundleEps.ViewEpsLabel_id}"/>
+                        <h:outputText value="#{epsController.selected.id}" title="#{bundleEps.ViewEpsTitle_id}"/>
                         <p:outputLabel value="#{bundleEps.EditEpsLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{epsController.selected.nombre}" title="#{bundleEps.EditEpsTitle_nombre}" required="true" requiredMessage="#{bundleEps.EditEpsRequiredMessage_nombre}"/>
                         <p:outputLabel value="#{bundleEps.EditEpsLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{epsController.selected.estado}" required="true" requiredMessage="#{bundleEps.EditEpsRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{epsController.update}" value="#{bundleEps.Save}" update="display,:EpsListForm:datalist" oncomplete="handleSubmit(args, 'EpsEditDialog');" onclick="EpsEditDialog.hide()"/>
-                    <p:commandButton value="#{bundleEps.Cancel}" onclick="EpsEditDialog.hide()"/>
+                    <center>
+                        <p:commandButton actionListener="#{epsController.update}" value="#{bundleEps.Save}" update="display,:EpsListForm:datalist" oncomplete="handleSubmit(args, 'EpsEditDialog');" onclick="EpsEditDialog.hide()"/>
+                        <p:commandButton value="#{bundleEps.Cancel}" onclick="EpsEditDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

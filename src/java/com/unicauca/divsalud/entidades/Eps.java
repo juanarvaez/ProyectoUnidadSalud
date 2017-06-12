@@ -46,7 +46,7 @@ public class Eps implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
@@ -119,7 +119,8 @@ public class Eps implements Serializable {
 
     @Override
     public String toString() {
-        return "com.unicauca.divsalud.entidades.Eps[ id=" + id + " ]";
+        return ""+nombre+"";
+        //return "com.unicauca.divsalud.entidades.Eps[ id=" + id + " ]";
     }
 
     public boolean getEstado() {

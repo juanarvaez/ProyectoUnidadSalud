@@ -8,14 +8,16 @@
 
     <ui:composition>
 
-        <p:dialog id="ProgramasCreateDlg" widgetVar="ProgramasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleProgramas.CreateProgramasTitle}">
+        <p:dialog id="ProgramasCreateDlg" widgetVar="ProgramasCreateDialog" modal="true" resizable="false" header="#{bundleProgramas.CreateProgramasTitle}">
             <h:form id="ProgramasCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{programasController.selected != null}">
+                        <p:outputLabel value="#{bundleProgramas.CreateProgramasLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{programasController.selected.id}" title="#{bundleProgramas.CreateProgramasTitle_id}" required="true" requiredMessage="#{bundleProgramas.CreateProgramasRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundleProgramas.CreateProgramasLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{programasController.selected.nombre}" title="#{bundleProgramas.CreateProgramasTitle_nombre}" />
                         <p:outputLabel value="#{bundleProgramas.CreateProgramasLabel_facultad}" for="facultad" />
-                        <p:selectOneMenu id="facultad" value="#{programasController.selected.facultad}" >
+                        <p:selectOneMenu filter="true" id="facultad" value="#{programasController.selected.facultad}" >
                             <f:selectItems value="#{facultadController.itemsAvailableSelectOne}"
                                            var="facultadItem"
                                            itemValue="#{facultadItem}"/>
@@ -23,8 +25,10 @@
                         <p:outputLabel value="#{bundleProgramas.CreateProgramasLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{programasController.selected.estado}" required="true" requiredMessage="#{bundleProgramas.EditProgramasRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{programasController.create}" value="#{bundleProgramas.Save}" update="display,:ProgramasListForm:datalist" oncomplete="handleSubmit(args,'ProgramasCreateDialog');" onclick="ProgramasCreateDialog.hide()"/>
-                    <p:commandButton value="#{bundleProgramas.Cancel}" onclick="ProgramasCreateDialog.hide()"/>
+                    <center>
+                        <p:commandButton actionListener="#{programasController.create}" value="#{bundleProgramas.Save}" update="display,:ProgramasListForm:datalist" oncomplete="handleSubmit(args,'ProgramasCreateDialog');" onclick="ProgramasCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundleProgramas.Cancel}" onclick="ProgramasCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

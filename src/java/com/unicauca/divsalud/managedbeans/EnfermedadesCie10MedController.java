@@ -49,6 +49,21 @@ public class EnfermedadesCie10MedController implements Serializable {
     private EnfermedadesCie10MedFacade getFacade() {
         return ejbFacade;
     }
+public void inicirObjetoEnfermedad() {
+        selected = new EnfermedadesCie10Med();
+        selected.setEstado(true);
+    }
+
+   public void seleccionarEnfermedades(EnfermedadesCie10Med enfermedades) {
+        this.selected = enfermedades;
+        //this.tipoUsuario = ejbTipoUsuario.find(this.ejbGrupoUsuarioTipo.buscarPorNombreUsuario(usuarioSistema.getLogin()).get(0).getTipoUsuario());
+//        if(alergenoMed.getGrupoUsuarioTipoCollection().toArray().length>0){
+//            GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+//            this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+//        }
+        
+    }
+
     
      public String getDatoBusqueda() {
         return datoBusqueda;
@@ -133,6 +148,10 @@ public class EnfermedadesCie10MedController implements Serializable {
     public List<EnfermedadesCie10Med> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+    
+    public void inicializar(){
+ this.selected= new EnfermedadesCie10Med();
+}
 
     @FacesConverter(forClass = EnfermedadesCie10Med.class)
     public static class EnfermedadesCie10MedControllerConverter implements Converter {

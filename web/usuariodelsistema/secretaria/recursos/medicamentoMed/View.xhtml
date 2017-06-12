@@ -11,21 +11,57 @@
         <p:dialog id="MedicamentoMedViewDlg" widgetVar="MedicamentoMedViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleMedicamentosMed.ViewMedicamentoMedTitle}">
             <h:form id="MedicamentoMedViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{medicamentoMedController.selected != null}">
-                        <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_codigo}"/>
-                        <h:outputText value="#{medicamentoMedController.selected.codigo}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_codigo}"/>
-                        <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_nombre}"/>
-                        <h:outputText value="#{medicamentoMedController.selected.nombre}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_nombre}"/>
-                        <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{medicamentoMedController.selected.estado}" disabled="true"/>
-                        <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_concentracion}"/>
-                        <h:outputText value="#{medicamentoMedController.selected.concentracion}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_concentracion}"/>
-                        <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_viaIdx}"/>
-                        <h:outputText value="#{medicamentoMedController.selected.viaIdx}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_viaIdx}"/>
-                        <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_preIdx}"/>
-                        <h:outputText value="#{medicamentoMedController.selected.preIdx}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_preIdx}"/>
+                    <p:panelGrid styleClass="panelgrid" rendered="#{medicamentoMedController.selected != null}">
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_codigo}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{medicamentoMedController.selected.codigo}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_codigo}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{medicamentoMedController.selected.nombre}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_concentracion}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{medicamentoMedController.selected.concentracion}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_concentracion}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_viaIdx}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{medicamentoMedController.selected.viaIdx.nombreAdminis}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_viaIdx}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_preIdx}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{medicamentoMedController.selected.preIdx.nombrePresen}" title="#{bundleMedicamentosMed.ViewMedicamentoMedTitle_preIdx}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleMedicamentosMed.ViewMedicamentoMedLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{medicamentoMedController.selected.estado}" disabled="true"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleMedicamentosMed.Close}" onclick="MedicamentoMedViewDialog.hide()"/>
+                    <center><p:commandButton value="#{bundleMedicamentosMed.Close}" action="#{medicamentoMedController.inicializar()}" onclick="MedicamentoMedViewDialog.hide()"/></center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

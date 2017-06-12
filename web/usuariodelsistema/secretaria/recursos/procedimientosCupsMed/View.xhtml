@@ -11,15 +11,33 @@
         <p:dialog id="ProcedimientosCupsMedViewDlg" widgetVar="ProcedimientosCupsMedViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleProcedimientosCups.ViewProcedimientosCupsMedTitle}">
             <h:form id="ProcedimientosCupsMedViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{procedimientosCupsMedController.selected != null}">
-                        <h:outputText value="#{bundleProcedimientosCups.ViewProcedimientosCupsMedLabel_codigo}"/>
-                        <h:outputText value="#{procedimientosCupsMedController.selected.codigo}" title="#{bundleProcedimientosCups.ViewProcedimientosCupsMedTitle_codigo}"/>
-                        <h:outputText value="#{bundleProcedimientosCups.ViewProcedimientosCupsMedLabel_descripcion}"/>
-                        <h:outputText value="#{procedimientosCupsMedController.selected.descripcion}" title="#{bundleProcedimientosCups.ViewProcedimientosCupsMedTitle_descripcion}"/>
-                        <h:outputText value="#{bundleProcedimientosCups.ViewProcedimientosCupsMedLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{procedimientosCupsMedController.selected.estado}" disabled="true"/>
+                    <p:panelGrid styleClass="panelgrid" rendered="#{procedimientosCupsMedController.selected != null}">
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProcedimientosCups.ViewProcedimientosCupsMedLabel_codigo}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{procedimientosCupsMedController.selected.codigo}" title="#{bundleProcedimientosCups.ViewProcedimientosCupsMedTitle_codigo}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProcedimientosCups.ViewProcedimientosCupsMedLabel_descripcion}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{procedimientosCupsMedController.selected.descripcion}" title="#{bundleProcedimientosCups.ViewProcedimientosCupsMedTitle_descripcion}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProcedimientosCups.ViewProcedimientosCupsMedLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{procedimientosCupsMedController.selected.estado}" disabled="true"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleProcedimientosCups.Close}" onclick="ProcedimientosCupsMedViewDialog.hide()"/>
+                    <center><p:commandButton value="#{bundleProcedimientosCups.Close}" action="#{procedimientosCupsMedController.inicializar()}" onclick="ProcedimientosCupsMedViewDialog.hide()"/></center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

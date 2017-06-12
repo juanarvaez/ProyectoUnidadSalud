@@ -62,10 +62,25 @@ public class FacultadController implements Serializable {
         this.items = ejbFacade.buscarFacultad(this.datoBusqueda.toLowerCase());
     }
     
-    public Facultad prepareCreate() {
+
+//    public Facultad prepareCreate() {
+//        selected = new Facultad();
+//        initializeEmbeddableKey();
+//        return selected;
+//    }
+    public void inicirObjetoFacultad() {
         selected = new Facultad();
-        initializeEmbeddableKey();
-        return selected;
+        selected.setEstado(true);
+    }
+
+    public void seleccionarFacultad(Facultad facultad) {
+        this.selected = facultad;
+        //this.tipoUsuario = ejbTipoUsuario.find(this.ejbGrupoUsuarioTipo.buscarPorNombreUsuario(usuarioSistema.getLogin()).get(0).getTipoUsuario());
+//        if(alergenoMed.getGrupoUsuarioTipoCollection().toArray().length>0){
+//            GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+//            this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+//        }
+
     }
 
     public void create() {
@@ -132,6 +147,10 @@ public class FacultadController implements Serializable {
 
     public List<Facultad> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public void inicializar() {
+        this.selected = new Facultad();
     }
 
     @FacesConverter(forClass = Facultad.class)

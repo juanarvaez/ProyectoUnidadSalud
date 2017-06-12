@@ -63,11 +63,29 @@ public class AlergenoMedController implements Serializable {
         this.items = ejbFacade.buscarAlergeno(this.datoBusqueda.toLowerCase());
     }
 
-    public AlergenoMed prepareCreate() {
+
+    /*public AlergenoMed prepareCreate() {
         selected = new AlergenoMed();
         initializeEmbeddableKey();
         return selected;
     }
+*/
+
+public void seleccionarAlergeno(AlergenoMed alergenoMed) {
+        this.selected = alergenoMed;
+        //this.tipoUsuario = ejbTipoUsuario.find(this.ejbGrupoUsuarioTipo.buscarPorNombreUsuario(usuarioSistema.getLogin()).get(0).getTipoUsuario());
+//        if(alergenoMed.getGrupoUsuarioTipoCollection().toArray().length>0){
+//            GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+//            this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+//        }
+        
+    }
+    
+    public void inicirObjetoAlergeno() {
+        selected = new AlergenoMed();
+        selected.setEstado(true);
+    }
+
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleAlergeno").getString("AlergenoMedCreated"));
@@ -133,6 +151,10 @@ public class AlergenoMedController implements Serializable {
 
     public List<AlergenoMed> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public void inicializar() {
+        this.selected = new AlergenoMed();
     }
 
     @FacesConverter(forClass = AlergenoMed.class)

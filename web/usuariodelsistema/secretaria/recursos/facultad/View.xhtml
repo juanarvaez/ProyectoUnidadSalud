@@ -11,15 +11,33 @@
         <p:dialog id="FacultadViewDlg" widgetVar="FacultadViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleProgramas.ViewFacultadTitle}">
             <h:form id="FacultadViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{facultadController.selected != null}">
-                        <h:outputText value="#{bundleProgramas.ViewFacultadLabel_id}"/>
-                        <h:outputText value="#{facultadController.selected.id}" title="#{bundleProgramas.ViewFacultadTitle_id}"/>
-                        <h:outputText value="#{bundleProgramas.ViewFacultadLabel_nombre}"/>
-                        <h:outputText value="#{facultadController.selected.nombre}" title="#{bundleProgramas.ViewFacultadTitle_nombre}"/>
-                        <h:outputText value="#{bundleProgramas.ViewFacultadLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{facultadController.selected.estado}" disabled="true"/>
+                    <p:panelGrid styleClass="panelgrid" rendered="#{facultadController.selected != null}">
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewFacultadLabel_id}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{facultadController.selected.id}" title="#{bundleProgramas.ViewFacultadTitle_id}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewFacultadLabel_nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{facultadController.selected.nombre}" title="#{bundleProgramas.ViewFacultadTitle_nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewFacultadLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{facultadController.selected.estado}" disabled="true"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleProgramas.Close}" onclick="FacultadViewDialog.hide()"/>
+                    <center><p:commandButton value="#{bundleProgramas.Close}" action="#{facultadController.inicializar()}" onclick="FacultadViewDialog.hide()"/></center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

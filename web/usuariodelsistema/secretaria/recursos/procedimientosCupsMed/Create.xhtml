@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ProcedimientosCupsMedCreateDlg" widgetVar="ProcedimientosCupsMedCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleProcedimientosCups.CreateProcedimientosCupsMedTitle}">
+        <p:dialog id="ProcedimientosCupsMedCreateDlg" widgetVar="ProcedimientosCupsMedCreateDialog" modal="true" resizable="false" header="#{bundleProcedimientosCups.CreateProcedimientosCupsMedTitle}">
             <h:form id="ProcedimientosCupsMedCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{procedimientosCupsMedController.selected != null}">
@@ -19,8 +19,10 @@
                         <p:outputLabel value="#{bundleProcedimientosCups.CreateProcedimientosCupsMedLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{procedimientosCupsMedController.selected.estado}" required="true" requiredMessage="#{bundleProcedimientosCups.EditProcedimientosCupsMedRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{procedimientosCupsMedController.create}" value="#{bundleProcedimientosCups.Save}" update="display,:ProcedimientosCupsMedListForm:datalist" oncomplete="handleSubmit(args,'ProcedimientosCupsMedCreateDialog');" onclick="ProcedimientosCupsMedCreateDialog.hide()"/>
-                    <p:commandButton value="#{bundleProcedimientosCups.Cancel}" onclick="ProcedimientosCupsMedCreateDialog.hide()"/>
+                    <center>
+                        <p:commandButton actionListener="#{procedimientosCupsMedController.create}" value="#{bundleProcedimientosCups.Save}" update="display,:ProcedimientosCupsMedListForm:datalist" oncomplete="handleSubmit(args,'ProcedimientosCupsMedCreateDialog');" onclick="ProcedimientosCupsMedCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundleProcedimientosCups.Cancel}" onclick="ProcedimientosCupsMedCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -11,17 +11,41 @@
         <p:dialog id="ProgramasViewDlg" widgetVar="ProgramasViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleProgramas.ViewProgramasTitle}">
             <h:form id="ProgramasViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{programasController.selected != null}">
-                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_id}"/>
-                        <h:outputText value="#{programasController.selected.id}" title="#{bundleProgramas.ViewProgramasTitle_id}"/>
-                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_nombre}"/>
-                        <h:outputText value="#{programasController.selected.nombre}" title="#{bundleProgramas.ViewProgramasTitle_nombre}"/>
-                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_facultad}"/>
-                        <h:outputText value="#{programasController.selected.facultad.nombre}" title="#{bundleProgramas.ViewProgramasTitle_facultad}"/>
-                        <h:outputText value="#{bundleProgramas.ViewProgramasLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{programasController.selected.estado}" disabled="true"/>
+                    <p:panelGrid styleClass="panelgrid" rendered="#{programasController.selected != null}">
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewProgramasLabel_id}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{programasController.selected.id}" title="#{bundleProgramas.ViewProgramasTitle_id}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewProgramasLabel_nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{programasController.selected.nombre}" title="#{bundleProgramas.ViewProgramasTitle_nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewProgramasLabel_facultad}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{programasController.selected.facultad.nombre}" title="#{bundleProgramas.ViewProgramasTitle_facultad}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleProgramas.ViewProgramasLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{programasController.selected.estado}" disabled="true"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleProgramas.Close}" onclick="ProgramasViewDialog.hide()"/>
+                    <center><p:commandButton value="#{bundleProgramas.Close}" action="#{programasController.inicializar()}" onclick="ProgramasViewDialog.hide()" style="background-color:#97AED7; font-weight: bold; color: black "/></center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

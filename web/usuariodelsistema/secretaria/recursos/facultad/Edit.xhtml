@@ -12,6 +12,8 @@
             <h:form id="FacultadEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{facultadController.selected != null}">
+                        <h:outputText value="#{bundleProgramas.ViewFacultadLabel_id}"/>
+                        <h:outputText value="#{facultadController.selected.id}" title="#{bundleProgramas.ViewFacultadTitle_id}"/>
                         <p:outputLabel value="#{bundleProgramas.EditFacultadLabel_id}" for="id" />
                         <p:inputText id="id" value="#{facultadController.selected.id}" title="#{bundleProgramas.EditFacultadTitle_id}" required="true" requiredMessage="#{bundleProgramas.EditFacultadRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundleProgramas.EditFacultadLabel_nombre}" for="nombre" />
@@ -19,8 +21,10 @@
                         <p:outputLabel value="#{bundleProgramas.EditFacultadLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{facultadController.selected.estado}" required="true" requiredMessage="#{bundleProgramas.EditFacultadRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{facultadController.update}" value="#{bundleProgramas.Save}" update="display,:FacultadListForm:datalist" oncomplete="handleSubmit(args, 'FacultadEditDialog');" onclick="FacultadEditDialog.hide()"/>
-                    <p:commandButton value="#{bundleProgramas.Cancel}" onclick="FacultadEditDialog.hide()"/>
+                    <center>
+                        <p:commandButton actionListener="#{facultadController.update}" value="#{bundleProgramas.Save}" update="display,:FacultadListForm:datalist" oncomplete="handleSubmit(args, 'FacultadEditDialog');" onclick="FacultadEditDialog.hide()"/>
+                        <p:commandButton value="#{bundleProgramas.Cancel}" onclick="FacultadEditDialog.hide()"/>
+                    </center>   
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{bundleMedicamentosMed.CreateMedicamentoMedLabel_concentracion}" for="concentracion" />
                         <p:inputText id="concentracion" value="#{medicamentoMedController.selected.concentracion}" title="#{bundleMedicamentosMed.CreateMedicamentoMedTitle_concentracion}" />
                         <p:outputLabel value="#{bundleMedicamentosMed.CreateMedicamentoMedLabel_viaIdx}" for="viaIdx" />
-                        <p:selectOneMenu id="viaIdx" value="#{medicamentoMedController.selected.viaIdx}" required="true" requiredMessage="#{bundleMedicamentosMed.EditMedicamentoMedRequiredMessage_viaIdx}">
+                        <p:selectOneMenu filter="true" id="viaIdx" value="#{medicamentoMedController.selected.viaIdx}" required="true" requiredMessage="#{bundleMedicamentosMed.EditMedicamentoMedRequiredMessage_viaIdx}">
                             <f:selectItems value="#{viaAdministracionMedController.itemsAvailableSelectOne}"
                                            var="viaIdxItem"
                                            itemValue="#{viaIdxItem}"/>
@@ -33,8 +33,10 @@
                                            itemValue="#{preIdxItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{medicamentoMedController.create}" value="#{bundleMedicamentosMed.Save}" update="display,:MedicamentoMedListForm:datalist" oncomplete="handleSubmit(args,'MedicamentoMedCreateDialog');" onclick="MedicamentoMedCreateDialog.hide()"/>
-                    <p:commandButton value="#{bundleMedicamentosMed.Cancel}" onclick="MedicamentoMedCreateDialog.hide()"/>
+                    <center>
+                        <p:commandButton actionListener="#{medicamentoMedController.create}" value="#{bundleMedicamentosMed.Save}" update="display,:MedicamentoMedListForm:datalist" oncomplete="handleSubmit(args,'MedicamentoMedCreateDialog');" onclick="MedicamentoMedCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundleMedicamentosMed.Cancel}" onclick="MedicamentoMedCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

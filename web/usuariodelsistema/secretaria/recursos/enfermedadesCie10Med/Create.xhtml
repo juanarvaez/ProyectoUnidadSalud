@@ -11,7 +11,7 @@
         <p:dialog id="EnfermedadesCie10MedCreateDlg" widgetVar="EnfermedadesCie10MedCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedTitle}">
             <h:form id="EnfermedadesCie10MedCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{enfermedadesCie10MedController.selected != null}">
+                    <p:panelGrid styleClass="panelgrid">
                         <p:outputLabel value="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedLabel_codigo}" for="codigo" />
                         <p:inputText id="codigo" value="#{enfermedadesCie10MedController.selected.codigo}" title="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedTitle_codigo}" required="true" requiredMessage="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedRequiredMessage_codigo}"/>
                         <p:outputLabel value="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedLabel_descripcion}" for="descripcion" />
@@ -19,8 +19,10 @@
                         <p:outputLabel value="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedLabel_estado}" for="estado" />
                         <p:selectBooleanCheckbox id="estado" value="#{enfermedadesCie10MedController.selected.estado}" required="true" requiredMessage="#{bundleEnfermedadesCie10.EditEnfermedadesCie10MedRequiredMessage_estado}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{enfermedadesCie10MedController.create}" value="#{bundleEnfermedadesCie10.Save}" update="display,:EnfermedadesCie10MedListForm:datalist" oncomplete="handleSubmit(args,'EnfermedadesCie10MedCreateDialog');" onclick="EnfermedadesCie10MedCreateDialog.hide()"/>
-                    <p:commandButton value="#{bundleEnfermedadesCie10.Cancel}" onclick="EnfermedadesCie10MedCreateDialog.hide()"/>
+                    <center>
+                        <p:commandButton actionListener="#{enfermedadesCie10MedController.create}" value="#{bundleEnfermedadesCie10.Save}" update="display,:EnfermedadesCie10MedListForm:datalist" oncomplete="handleSubmit(args,'EnfermedadesCie10MedCreateDialog');" onclick="EnfermedadesCie10MedCreateDialog.hide()"/>
+                        <p:commandButton value="#{bundleEnfermedadesCie10.Cancel}" onclick="EnfermedadesCie10MedCreateDialog.hide()"/>
+                    </center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

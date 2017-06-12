@@ -11,15 +11,33 @@
         <p:dialog id="EpsViewDlg" widgetVar="EpsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleEps.ViewEpsTitle}">
             <h:form id="EpsViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{epsController.selected != null}">
-                        <h:outputText value="#{bundleEps.ViewEpsLabel_id}"/>
-                        <h:outputText value="#{epsController.selected.id}" title="#{bundleEps.ViewEpsTitle_id}"/>
-                        <h:outputText value="#{bundleEps.ViewEpsLabel_nombre}"/>
-                        <h:outputText value="#{epsController.selected.nombre}" title="#{bundleEps.ViewEpsTitle_nombre}"/>
-                        <h:outputText value="#{bundleEps.ViewEpsLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{epsController.selected.estado}" disabled="true"/>
+                    <p:panelGrid styleClass="panelgrid" rendered="#{epsController.selected != null}">
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleEps.ViewEpsLabel_id}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{epsController.selected.id}" title="#{bundleEps.ViewEpsTitle_id}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleEps.ViewEpsLabel_nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{epsController.selected.nombre}" title="#{bundleEps.ViewEpsTitle_nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleEps.ViewEpsLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{epsController.selected.estado}" disabled="true"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleEps.Close}" onclick="EpsViewDialog.hide()"/>
+                    <center><p:commandButton value="#{bundleEps.Close}" action="#{epsController.inicializar()}" onclick="EpsViewDialog.hide()" style="background-color:#97AED7; font-weight: bold; color: black "/></center>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

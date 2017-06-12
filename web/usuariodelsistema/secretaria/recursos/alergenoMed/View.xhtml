@@ -8,23 +8,49 @@
 
     <ui:composition>
 
-        <p:dialog id="AlergenoMedViewDlg" widgetVar="AlergenoMedViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleAlergeno.ViewAlergenoMedTitle}">
+        <center><p:dialog id="AlergenoMedViewDlg" widgetVar="AlergenoMedViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleAlergeno.ViewAlergenoMedTitle}">
             <h:form id="AlergenoMedViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{alergenoMedController.selected != null}">
-                        <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_idx}"/>
-                        <h:outputText value="#{alergenoMedController.selected.idx}" title="#{bundleAlergeno.ViewAlergenoMedTitle_idx}"/>
-                        <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_nombre}"/>
-                        <h:outputText value="#{alergenoMedController.selected.nombre}" title="#{bundleAlergeno.ViewAlergenoMedTitle_nombre}"/>
-                        <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_estado}"/>
-                        <p:selectBooleanCheckbox value="#{alergenoMedController.selected.estado}" disabled="true"/>
-                        <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_idxTipoAlergeno}"/>
-                        <h:outputText value="#{alergenoMedController.selected.idxTipoAlergeno.nombre}" title="#{bundleAlergeno.ViewAlergenoMedTitle_idxTipoAlergeno}"/>
+                    <p:panelGrid styleClass="panelgrid" rendered="#{alergenoMedController.selected != null}">
+                        
+
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_idx}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{alergenoMedController.selected.idx}" title="#{bundleAlergeno.ViewAlergenoMedTitle_idx}"/>  
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{alergenoMedController.selected.nombre}" title="#{bundleAlergeno.ViewAlergenoMedTitle_nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_idxTipoAlergeno}"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{alergenoMedController.selected.idxTipoAlergeno.nombre}" title="#{bundleAlergeno.ViewAlergenoMedTitle_idxTipoAlergeno}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <br/><p:column style="font-weight: bold; color: black;">
+                                <h:outputText value="#{bundleAlergeno.ViewAlergenoMedLabel_estado}"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox value="#{alergenoMedController.selected.estado}" disabled="true"/>
+                            </p:column>
+                        </p:row>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleAlergeno.Close}" onclick="AlergenoMedViewDialog.hide()"/>
+                    <center><p:commandButton value="#{bundleAlergeno.Close}" action="#{alergenoMedController.inicializar()}" onclick="AlergenoMedViewDialog.hide()" style="background-color:#97AED7; font-weight: bold; color: black "/></center>
                 </h:panelGroup>
             </h:form>
-        </p:dialog>
+        </p:dialog></center>
 
     </ui:composition>
 </html>

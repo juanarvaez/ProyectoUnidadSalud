@@ -64,10 +64,24 @@ public class MedicamentoMedController implements Serializable {
         this.items = ejbFacade.buscarMedicamentos(this.datoBusqueda.toLowerCase());
     }
     
-    public MedicamentoMed prepareCreate() {
+//    public MedicamentoMed prepareCreate() {
+//        selected = new MedicamentoMed();
+//        initializeEmbeddableKey();
+//        return selected;
+//    }
+    public void inicirObjetoMedicamento() {
         selected = new MedicamentoMed();
-        initializeEmbeddableKey();
-        return selected;
+        selected.setEstado(true);
+    }
+
+    public void seleccionarMedicamento(MedicamentoMed medicamento) {
+        this.selected = medicamento;
+        //this.tipoUsuario = ejbTipoUsuario.find(this.ejbGrupoUsuarioTipo.buscarPorNombreUsuario(usuarioSistema.getLogin()).get(0).getTipoUsuario());
+//        if(alergenoMed.getGrupoUsuarioTipoCollection().toArray().length>0){
+//            GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+//            this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+//        }
+
     }
 
     public void create() {
@@ -134,6 +148,10 @@ public class MedicamentoMedController implements Serializable {
 
     public List<MedicamentoMed> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public void inicializar() {
+        this.selected = new MedicamentoMed();
     }
 
     @FacesConverter(forClass = MedicamentoMed.class)

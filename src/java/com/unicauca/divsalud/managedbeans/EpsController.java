@@ -63,10 +63,25 @@ public class EpsController implements Serializable {
     }
     
 
-    public Eps prepareCreate() {
+   //public Eps prepareCreate() {
+//        selected = new Eps();
+//        initializeEmbeddableKey();
+//        return selected;
+//    }
+
+public void inicirObjetoEps() {
         selected = new Eps();
-        initializeEmbeddableKey();
-        return selected;
+        selected.setEstado(true);
+    }
+
+    public void seleccionarEps(Eps eps) {
+        this.selected = eps;
+        //this.tipoUsuario = ejbTipoUsuario.find(this.ejbGrupoUsuarioTipo.buscarPorNombreUsuario(usuarioSistema.getLogin()).get(0).getTipoUsuario());
+//        if(alergenoMed.getGrupoUsuarioTipoCollection().toArray().length>0){
+//            GrupoUsuarioTipo grupoUsuarioTipo = (GrupoUsuarioTipo) usuarioSistema.getGrupoUsuarioTipoCollection().toArray()[0];
+//            this.tipoUsuario = grupoUsuarioTipo.getTipoUsuario();
+//        }
+
     }
 
     public void create() {
@@ -133,6 +148,10 @@ public class EpsController implements Serializable {
 
     public List<Eps> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    public void inicializar() {
+        this.selected = new Eps();
     }
 
     @FacesConverter(forClass = Eps.class)

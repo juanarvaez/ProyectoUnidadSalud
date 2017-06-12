@@ -20,9 +20,10 @@
                         <p:menuitem value="Ver información de paciente" action="#{cargarVistaController.cargarVerPaciente()}" ajax="false"/>
                     </p:submenu>
                     
-                    <p:submenu label="Reportes">
-                        <p:menuitem value="Indice COP" action="#{cargarVistaController.cargarIndiceCOP()}" ajax="false" />
-                      </p:submenu>
+                    <p:submenu label=" Generar Reportes">
+                            <p:menuitem value="Generales" action="#{cargarVistaController.cargarReportes()}" ajax="false"/>
+                            <p:menuitem value="Top 10 diagnosticos mas comunes" action="#{cargarVistaController.cargarReportesTop10()}" ajax="false"/>
+                    </p:submenu>
                     
                 </p:menubar>
             </h:form>

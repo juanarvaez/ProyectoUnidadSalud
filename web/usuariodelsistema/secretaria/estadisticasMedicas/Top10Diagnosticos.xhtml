@@ -20,14 +20,31 @@ and open the template in the editor.
   
         <br/>
         <h:form>
-            
-           <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
-                <br/><br/><CENTER><h1> TOP 10 DIAGNOSTICOS MAS COMUNES </h1></CENTER><br/><br/>
-               
-          
-                    
-                <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.generarTop10()}" style="width:80px;height:45px;    border: 1px solid #85b2cb; color: black; background: #7DCEA0;" ajax="r"/>
+            <br/><br/><CENTER><h1> TOP 10 DIAGNOSTICOS MAS COMUNES </h1></CENTER><br/><br/>
+            <h:panelGrid  id="panel0" styleClass="panelgrid" columns="2" >
+                
+                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Desde" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechadesde" value="#{estadisticasMedController.reportesmedicos.fechadesde}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
+                    </p:column>
+                
+                                
+                    <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Hasta" />
+                        <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechahasta" value="#{estadisticasMedController.reportesmedicos.fechahasta}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
+                    </p:column>
+          </h:panelGrid>
+                    <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.generarTop10()}" style="width:150px;height:45px;    border: 1px solid #85b2cb; color: black; background: #7DCEA0;"  ajax="r"/>
 
+
+                
+                <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
             <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
                         <br/><br/><CENTER><h3>Reporte General </h3></CENTER>
@@ -39,15 +56,15 @@ and open the template in the editor.
                 </p:row>
                 <p:dataTable id="datalist0" value="#{estadisticasMedController.rGeneral}" var="item" 
                                  
-                                 paginator="true"
+                                
                                  
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                               
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
-                    <p:column headerText="Diagnostico">
-                        <h:outputText value="#{item.diagnostico}" />
+                    <p:column headerText="Diagnostico" >
+                        <h:outputText value="#{item.diagnostico}"  />
                     </p:column>
                     
                     <p:column headerText="Total">
@@ -75,10 +92,9 @@ and open the template in the editor.
                 </p:row>
                 <p:dataTable id="datalist" value="#{estadisticasMedController.rArtes}" var="item" 
                                  
-                                 paginator="true"
+                                 
                                  
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -108,10 +124,7 @@ and open the template in the editor.
                 </p:row>
                 <p:dataTable id="datalist1" value="#{estadisticasMedController.rAgrarias}" var="item" 
                                  
-                                 paginator="true"
-                                 
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
+                                rows="10"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -140,11 +153,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist2" value="#{estadisticasMedController.rSalud}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -175,11 +184,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist3" value="#{estadisticasMedController.rContable}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -208,11 +213,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist4" value="#{estadisticasMedController.rHumanas}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -241,11 +242,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist5" value="#{estadisticasMedController.rEducacion}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -274,11 +271,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist6" value="#{estadisticasMedController.rDerecho}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -307,11 +300,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist7" value="#{estadisticasMedController.rCivil}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -340,11 +329,7 @@ and open the template in the editor.
                     </p:column>
                 </p:row>
                 <p:dataTable id="datalist8" value="#{estadisticasMedController.rElectronica}" var="item" 
-                                 
-                                 paginator="true"
-                                 
                                  rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >

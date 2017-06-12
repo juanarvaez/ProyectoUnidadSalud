@@ -418,6 +418,23 @@ public class EstadisticasMedController implements Serializable {
         }
         return filtroConsultaMedicas;
     }
+    
+    public List<Diagnosticos> validarFecha(List<Diagnosticos> filtroDiagnosticos)
+    {
+    int compararfechadesde = 0;
+    int compararfechahasta = 0;
+    List<Diagnosticos> diagnosticosEntreFecha=new ArrayList<>();
+    for (int i = 0; i < filtroDiagnosticos.size(); i++) {
+                    compararfechadesde = filtroDiagnosticos.get(i).getConsultaMedicaMed().getFecha().compareTo(reportesmedicos.getFechadesde());
+                    compararfechahasta = filtroDiagnosticos.get(i).getConsultaMedicaMed().getFecha().compareTo(reportesmedicos.getFechahasta());
+                    if (compararfechadesde > 0 || compararfechadesde == 0) {
+                        if (compararfechahasta < 0 || compararfechahasta == 0) {
+                            diagnosticosEntreFecha.add(filtroDiagnosticos.get(i));
+                        }
+                    }
+    }
+    return diagnosticosEntreFecha;
+    }
 
    
     //devuelve una lista de pacientes que estan en una lista de consulta
@@ -686,7 +703,7 @@ public class EstadisticasMedController implements Serializable {
     public void generarTop10(){
 
         List<Diagnosticos> diagnosticos = ejbDiagnosticos.findAll();
-        rGeneral=OrganizarLista(listarDiagnosticos(listaDiagnosticos));
+        rGeneral=OrganizarLista(listarDiagnosticos(validarFecha(listaDiagnosticos)));
         
             for(int i=0;i<diagnosticos.size();i++)
             {
@@ -733,15 +750,16 @@ public class EstadisticasMedController implements Serializable {
              }
                //Artes
             //   System.out.println("Tamaño artes"+Artes.size());
-               rArtes=OrganizarLista(listarDiagnosticos(Artes));
-               rAgrarias=OrganizarLista(listarDiagnosticos(Agrarias));
-               rHumanas=OrganizarLista(listarDiagnosticos(Humanas));
-               rCivil=OrganizarLista(listarDiagnosticos(Civil));
-               rContable=OrganizarLista(listarDiagnosticos(Contables));
-               rDerecho=OrganizarLista(listarDiagnosticos(Derecho));
-               rEducacion=OrganizarLista(listarDiagnosticos(Educacion));
-               rElectronica=OrganizarLista(listarDiagnosticos(Electronica));
-               rSalud=OrganizarLista(listarDiagnosticos(Salud));
+            
+               rArtes=OrganizarLista(listarDiagnosticos(validarFecha(Artes)));
+               rAgrarias=OrganizarLista(listarDiagnosticos(validarFecha(Agrarias)));
+               rHumanas=OrganizarLista(listarDiagnosticos(validarFecha(Humanas)));
+               rCivil=OrganizarLista(listarDiagnosticos(validarFecha(Civil)));
+               rContable=OrganizarLista(listarDiagnosticos(validarFecha(Contables)));
+               rDerecho=OrganizarLista(listarDiagnosticos(validarFecha(Derecho)));
+               rEducacion=OrganizarLista(listarDiagnosticos(validarFecha(Educacion)));
+               rElectronica=OrganizarLista(listarDiagnosticos(validarFecha(Electronica)));
+               rSalud=OrganizarLista(listarDiagnosticos(validarFecha(Salud)));
                Artes.clear();
                Agrarias.clear();
                Humanas.clear();
@@ -849,6 +867,7 @@ public class EstadisticasMedController implements Serializable {
          return aux;
     }
 
+    
    
     
     

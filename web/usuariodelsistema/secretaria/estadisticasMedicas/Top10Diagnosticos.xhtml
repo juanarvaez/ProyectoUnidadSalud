@@ -17,19 +17,23 @@ and open the template in the editor.
     <body>
        
         
-       <CENTER><h1> TOP 10 DIAGNOSTICOS MAS COMUNES </h1></CENTER><br/>
+  
         <br/>
         <h:form>
             
            <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
                 <br/><br/><CENTER><h1> TOP 10 DIAGNOSTICOS MAS COMUNES </h1></CENTER><br/><br/>
+               
           
                     
-                <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.generarTop10()}" ajax="r"/>
+                <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.generarTop10()}" style="width:80px;height:45px;    border: 1px solid #85b2cb; color: black; background: #7DCEA0;" ajax="r"/>
 
             <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Top 10 General </h4></CENTER>
+                        <br/><br/><CENTER><h3>Reporte General </h3></CENTER>
+                        <br/><br/><h4>Este reporte especifica los 10(diez)diagnósticos más comunes
+                        encontrados en los pacientes de toda la universidad sin discriminar por facultad.
+                        </h4><br/><br/>
                         
                     </p:column>
                 </p:row>
@@ -46,7 +50,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -58,10 +64,12 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                
+                <br/><br/><h4>Los resultados mostrados a continuación muestran los 10 diagnósticos más
+                comunes por facultad.
+                </h4>
                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Artes </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Artes </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -78,7 +86,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -92,7 +102,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Ciencias Agrarias </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Ciencias Agrarias </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -110,7 +120,9 @@ and open the template in the editor.
                     </p:column>
                     
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
                     </p:column>
@@ -123,7 +135,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Ciencias de la Salud </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Ciencias de la Salud </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -140,7 +152,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -156,7 +170,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Ciencias Contables </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Ciencias Contables </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -173,7 +187,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -187,7 +203,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Ciencias Humanas </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Ciencias Humanas </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -204,7 +220,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -218,7 +236,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Educacion </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Educacion </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -235,7 +253,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -249,7 +269,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Derecho </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Derecho </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -266,7 +286,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -280,7 +302,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Ingenieria Civil </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Ingenieria Civil </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -297,7 +319,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />
@@ -311,7 +335,7 @@ and open the template in the editor.
                 
                  <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
-                        <br/><br/><CENTER><h4> Facultad de Ingenieria Electronica y Telecomunicaciones </h4></CENTER>
+                        <br/><br/><CENTER><h3> Facultad de Ingenieria Electronica y Telecomunicaciones </h3></CENTER>
                         
                     </p:column>
                 </p:row>
@@ -328,7 +352,9 @@ and open the template in the editor.
                         <h:outputText value="#{item.diagnostico}" />
                     </p:column>
                     
-                    
+                    <p:column headerText="Total">
+                        <h:outputText value="#{item.total()}" />
+                    </p:column>
                     
                     <p:column headerText="Hombres">
                         <h:outputText value="#{item.cantidadHombres}" />

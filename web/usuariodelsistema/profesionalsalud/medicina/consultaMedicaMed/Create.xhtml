@@ -76,7 +76,7 @@
             <p:tab title="Datos Acompañante">
                 <p:panel header="#{bundleAcompanianteMed.CreateAcompanianteMedTitle}">
                     <h:panelGroup id="display">
-                        <p:panelGrid columns="6" rendered="#{consultaMedicaMedController.acompaniante != null}">
+                        <h:panelGrid columns="6" rendered="#{consultaMedicaMedController.acompaniante != null}" cellpadding="5">
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_nombre}" for="nombre" />
                             <p:inputText id="nombre" value="#{consultaMedicaMedController.acompaniante.nombre}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_nombre}" required="true">
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
@@ -115,7 +115,7 @@
                             <p:message for="celular" id="nom2" class="message" />
                             
                             
-                        </p:panelGrid>
+                        </h:panelGrid>
                     </h:panelGroup>
                 </p:panel>
             </p:tab>
@@ -123,9 +123,9 @@
             
             <p:tab title="Motivo Consulta">
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_motivo}">
-                    <p:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}">
+                    <h:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}" cellpadding="5">
 
-                    <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_descripcion}" for="motivo" />
+                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_descripcion}" for="motivo" />
                         <p:inputTextarea rows="4"  cols="80" id="motivo" value="#{consultaMedicaMedController.selected.motivo}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_motivo}" >
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
@@ -136,14 +136,14 @@
                         <!--f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
                                        var="pacienteIdxItem"
                                        itemValue="#{pacienteIdxItem}"/-->
-                    </p:panelGrid>
+                    </h:panelGrid>
                 </p:panel>
             </p:tab>
             
             
             <p:tab title="Enfermedad Actual">
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_enfermedadActual}">
-                    <p:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}">
+                    <h:panelGrid columns="1" rendered="#{consultaMedicaMedController.selected != null}" cellpadding="5">
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_descripcion}" for="enfermedadActual" />
                         <p:inputTextarea rows="4" cols="80" id="enfermedadActual" value="#{consultaMedicaMedController.selected.enfermedadActual}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_enfermedadActual}" >
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
@@ -152,7 +152,7 @@
                                 <p:ajax event = "blur" update="nom4" />                              
                         </p:inputTextarea>
                         <p:message for="enfermedadActual" id="nom4" class="message" />                          
-                    </p:panelGrid>
+                    </h:panelGrid>
                 </p:panel>
             </p:tab>
                                     
@@ -250,8 +250,8 @@
                             </p:column> 
                             
                         </p:dataTable>
-                    </h:panelGrid>        
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                    </h:panelGrid>                            
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                 </p:panel>
             </p:tab>
             
@@ -481,7 +481,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="Enfermedades Patologicas"/>
                                     </f:facet>
-                                    <h:outputLabel value="#{item.nombre}" />                                
+                                    <h:outputLabel value="#{item.nombre}" />
                                 </p:column>
                                 
                                 <p:column>
@@ -496,7 +496,7 @@
                                         <h:outputText value="Estado normal"/>
                                     </f:facet>                                                                        
                                     <p:selectBooleanCheckbox label="" value="1" id="ventana" >
-                                        <p:ajax listener="#{consultaMedicaMedController.checkBoxPatologicos(item)}" />
+                                        <!--<p:ajax listener="#{consultaMedicaMedController.checkBoxPatologicos(item)}" />-->
                                         <p:overlayPanel id="ventanaPatologico" for="ventana" hideEffect="fade" dynamic="true" style="width:300px">                                    
                                             <p:column headerText="Movie" >
                                                 <h:inputTextarea id="obs" rows = "10" cols = "20">
@@ -632,9 +632,9 @@
             
             <!-- PESTAÑA PARA EL DIAGNOSTICO -->
                 <p:tab title="Diagnóstico">
-                    <p:panel header="#{bundleDiagnostico.CreateDiagnosticosTitle_diagnostico}">
+                    <p:panel header="#{bundleDiagnostico.Title}">
                         <h:panelGroup id="displayd">
-                            <p:panelGrid columns="4" rendered="#{consultaMedicaMedController.diagnosticos != null and consultaMedicaMedController.diagnosticospk != null}">
+                            <h:panelGrid columns="4" rendered="#{consultaMedicaMedController.diagnosticos != null and consultaMedicaMedController.diagnosticospk != null}" cellpadding="10">
                                 <p:outputLabel value="#{bundleEnfermedadesCie10.CreateEnfermedadesCie10MedLabel_codigo}" for="codigoCie10" />
                                 <p:selectOneMenu id="codigoCie10" value="#{consultaMedicaMedController.diagnosticospk.codigoCie10}" required="true" requiredMessage="#{bundleEnfermedadesCie10.EditEnfermedadesCie10MedLabel_codigo}">
                                     <f:selectItems value="#{enfermedadesCie10MedController.itemsAvailableSelectOne}"
@@ -650,20 +650,45 @@
                                 </p:selectOneMenu>
 
 
-                            </p:panelGrid>
+                            </h:panelGrid>
                         </h:panelGroup>
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>                        
+                    <!--<p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>                        -->
+                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                     </p:panel>
                 </p:tab>
             
             
             <!-- PESTAÑA PARA EL ANALISIS Y CONDUCTA -->
             <p:tab title="Análisis y conducta">
-                <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">                   
-                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
-                        <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />                        
-                    </p:panelGrid>                                           
+                <p:panel header="Analisis y conducta">                                                       
+                    <p:tabView>
+                        <p:tab title="Analisis">
+                            <h:panelGrid columns="1" cellpadding="10">                                                                
+                                <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_analisis}" for="resumen" />
+                                <p:inputTextarea rows="4"  cols="80" id="resumen" value="#{consultaMedicaMedController.selected.analisis}">
+                                        <f:validator validatorId="ValidarCampoObligatorio"/>
+                                        <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
+                                        <f:validator validatorId="ValidarCampoSoloLetrasNumerosGuionBajoPuntosYespacio"/>
+                                        <p:ajax event = "blur" update="analisis" />                              
+                                </p:inputTextarea>
+                                <p:message for="resumen" id="analisis" class="message" />                        
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Formulacion">
+                            <h:panelGrid columns="2" cellpadding="10">                 
+                                <h:outputText value="" />
+                                <h:outputText value="" />
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Evolucion">
+                            <h:panelGrid columns="2" cellpadding="10">                                
+                                <h:outputText value="" />
+                                <h:outputText value="" />
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
                 </p:panel>
+
             </p:tab>
                                     
         </p:wizard>

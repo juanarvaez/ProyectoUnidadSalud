@@ -1,5 +1,6 @@
 package com.unicauca.divsalud.managedbeans;
 
+import com.lowagie.text.pdf.ArabicLigaturizer;
 import com.unicauca.divsalud.entidades.AcompanianteMed;
 import com.unicauca.divsalud.entidades.AlergenoMed;
 import com.unicauca.divsalud.entidades.QuirurgicoMed;
@@ -348,8 +349,10 @@ public class ConsultaMedicaMedController implements Serializable {
             habitos.setConsumeSiNoEx(habitosAlcohol);
             habitos.setDescripcion(observacionesConsumeAlcohol);
             for (TipoHabito itemsHabito : itemsHabitos) {
-                if(itemsHabito.getNombre().equals("ALCOHOL"))
+                if(itemsHabito.getNombre().equals("ALCOHOL")){
                     habitos.setHabitosMedPK(new HabitosMedPK(itemsHabito.getId(),select.getIdx()));
+                    break;
+                }
             }            
             ejbFacadeHabitosMed.create(habitos);
             habitosAlcohol = 0;
@@ -361,8 +364,10 @@ public class ConsultaMedicaMedController implements Serializable {
             habitos.setConsumeSiNoEx(habitosTabaco);
             habitos.setDescripcion(observacionesConsumeTabaco);
             for (TipoHabito itemsHabito : itemsHabitos) {
-                if(itemsHabito.getNombre().equals("TABACO"))
+                if(itemsHabito.getNombre().equals("TABACO")){
                     habitos.setHabitosMedPK(new HabitosMedPK(itemsHabito.getId(),select.getIdx()));
+                    break;
+                }
             }            
             ejbFacadeHabitosMed.create(habitos);
             habitosTabaco = 0;
@@ -374,8 +379,10 @@ public class ConsultaMedicaMedController implements Serializable {
             habitos.setConsumeSiNoEx(habitosDeporte);
             habitos.setDescripcion(observacionesDeporte);
             for (TipoHabito itemsHabito : itemsHabitos) {
-                if(itemsHabito.getNombre().equals("DEPORTE"))
+                if(itemsHabito.getNombre().equals("DEPORTE")){
                     habitos.setHabitosMedPK(new HabitosMedPK(itemsHabito.getId(),select.getIdx()));
+                    break;
+                }
             }            
             ejbFacadeHabitosMed.create(habitos);
             habitosDeporte = 0;
@@ -677,7 +684,7 @@ public class ConsultaMedicaMedController implements Serializable {
         this.guardarAntecedentes(selected, itemsAntFamiliares);  
         this.guardarExamenFisico(selected, itemSistemasCuerpo);
         this.guardarAntecedentesPersonales(selected,itemsHabitos,itemsPatologicos);
-        cargarVista.cargarGestionarAgenda();       
+        cargarVista.cargarGestionarAgenda();
     }
     
     private void guardarAntecedentes(ConsultaMedicaMed select, List<AntFamiliaresMed> itemsAntFamiliares) {
@@ -1020,20 +1027,6 @@ public class ConsultaMedicaMedController implements Serializable {
         return listHabitosOtros;
     }
     
-    
-    
-    //PATOLOGICO
-    
-    private String preguntadoNegadoPatologico = "";
-
-    public String getPreguntadoNegadoPatologico() {
-        return preguntadoNegadoPatologico;
-    }
-
-    public void setPreguntadoNegadoPatologico(String preguntadoNegadoPatologico) {
-        this.preguntadoNegadoPatologico = preguntadoNegadoPatologico;
-    }
- 
     public void habitosAlcoholDesc(){
         System.out.println(observacionesConsumeAlcohol);        
     }
@@ -1049,6 +1042,86 @@ public class ConsultaMedicaMedController implements Serializable {
     public void habitosOtrosDesc(){
         System.out.println(nuevoHabitosOtros);
     }
+    
+    
+    //PATOLOGICO
+    
+    private String preguntadoNegadoPatologico = "";
+    private String estadoPatologico = "";
+    private List<PatologicosMed> estadoPatologicoList = new ArrayList<>();
+    List<String> textoEstadoPatologico = new ArrayList<>();
+    private boolean estadoNormalPatologico = true;
+    private List<PatologicosMed> estadoListCheck = new ArrayList<>();
+
+    public boolean isEstadoNormalPatologico() {
+        return estadoNormalPatologico;
+    }
+
+    public void setEstadoNormalPatologico(boolean estadoNormalPatologico) {
+        this.estadoNormalPatologico = estadoNormalPatologico;
+    }        
+
+    public String getEstadoPatologico() {
+        return estadoPatologico;
+    }
+
+    public void setEstadoPatologico(String estadoPatologico) {
+        this.estadoPatologico = estadoPatologico;
+    }
+
+    public List<PatologicosMed> getEstadoPatologicoList() {
+        return estadoPatologicoList;
+    }
+
+    public void setEstadoPatologicoList(List<PatologicosMed> estadoPatologicoList) {
+        this.estadoPatologicoList = estadoPatologicoList;
+    }
+
+    public List<String> getTextoEstadoPatologico() {
+        return textoEstadoPatologico;
+    }
+
+    public void setTextoEstadoPatologico(List<String> textoEstadoPatologico) {
+        this.textoEstadoPatologico = textoEstadoPatologico;
+    }
+    
+    public String getPreguntadoNegadoPatologico() {
+        return preguntadoNegadoPatologico;
+    }
+
+    public void setPreguntadoNegadoPatologico(String preguntadoNegadoPatologico) {
+        this.preguntadoNegadoPatologico = preguntadoNegadoPatologico;
+    }
+    
+    
+    
+    public void checkBoxPatologicos(PatologicosMed it){
+        System.out.println(it.toString());
+        if(estadoListCheck.contains(it))
+            estadoListCheck.remove(it);
+        else
+            estadoListCheck.add(it);
+    }
+    
+    public void recibirTextoPatologico(AjaxBehaviorEvent evt){
+        //en esta variable se almacena lo que digito el usuario
+        String texto = "" + ((UIOutput)evt.getSource()).getValue();
+        this.estadoPatologico = texto;
+        System.out.println("presiono en patologico " + texto);
+    }
+    
+    public void guardarHallazgoPatologico(PatologicosMed item){
+        System.out.println("guardanddo estado hallazgo patologico");
+        if(!estadoPatologicoList.contains(item)){
+            estadoPatologicoList.add(item);
+            textoEstadoPatologico.add(this.valorHallazgo);
+        }else{           
+            int pos = hallazgoList.indexOf(item);
+            textoEstadoPatologico.set(pos, this.valorHallazgo);
+        }        
+    }
+ 
+    
     
     
     

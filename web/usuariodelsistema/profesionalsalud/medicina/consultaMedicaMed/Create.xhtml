@@ -326,12 +326,7 @@
                             </p:dataTable>
                         </h:panelGrid>
                     </p:tab>
-                    
-                    
-                    
-                    
-                    
-                    
+                                                                                                                        
                     <!-- TAB PARA REGISTRAR ANTECEDENTES QUIRURGICOS -->
                     <p:tab title="Quirurgicos">                        
                         <h:panelGrid style="margin-bottom:10px" cellpadding="5">
@@ -373,12 +368,7 @@
                             </p:dataTable>
                         </h:panelGrid>                                                                                                
                     </p:tab>
-                    
-                    
-                    
-                    
-                    
-                    
+                                                                                                                        
                     <!-- TAB PARA REGISTRAR ANTECEDENTES - HABITOS -->                                                                                                    
                     <p:tab title="Habitos">                                                
                         <p:panelGrid columns="4" id="habitos" columnClasses="ui-grid-col-2,ui-grid-col-10" >
@@ -466,20 +456,25 @@
                                     </h:panelGroup>
                                 </h:panelGrid>
                             </p:panel>                                
-                        </p:panelGrid>     
-                        
-                        
-                        
+                        </p:panelGrid>                                                                             
                     </p:tab>
                     
+                    
+                    
+                    
+                    
+                    
+                    
                     <!-- TAB PARA REGISTRAR ANTECEDENTES PATOLOGICOS -->
-                    <p:tab title="Patologicos">                                                
+                    <p:tab title="Patologicos">       
+                        
                         <h:panelGrid style="margin-bottom:10px" cellpadding="5">
                             <p:selectOneRadio id="radioPatologicos" value="#{consultaMedicaMedController.preguntadoNegadoPatologico}">
                                 <f:selectItem itemLabel="No Preguntado" itemValue="No Preguntado" />
                                 <f:selectItem itemLabel="Negado" itemValue="Negado" />
                             </p:selectOneRadio>                            
                         </h:panelGrid>
+                        
                         <h:panelGrid style="margin-bottom:10px" cellpadding="5">
                             <p:dataTable id="tablePatologicos" value="#{patologicosMedController.items}" var="item">  
                                 <p:column>
@@ -488,33 +483,44 @@
                                     </f:facet>
                                     <h:outputLabel value="#{item.nombre}" />                                
                                 </p:column>
+                                
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Estado normal"/>
                                     </f:facet>
-                                    <p:selectBooleanCheckbox label="" value="1">
-                                        <!--<p:ajax listener="#{consultaMedicaMedController.prueba(item)}"></p:ajax>-->
-                                    </p:selectBooleanCheckbox>
-                                    <h:outputText value="Si" />
-                                    
-                                    <p:selectBooleanCheckbox label="" value="1" id="botonFisico" >
-                                        <!--<p:ajax listener="#{consultaMedicaMedController.checkBox(item)}" />-->
-                                        <p:overlayPanel id="moviePanel" for="botonFisico" hideEffect="fade" dynamic="true" style="width:300px">                                    
+                                    <p:selectBooleanCheckbox label="" value="true" />                                    
+                                    <h:outputText value="Si" />                                                                        
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Estado normal"/>
+                                    </f:facet>                                                                        
+                                    <p:selectBooleanCheckbox label="" value="1" id="ventana" >
+                                        <p:ajax listener="#{consultaMedicaMedController.checkBoxPatologicos(item)}" />
+                                        <p:overlayPanel id="ventanaPatologico" for="ventana" hideEffect="fade" dynamic="true" style="width:300px">                                    
                                             <p:column headerText="Movie" >
                                                 <h:inputTextarea id="obs" rows = "10" cols = "20">
-                                                    <!--<f:ajax listener="#{consultaMedicaMedController.recibirTextoExamenFisico}" execute="obs" event="blur"></f:ajax>
-                                                    <f:ajax listener="#{consultaMedicaMedController.guardarHallazgo(item)}" event="blur"></f:ajax>-->
-                                            </h:inputTextarea>                                        
+                                                    <!--<f:ajax listener="#{consultaMedicaMedController.recibirTextoPatologico}" execute="obs" event="keyup"></f:ajax>
+                                                    <f:ajax listener="#{consultaMedicaMedController.guardarHallazgoPatologico(item)}" event="keyup"></f:ajax>-->
+                                                </h:inputTextarea>                                        
                                             </p:column>                                  
                                         </p:overlayPanel>                                                                          
                                     </p:selectBooleanCheckbox>
                                     <h:outputText value="No" />
-                                </p:column>                                
+                                </p:column>
+                                
+                                
                             </p:dataTable>  
-                        </h:panelGrid>
-                        
+                        </h:panelGrid>        
                         
                     </p:tab>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     <!-- TAB PARA REGISTRAR ANTECEDENTES GINECOSTETRICOS -->
                     <p:tab title="Ginecostetricos">

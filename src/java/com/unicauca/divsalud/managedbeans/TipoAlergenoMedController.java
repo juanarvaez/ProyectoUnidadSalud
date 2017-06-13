@@ -56,18 +56,18 @@ public class TipoAlergenoMedController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleAlergeno").getString("TipoAlergenoMedCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleTipoAlergenoMed").getString("TipoAlergenoMedCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleAlergeno").getString("TipoAlergenoMedUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleTipoAlergenoMed").getString("TipoAlergenoMedUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleAlergeno").getString("TipoAlergenoMedDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleTipoAlergenoMed").getString("TipoAlergenoMedDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -100,11 +100,11 @@ public class TipoAlergenoMedController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleAlergeno").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleTipoAlergenoMed").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleAlergeno").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleTipoAlergenoMed").getString("PersistenceErrorOccured"));
             }
         }
     }

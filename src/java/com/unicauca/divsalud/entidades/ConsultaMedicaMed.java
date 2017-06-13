@@ -7,8 +7,10 @@ package com.unicauca.divsalud.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +21,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -41,8 +45,36 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ConsultaMedicaMed.findByImc", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.imc = :imc"),
     @NamedQuery(name = "ConsultaMedicaMed.findByTemperatura", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.temperatura = :temperatura"),
     @NamedQuery(name = "ConsultaMedicaMed.findByFrecCardiaca", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.frecCardiaca = :frecCardiaca"),
-    @NamedQuery(name = "ConsultaMedicaMed.findByFrecRespiratoria", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.frecRespiratoria = :frecRespiratoria")})
+    @NamedQuery(name = "ConsultaMedicaMed.findByFrecRespiratoria", query = "SELECT c FROM ConsultaMedicaMed c WHERE c.frecRespiratoria = :frecRespiratoria"),
+
+    @NamedQuery(name = "ConsultaMedicaMed.findByNombreTipo", query = "SELECT a FROM AlergenoMed a WHERE LOWER(a.nombre) LIKE :nombre and a.idxTipoAlergeno = ("
+            + "SELECT t FROM TipoAlergenoMed t WHERE t.nombre = :tipo)"),
+    
+    @NamedQuery(name = "ConsultaMedicaMed.findHabitoOtros", query = "SELECT DISTINCT h.descripcion FROM HabitosMed h WHERE h.habitosMedPK.idTipoHabito = ("
+            + "SELECT t.id FROM TipoHabito t WHERE t.nombre = :tipo"
+            + ") and h.descripcion LIKE :texto")
+})
 public class ConsultaMedicaMed implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMed")
+    private Collection<HistoricoGinecostetricos> historicoGinecostetricosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
+    private Collection<MedicamentoConsultaMed> medicamentoConsultaMedCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMed")
+    private Collection<ConsultaAlergenoMed> consultaAlergenoMedCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMed")
+    private Collection<Diagnosticos> diagnosticosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
+    private Collection<AntFamiliarConsultaMed> antFamiliarConsultaMedCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
+    private Collection<QuirurgicoMed> quirurgicoMedCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
+    private Collection<ConsultaSistemasCuerpoMed> consultaSistemasCuerpoMedCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMedIdx")
+    private Collection<PatologicoConsultaMed> patologicoConsultaMedCollection;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMed")
+    private Collection<HabitosMed> habitosMedCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -219,6 +251,87 @@ public class ConsultaMedicaMed implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.divsalud.entidades.ConsultaMedicaMed[ idx=" + idx + " ]";
+    }
+
+    @XmlTransient
+    public Collection<HabitosMed> getHabitosMedCollection() {
+        return habitosMedCollection;
+    }
+
+    public void setHabitosMedCollection(Collection<HabitosMed> habitosMedCollection) {
+        this.habitosMedCollection = habitosMedCollection;
+    }
+
+    @XmlTransient
+    public Collection<HistoricoGinecostetricos> getHistoricoGinecostetricosCollection() {
+        return historicoGinecostetricosCollection;
+    }
+
+    public void setHistoricoGinecostetricosCollection(Collection<HistoricoGinecostetricos> historicoGinecostetricosCollection) {
+        this.historicoGinecostetricosCollection = historicoGinecostetricosCollection;
+    }
+
+    @XmlTransient
+    public Collection<MedicamentoConsultaMed> getMedicamentoConsultaMedCollection() {
+        return medicamentoConsultaMedCollection;
+    }
+
+    public void setMedicamentoConsultaMedCollection(Collection<MedicamentoConsultaMed> medicamentoConsultaMedCollection) {
+        this.medicamentoConsultaMedCollection = medicamentoConsultaMedCollection;
+    }
+
+    @XmlTransient
+    public Collection<ConsultaAlergenoMed> getConsultaAlergenoMedCollection() {
+        return consultaAlergenoMedCollection;
+    }
+
+    public void setConsultaAlergenoMedCollection(Collection<ConsultaAlergenoMed> consultaAlergenoMedCollection) {
+        this.consultaAlergenoMedCollection = consultaAlergenoMedCollection;
+    }
+
+    @XmlTransient
+    public Collection<Diagnosticos> getDiagnosticosCollection() {
+        return diagnosticosCollection;
+    }
+
+    public void setDiagnosticosCollection(Collection<Diagnosticos> diagnosticosCollection) {
+        this.diagnosticosCollection = diagnosticosCollection;
+    }
+
+    @XmlTransient
+    public Collection<AntFamiliarConsultaMed> getAntFamiliarConsultaMedCollection() {
+        return antFamiliarConsultaMedCollection;
+    }
+
+    public void setAntFamiliarConsultaMedCollection(Collection<AntFamiliarConsultaMed> antFamiliarConsultaMedCollection) {
+        this.antFamiliarConsultaMedCollection = antFamiliarConsultaMedCollection;
+    }
+
+    @XmlTransient
+    public Collection<QuirurgicoMed> getQuirurgicoMedCollection() {
+        return quirurgicoMedCollection;
+    }
+
+    public void setQuirurgicoMedCollection(Collection<QuirurgicoMed> quirurgicoMedCollection) {
+        this.quirurgicoMedCollection = quirurgicoMedCollection;
+    }
+
+    @XmlTransient
+    public Collection<ConsultaSistemasCuerpoMed> getConsultaSistemasCuerpoMedCollection() {
+        return consultaSistemasCuerpoMedCollection;
+    }
+
+    public void setConsultaSistemasCuerpoMedCollection(Collection<ConsultaSistemasCuerpoMed> consultaSistemasCuerpoMedCollection) {
+        this.consultaSistemasCuerpoMedCollection = consultaSistemasCuerpoMedCollection;
+    }
+
+    @XmlTransient
+    public Collection<PatologicoConsultaMed> getPatologicoConsultaMedCollection() {
+        return patologicoConsultaMedCollection;
+    }
+
+    public void setPatologicoConsultaMedCollection(Collection<PatologicoConsultaMed> patologicoConsultaMedCollection) {
+        this.patologicoConsultaMedCollection = patologicoConsultaMedCollection;
     }
     
 }

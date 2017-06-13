@@ -5,10 +5,13 @@
  */
 package com.unicauca.divsalud.sessionbeans;
 
+import com.unicauca.divsalud.entidades.AlergenoMed;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +32,23 @@ public class ConsultaMedicaMedFacade extends AbstractFacade<ConsultaMedicaMed> {
         super(ConsultaMedicaMed.class);
     }
     
+    public List<AlergenoMed> buscarAlergenoEjb(String alergeno, String tipoAlergeno) {
+        System.out.println("buscando alergeno");        
+        Query query = getEntityManager().createNamedQuery("ConsultaMedicaMed.findByNombreTipo");
+        query.setParameter("nombre", "%" + alergeno + "%");
+        query.setParameter("tipo",tipoAlergeno);
+        List<AlergenoMed> resultList = query.getResultList();                        
+        System.out.println("buscando alergeno  " + resultList.toString());
+        return resultList;
+    }
+    
+    public List<String> buscarHabitoOtrosEjb(String habitoOtros) {
+        Query query = getEntityManager().createNamedQuery("ConsultaMedicaMed.findHabitoOtros");
+        query.setParameter("texto", "%" + habitoOtros + "%");
+        query.setParameter("tipo", "OTROS");
+        List<String> resultList = query.getResultList();
+        System.out.println("buscando habitos ortros  " + resultList.toString());
+        resultList.add(0,"OTROS");
+        return resultList;
+    }
 }

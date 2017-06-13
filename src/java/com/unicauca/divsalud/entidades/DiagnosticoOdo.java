@@ -35,6 +35,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 })    
 public class DiagnosticoOdo implements Serializable {
 
+    @Size(max = 8)
+    @Column(name = "DX1")
+    private String dx1;
+    @Size(max = 8)
+    @Column(name = "DX2")
+    private String dx2;
+    @Size(max = 8)
+    @Column(name = "DX3")
+    private String dx3;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "NDX1")
+    private String ndx1;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "NDX2")
+    private String ndx2;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "NDX3")
+    private String ndx3;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,6 +152,54 @@ public class DiagnosticoOdo implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.divsalud.entidades.DiagnosticoOdo[ id=" + id + " ]";
+    }
+
+    public String getDx1() {
+        return dx1;
+    }
+
+    public void setDx1(String dx1) {
+        this.dx1 = dx1;
+    }
+
+    public String getDx2() {
+        return dx2;
+    }
+
+    public void setDx2(String dx2) {
+        this.dx2 = dx2;
+    }
+
+    public String getDx3() {
+        return dx3;
+    }
+
+    public void setDx3(String dx3) {
+        this.dx3 = dx3;
+    }
+
+    public String getNdx1() {
+        return ndx1;
+    }
+
+    public void setNdx1(String ndx1) {
+        this.ndx1 = ndx1;
+    }
+
+    public String getNdx2() {
+        return ndx2;
+    }
+
+    public void setNdx2(String ndx2) {
+        this.ndx2 = ndx2;
+    }
+
+    public String getNdx3() {
+        return ndx3;
+    }
+
+    public void setNdx3(String ndx3) {
+        this.ndx3 = ndx3;
     }
     
 }

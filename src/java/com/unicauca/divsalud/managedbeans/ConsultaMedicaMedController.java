@@ -1,15 +1,27 @@
 package com.unicauca.divsalud.managedbeans;
 
 import com.unicauca.divsalud.entidades.AcompanianteMed;
+import com.unicauca.divsalud.entidades.AlergenoMed;
+import com.unicauca.divsalud.entidades.QuirurgicoMed;
+import com.unicauca.divsalud.entidades.HabitosMed;
+import com.unicauca.divsalud.entidades.PatologicosMed;
+import com.unicauca.divsalud.entidades.GinecostetricosMed;
+import com.unicauca.divsalud.entidades.HistoricoGinecostetricos;
 import com.unicauca.divsalud.entidades.AntFamiliarConsultaMed;
 import com.unicauca.divsalud.entidades.AntFamiliaresMed;
 import com.unicauca.divsalud.entidades.CitaMedicaMed;
+import com.unicauca.divsalud.entidades.ConsultaAlergenoMed;
+import com.unicauca.divsalud.entidades.ConsultaAlergenoMedPK;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
 import com.unicauca.divsalud.entidades.ConsultaSistemasCuerpoMed;
 import com.unicauca.divsalud.entidades.Diagnosticos;
 import com.unicauca.divsalud.entidades.DiagnosticosPK;
 import com.unicauca.divsalud.entidades.Paciente;
+import com.unicauca.divsalud.entidades.PatologicoConsultaMed;
+import com.unicauca.divsalud.entidades.ProcedimientosCupsMed;
+import com.unicauca.divsalud.entidades.QuirurgicoMed_;
 import com.unicauca.divsalud.entidades.SistemaCuerpoMed;
+import com.unicauca.divsalud.entidades.TipoAlergenoMed;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil;
 import com.unicauca.divsalud.managedbeans.util.JsfUtil.PersistAction;
 import com.unicauca.divsalud.sessionbeans.AcompanianteMedFacade;
@@ -48,6 +60,34 @@ public class ConsultaMedicaMedController implements Serializable {
     private com.unicauca.divsalud.sessionbeans.ConsultaSistemasCuerpoMedFacade ejbFacadeConsultaSistemasCuerpoMed;
     @EJB
     private com.unicauca.divsalud.sessionbeans.DiagnosticosFacade ejbFacadeDiagnosticos;
+    
+    //Beans facade antecedentes familiares
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.ConsultaAlergenoMedFacade ejbFacadeConsultaAlergenoMed;        
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.QuirurgicoMedFacade ejbFacadeQuirurgicoMed;
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.HabitosMedFacade ejbFacadeHabitosMed;
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.PatologicoConsultaMedFacade ejbFacadePatologicoConsultaMed;
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.GinecostetricosMedFacade ejbFacadeGinecostetricosMed;
+    @EJB
+    private com.unicauca.divsalud.sessionbeans.HistoricoGinecostetricosFacade ejbFacedeHistoricoGinecostetricosMed;
+    
+    private ConsultaAlergenoMed consultaAlergeno;
+    private QuirurgicoMed quirurgico;
+    private HabitosMed habitos;
+    private PatologicoConsultaMed patologicoConsulta;
+    private GinecostetricosMed ginecostetricos;
+    private HistoricoGinecostetricos historicoGinecostetricos;
+    
+    private AlergenoMedController alergenoCon;
+    private QuirurgicoMedController quirurgicoCon;
+    private HabitosMedController habitosCon;
+    private PatologicosMedController patologicosCon;
+    private GinecostetricosMedController ginecostetricosCon;
+    private HistoricoGinecostetricosController historicoGinecostetricosCon;
     
     /*adiciones para antFamiliares*/
     private List<AntFamiliaresMed> itemsAntFamiliares;
@@ -244,7 +284,44 @@ public class ConsultaMedicaMedController implements Serializable {
 
     public List<ConsultaMedicaMed> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }   
+
+    private void guardarAntecedentesPersonales(ConsultaMedicaMed select, List<QuirurgicoMed> itemsQuirurgicos, List<HabitosMed> itemsHabitos, List<PatologicosMed> itemsPatologicos) {
+        this.guardarAlergicos(select);
+        this.guardarQuirurgicos(select, itemsQuirurgicos);
+        this.guardarHabitos(select, itemsHabitos);
+        this.guardarPatologicos(select, itemsPatologicos);
     }
+
+    private void guardarAlergicos(ConsultaMedicaMed select) {
+        
+        if (this.alergenoSelec != null){
+            if(!this.alergenoSelec.equals("")){
+                for (UtilidadesAntecedentesPersonalesAlergicos lstAlergenos : listaAlergenos) {
+                    consultaAlergeno.setObservaciones("");
+                    //consultaAlergeno.setConsultaMedicaMed(this.selected);
+                    //consultaAlergeno.setAlergenoMed(lstAlergenos.getAlergeno());
+                    consultaAlergeno.setConsultaAlergenoMedPK(new ConsultaAlergenoMedPK(select.getIdx(),lstAlergenos.getAlergeno().getIdx()));
+                    
+                    ejbFacadeConsultaAlergenoMed.create(consultaAlergeno);
+                    consultaAlergeno = new ConsultaAlergenoMed();
+                }
+            }
+        }
+    }
+
+    private void guardarQuirurgicos(ConsultaMedicaMed select, List<QuirurgicoMed> itemsQuirurgicos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void guardarHabitos(ConsultaMedicaMed select, List<HabitosMed> itemsHabitos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void guardarPatologicos(ConsultaMedicaMed select, List<PatologicosMed> itemsPatologicos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+       
 
     @FacesConverter(forClass = ConsultaMedicaMed.class)
     public static class ConsultaMedicaMedControllerConverter implements Converter {
@@ -307,8 +384,29 @@ public class ConsultaMedicaMedController implements Serializable {
         diagnosticospk = new DiagnosticosPK();
         //diagnosticosCon.prepareCreate();
         
+        prepararObjetosAntecedentesPersonales();
+        prepararObjetosControlador_AntecedentesPersonales();
+        
         cargarVista.cargarHistoriaMedicaMed();        
     }    
+    
+    private void prepararObjetosControlador_AntecedentesPersonales() {
+        alergenoCon = new AlergenoMedController();
+        quirurgicoCon = new QuirurgicoMedController();
+        habitosCon = new HabitosMedController();
+        patologicosCon = new PatologicosMedController();
+        ginecostetricosCon = new GinecostetricosMedController();
+        historicoGinecostetricosCon = new HistoricoGinecostetricosController();      
+    }
+    
+    private void prepararObjetosAntecedentesPersonales() {
+        consultaAlergeno = new ConsultaAlergenoMed();
+        quirurgico = new QuirurgicoMed();
+        habitos = new HabitosMed();
+        patologicoConsulta = new PatologicoConsultaMed();
+        ginecostetricos = new GinecostetricosMed();
+        historicoGinecostetricos = new HistoricoGinecostetricos();                        
+    }
     
     public void prepareCreateconsultaMedicaMed(CargarVistaController cargarVista){
         selected = new ConsultaMedicaMed();
@@ -322,6 +420,10 @@ public class ConsultaMedicaMedController implements Serializable {
         antFamiliarMedCon.prepareCreate();
         
         consultaSitemasCuerpo = new ConsultaSistemasCuerpoMed();
+        
+        prepararObjetosControlador_AntecedentesPersonales();
+        prepararObjetosAntecedentesPersonales();
+        
 //        paciente = new Paciente();
 //        paciente = cita.getPacienteID();
         cargarVista.cargarHistoriaMedicaMed();        
@@ -473,7 +575,11 @@ public class ConsultaMedicaMedController implements Serializable {
         }        
     }
     
-    public void create(CargarVistaController cargarVista, List<AntFamiliaresMed> itemsAntFamiliares, List<SistemaCuerpoMed> itemSistemasCuerpo) {
+    public void create(CargarVistaController cargarVista,   List<AntFamiliaresMed> itemsAntFamiliares, 
+                                                            List<SistemaCuerpoMed> itemSistemasCuerpo,                                                            
+                                                            List<QuirurgicoMed> itemsQuirurgicos,
+                                                            List<HabitosMed> itemsHabitos,
+                                                            List<PatologicosMed> itemsPatologicos) {
         ejbFacadeAcompaniante.create(acompaniante);        
         selected.setAcompanianteMedIdx(acompaniante);
         selected.setPacienteIdx(paciente);
@@ -488,7 +594,8 @@ public class ConsultaMedicaMedController implements Serializable {
         
         ejbFacade.create(selected);
         this.guardarAntecedentes(selected, itemsAntFamiliares);  
-        this.guardarExamenFisico(selected, itemSistemasCuerpo);                
+        this.guardarExamenFisico(selected, itemSistemasCuerpo);
+        this.guardarAntecedentesPersonales(selected,itemsQuirurgicos,itemsHabitos,itemsPatologicos);
         cargarVista.cargarGestionarAgenda();       
     }
     
@@ -586,5 +693,273 @@ public class ConsultaMedicaMedController implements Serializable {
         else
             hallazgoListCheck.add(it);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //ANTECEDENTES PERSONALES
+    private String preguntadoNegado = "";
+    private String preguntadoNegadoQuirurgico = "";
+    private AlergenoMed alergenoSelec;
+    private List<AlergenoMed> alergenoItems = null;    
+    private TipoAlergenoMed tipoAlergenoSelect = null;
+    private String console = "";
+    private ProcedimientosCupsMed procedimientoSelec = null;
+    private List<UtilidadesAntecedentesPersonalesAlergicos> listaAlergenos = new ArrayList<>();
+    private List<ProcedimientosCupsMed> listaProcedimientos = new ArrayList<>();
+
+    public TipoAlergenoMed getTipoAlergenoSelect() {
+        return tipoAlergenoSelect;
+    }
+
+    public void setTipoAlergenoSelect(TipoAlergenoMed tipoAlergenoSelect) {
+        this.tipoAlergenoSelect = tipoAlergenoSelect;
+    }
+        
+    public ProcedimientosCupsMed getProcedimientoSelec() {
+        return procedimientoSelec;
+    }
+
+    public void setProcedimientoSelec(ProcedimientosCupsMed procedimientoSelec) {
+        this.procedimientoSelec = procedimientoSelec;
+    }   
+        
+    public List<ProcedimientosCupsMed> getListaProcedimientos() {
+        return listaProcedimientos;
+    }
+
+    public void setListaProcedimientos(List<ProcedimientosCupsMed> listaProcedimientos) {
+        this.listaProcedimientos = listaProcedimientos;
+    }   
+    
+    public String getPreguntadoNegadoQuirurgico() {
+        return preguntadoNegadoQuirurgico;
+    }
+
+    public void setPreguntadoNegadoQuirurgico(String preguntadoNegadoQuirurgico) {
+        this.preguntadoNegadoQuirurgico = preguntadoNegadoQuirurgico;
+    }
+
+    
+    public List<UtilidadesAntecedentesPersonalesAlergicos> getListaAlergenos() {
+        return listaAlergenos;
+    }
+
+    public void setListaAlergenos(List<UtilidadesAntecedentesPersonalesAlergicos> listaAlergenos) {
+        this.listaAlergenos = listaAlergenos;
+    }   
+    
+    public String getPreguntadoNegado() {        
+        return preguntadoNegado;
+    }
+
+    public void setPreguntadoNegado(String preguntadoNegado) {
+        this.preguntadoNegado = preguntadoNegado;
+    }         
+
+    public AlergenoMed getAlergenoSelec() {
+        return alergenoSelec;
+    }
+
+    public void setAlergenoSelec(AlergenoMed alergenoSelec) {
+        this.alergenoSelec = alergenoSelec;
+    }
+
+    public List<AlergenoMed> getAlergenoItems() {
+        return alergenoItems;
+    }
+
+    public void setAlergenoItems(List<AlergenoMed> alergenoItems) {
+        this.alergenoItems = alergenoItems;
+    }   
+    
+    //ALERGENO
+    public List<AlergenoMed> buscarAlergeno(String consulta){        
+        //this.alergenoItems = getFacade().buscarAlergenoEjb(this.alergenoSelec.toLowerCase(),this.tipoAlergenoSelect.getNombre());
+        List<String> alergeno = new ArrayList<>();        
+        if(this.tipoAlergenoSelect != null){
+                System.out.println("buscando alergeno en controlador - 2" );
+            this.alergenoItems = getFacade().buscarAlergenoEjb(consulta,this.tipoAlergenoSelect.getNombre());            
+                System.out.println("buscando alergeno en controlador 3 " + this.alergenoItems.toString());
+            for (AlergenoMed item : this.alergenoItems) {
+                alergeno.add(item.getNombre());
+            }            
+        }else{
+            //codigo para mostrar mensaje de advertencia
+        }
+        System.out.println("resultado " + alergeno.toString());
+        return alergenoItems;
+    }
+    
+    public void agregarAlergenoLista(){                
+        System.out.println(tipoAlergenoSelect.toString());
+        System.out.println("imprimiendo: " + alergenoSelec);
+        if(!alergenoSelec.equals("") && tipoAlergenoSelect != null){
+            if(!listaAlergenos.contains(new UtilidadesAntecedentesPersonalesAlergicos(tipoAlergenoSelect, alergenoSelec))){
+                System.out.println("ingresando en la lista");
+                listaAlergenos.add(new UtilidadesAntecedentesPersonalesAlergicos(tipoAlergenoSelect, alergenoSelec));
+            }            
+        }                
+    }
+    public void agregarAlergenoLista2(){        
+        System.out.println(tipoAlergenoSelect);
+        System.out.println("imprimiendo: " + alergenoSelec);
+    }
+    
+    public void eliminarAlergenoLista(UtilidadesAntecedentesPersonalesAlergicos alergeno){
+        System.out.println("eliminando " + alergeno);
+        if(listaAlergenos.contains(alergeno)){
+            listaAlergenos.remove(alergeno);
+        }
+    }
+    
+    //PROCEDIMIENTOS QUIRURGICOS
+    public void agregarProcedimientoLista(){
+        if(procedimientoSelec != null){
+            if(!listaProcedimientos.contains(procedimientoSelec)){
+                System.out.println("ingresando en la lista");
+                listaProcedimientos.add(procedimientoSelec);
+                procedimientoSelec = null;
+            }
+        }        
+    }
+    
+    public void eliminarProcedimientoLista (ProcedimientosCupsMed procedimiento){
+        System.out.println("eliminando " + procedimiento.toString());
+        if(listaProcedimientos.contains(procedimiento)){
+            listaProcedimientos.remove(procedimiento);
+        }
+    }
+    
+    
+    
+    
+    
+    //HABITOS
+    private int habitosAlcohol = 0;
+    private String observacionesConsumeAlcohol = "";
+    private int habitosTabaco = 0;
+    private String observacionesConsumeTabaco = "";
+    private int habitosDeporte = 0;
+    private String observacionesDeporte = "";
+    private int habitosOtros = 0;
+    private String nuevoHabitosOtros = "";
+
+    private String habitoOtrosSelec = "";    
+    
+
+    public String getHabitoOtrosSelec() {
+        return habitoOtrosSelec;
+    }
+
+    public void setHabitoOtrosSelec(String habitoOtrosSelec) {
+        this.habitoOtrosSelec = habitoOtrosSelec;
+    }        
+    
+    public String getObservacionesConsumeAlcohol() {
+        return observacionesConsumeAlcohol;
+    }
+
+    public void setObservacionesConsumeAlcohol(String observacionesConsumeAlcohol) {
+        this.observacionesConsumeAlcohol = observacionesConsumeAlcohol;
+    }
+
+    public int getHabitosTabaco() {
+        return habitosTabaco;
+    }
+
+    public void setHabitosTabaco(int habitosTabaco) {
+        this.habitosTabaco = habitosTabaco;
+    }
+
+    public String getObservacionesConsumeTabaco() {
+        return observacionesConsumeTabaco;
+    }
+
+    public void setObservacionesConsumeTabaco(String observacionesConsumeTabaco) {
+        this.observacionesConsumeTabaco = observacionesConsumeTabaco;
+    }
+
+    public int getHabitosDeporte() {
+        return habitosDeporte;
+    }
+
+    public void setHabitosDeporte(int habitosDeporte) {
+        this.habitosDeporte = habitosDeporte;
+    }
+
+    public String getObservacionesDeporte() {
+        return observacionesDeporte;
+    }
+
+    public void setObservacionesDeporte(String observacionesDeporte) {
+        this.observacionesDeporte = observacionesDeporte;
+    }
+
+    public int getHabitosOtros() {
+        return habitosOtros;
+    }
+
+    public void setHabitosOtros(int habitosOtros) {
+        this.habitosOtros = habitosOtros;
+    }
+
+    public String getNuevoHabitosOtros() {
+        return nuevoHabitosOtros;
+    }
+
+    public void setNuevoHabitosOtros(String nuevoHabitosOtros) {
+        this.nuevoHabitosOtros = nuevoHabitosOtros;
+    }
+       
+    public int getHabitosAlcohol() {
+        return habitosAlcohol;
+    }
+
+    public void setHabitosAlcohol(int habitosAlcohol) {
+        this.habitosAlcohol = habitosAlcohol;
+    }
+    
+    
+    public List<String> buscarHabitosOtros(String consulta){        
+        //this.alergenoItems = getFacade().buscarAlergenoEjb(this.alergenoSelec.toLowerCase());
+        List<String> habitosOtros = new ArrayList<>();        
+        //if(!this.habitoOtrosSelec.equals("")){
+            System.out.println("entro en if buscar habitos otros");
+            habitosOtros = getFacade().buscarHabitoOtrosEjb(consulta);            
+        //}
+        System.out.println("retornando: " + habitosOtros.toString());
+        return habitosOtros;
+    }
+    
+    
+    
+    //PATOLOGICO
+    
+    private String preguntadoNegadoPatologico = "";
+
+    public String getPreguntadoNegadoPatologico() {
+        return preguntadoNegadoPatologico;
+    }
+
+    public void setPreguntadoNegadoPatologico(String preguntadoNegadoPatologico) {
+        this.preguntadoNegadoPatologico = preguntadoNegadoPatologico;
+    }
+ 
+    
+    
+    
+    
+    
+    
+    //GUARDAR DATOS
     
 }

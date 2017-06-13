@@ -6,7 +6,9 @@
 package com.unicauca.divsalud.entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +18,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,6 +39,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "AlergenoMed.findByAlergeno", query = "SELECT a FROM AlergenoMed a WHERE LOWER(CONCAT(CONCAT(CONCAT(CONCAT(a.idx,' '), a.nombre),' '),a.idxTipoAlergeno.nombre,' ')) LIKE :busqueda")  
 })
 public class AlergenoMed implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "alergenoMed")
+    private Collection<ConsultaAlergenoMed> consultaAlergenoMedCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -121,6 +128,15 @@ public class AlergenoMed implements Serializable {
     public String toString() {
         return "" + nombre + "";
         //return "com.unicauca.divsalud.entidades.AlergenoMed[ idx=" + idx + " ]";
+    }
+
+    @XmlTransient
+    public Collection<ConsultaAlergenoMed> getConsultaAlergenoMedCollection() {
+        return consultaAlergenoMedCollection;
+    }
+
+    public void setConsultaAlergenoMedCollection(Collection<ConsultaAlergenoMed> consultaAlergenoMedCollection) {
+        this.consultaAlergenoMedCollection = consultaAlergenoMedCollection;
     }
     
 }

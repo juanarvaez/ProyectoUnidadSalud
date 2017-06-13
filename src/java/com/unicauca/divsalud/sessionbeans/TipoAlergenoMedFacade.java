@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Albert Muñoz
+ * @author Danilo
  */
 @Stateless
 public class TipoAlergenoMedFacade extends AbstractFacade<TipoAlergenoMed> {

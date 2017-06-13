@@ -8,16 +8,16 @@
 
     <ui:composition>
 
-        <p:dialog id="TipoAlergenoMedViewDlg" widgetVar="TipoAlergenoMedViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleAlergeno.ViewTipoAlergenoMedTitle}">
+        <p:dialog id="TipoAlergenoMedViewDlg" widgetVar="TipoAlergenoMedViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleTipoAlergenoMed.ViewTipoAlergenoMedTitle}">
             <h:form id="TipoAlergenoMedViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tipoAlergenoMedController.selected != null}">
-                        <h:outputText value="#{bundleAlergeno.ViewTipoAlergenoMedLabel_idx}"/>
-                        <h:outputText value="#{tipoAlergenoMedController.selected.idx}" title="#{bundleAlergeno.ViewTipoAlergenoMedTitle_idx}"/>
-                        <h:outputText value="#{bundleAlergeno.ViewTipoAlergenoMedLabel_nombre}"/>
-                        <h:outputText value="#{tipoAlergenoMedController.selected.nombre}" title="#{bundleAlergeno.ViewTipoAlergenoMedTitle_nombre}"/>
+                        <h:outputText value="#{bundleTipoAlergenoMed.ViewTipoAlergenoMedLabel_idx}"/>
+                        <h:outputText value="#{tipoAlergenoMedController.selected.idx}" title="#{bundleTipoAlergenoMed.ViewTipoAlergenoMedTitle_idx}"/>
+                        <h:outputText value="#{bundleTipoAlergenoMed.ViewTipoAlergenoMedLabel_nombre}"/>
+                        <h:outputText value="#{tipoAlergenoMedController.selected.nombre}" title="#{bundleTipoAlergenoMed.ViewTipoAlergenoMedTitle_nombre}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleAlergeno.Close}" onclick="TipoAlergenoMedViewDialog.hide()"/>
+                    <p:commandButton value="#{bundleTipoAlergenoMed.Close}" onclick="TipoAlergenoMedViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

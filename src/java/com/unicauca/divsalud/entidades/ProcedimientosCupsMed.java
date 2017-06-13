@@ -6,15 +6,19 @@
 package com.unicauca.divsalud.entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,6 +34,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "ProcedimientosCupsMed.findByProcedimientos", query = "SELECT p FROM ProcedimientosCupsMed p WHERE LOWER(CONCAT(CONCAT(CONCAT(p.codigo,' '), p.descripcion),' ')) LIKE :busqueda")
 })
 public class ProcedimientosCupsMed implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "procedimientosCupsMedCodigo")
+    private Collection<QuirurgicoMed> quirurgicoMedCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -105,6 +112,15 @@ public class ProcedimientosCupsMed implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.divsalud.entidades.ProcedimientosCupsMed[ codigo=" + codigo + " ]";
+    }
+
+    @XmlTransient
+    public Collection<QuirurgicoMed> getQuirurgicoMedCollection() {
+        return quirurgicoMedCollection;
+    }
+
+    public void setQuirurgicoMedCollection(Collection<QuirurgicoMed> quirurgicoMedCollection) {
+        this.quirurgicoMedCollection = quirurgicoMedCollection;
     }
     
 }

@@ -116,5 +116,41 @@
             <base-name>/BundleSistemaCuerpoMed</base-name>
             <var>bundleSistemaCuerpoMed</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleTipoAlergenoMed</base-name>
+            <var>bundleTipoAlergenoMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleTipoAlergenoMed</base-name>
+            <var>bundleTipoAlergenoMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundlePatologicosMed</base-name>
+            <var>bundlePatologicosMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleConsultaAlergenoMed</base-name>
+            <var>bundleConsultaAlergenoMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleQuirurgicoMed</base-name>
+            <var>bundleQuirurgicoMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleHabitosMed</base-name>
+            <var>bundleHabitosMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundlePatologicoConsultaMed</base-name>
+            <var>bundlePatologicoConsultaMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleGinecostetricosMed</base-name>
+            <var>bundleGinecostetricosMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleHistoricoGinecostetricosMed</base-name>
+            <var>bundleHistoricoGinecostetricosMed</var>
+        </resource-bundle>
     </application>
 </faces-config>

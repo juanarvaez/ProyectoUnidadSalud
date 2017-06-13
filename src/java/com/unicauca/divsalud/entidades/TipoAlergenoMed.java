@@ -18,18 +18,24 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Albert Muñoz
+ * @author Danilo
  */
 @Entity
 @Table(name = "tipo_alergeno_med")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoAlergenoMed.findAll", query = "SELECT t FROM TipoAlergenoMed t"),
     @NamedQuery(name = "TipoAlergenoMed.findByIdx", query = "SELECT t FROM TipoAlergenoMed t WHERE t.idx = :idx"),
     @NamedQuery(name = "TipoAlergenoMed.findByNombre", query = "SELECT t FROM TipoAlergenoMed t WHERE t.nombre = :nombre")})
 public class TipoAlergenoMed implements Serializable {
+
+    @OneToMany(mappedBy = "idxTipoAlergeno")
+    private Collection<AlergenoMed> alergenoMedCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,8 +46,6 @@ public class TipoAlergenoMed implements Serializable {
     @Size(max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
-    @OneToMany(mappedBy = "idxTipoAlergeno")
-    private Collection<AlergenoMed> alergenoMedCollection;
 
     public TipoAlergenoMed() {
     }
@@ -66,14 +70,6 @@ public class TipoAlergenoMed implements Serializable {
         this.nombre = nombre;
     }
 
-    public Collection<AlergenoMed> getAlergenoMedCollection() {
-        return alergenoMedCollection;
-    }
-
-    public void setAlergenoMedCollection(Collection<AlergenoMed> alergenoMedCollection) {
-        this.alergenoMedCollection = alergenoMedCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -96,8 +92,16 @@ public class TipoAlergenoMed implements Serializable {
 
     @Override
     public String toString() {
-        return "" + nombre + "";
-        //return "com.unicauca.divsalud.entidades.TipoAlergenoMed[ idx=" + idx + " ]";
+        return "com.unicauca.divsalud.entidades.TipoAlergenoMed[ idx=" + idx + ", nombre = " + nombre + " ] ";
+    }
+
+    @XmlTransient
+    public Collection<AlergenoMed> getAlergenoMedCollection() {
+        return alergenoMedCollection;
+    }
+
+    public void setAlergenoMedCollection(Collection<AlergenoMed> alergenoMedCollection) {
+        this.alergenoMedCollection = alergenoMedCollection;
     }
     
 }

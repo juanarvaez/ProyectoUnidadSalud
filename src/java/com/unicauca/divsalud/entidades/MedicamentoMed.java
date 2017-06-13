@@ -6,7 +6,9 @@
 package com.unicauca.divsalud.entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,9 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,6 +39,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "MedicamentoMed.findByMedicamentos", query = "SELECT m FROM MedicamentoMed m WHERE LOWER(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(CONCAT(m.codigo,' '), m.nombre),' '),m.viaIdx.nombreAdminis,' '),m.preIdx.nombrePresen,' '),m.concentracion,' ')) LIKE :busqueda")    
 })
 public class MedicamentoMed implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicamentoMedIdx")
+    private Collection<MedicamentoConsultaMed> medicamentoConsultaMedCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -143,6 +150,15 @@ public class MedicamentoMed implements Serializable {
     @Override
     public String toString() {
         return "com.unicauca.divsalud.entidades.MedicamentoMed[ codigo=" + codigo + " ]";
+    }
+
+    @XmlTransient
+    public Collection<MedicamentoConsultaMed> getMedicamentoConsultaMedCollection() {
+        return medicamentoConsultaMedCollection;
+    }
+
+    public void setMedicamentoConsultaMedCollection(Collection<MedicamentoConsultaMed> medicamentoConsultaMedCollection) {
+        this.medicamentoConsultaMedCollection = medicamentoConsultaMedCollection;
     }
     
 }

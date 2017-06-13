@@ -38,7 +38,7 @@ and open the template in the editor.
                     </p:column>
                     <p:column>
                         <p:calendar id="fechahasta" value="#{estadisticasMedController.reportesmedicos.fechahasta}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
-                        <h:message class="estadisticasMedController" for="fechahasta" />
+                        <h:message class="estadisticasMedController" for="fechahasta" style="color:red;margin:8px;"/>
                     </p:column>
           </h:panelGrid>
                     <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.generarTop10()}" style="width:150px;height:45px;    border: 1px solid #85b2cb; color: black; background: #7DCEA0;"  ajax="r"/>

@@ -708,7 +708,7 @@ public class EstadisticasMedController implements Serializable {
        Date fechaInicio=reportesmedicos.getFechadesde();
        Date fechaFin=reportesmedicos.getFechahasta();
         if(fechaInicio.compareTo(fechaFin)>0){
-                     FacesContext.getCurrentInstance().addMessage("formdiez:fechahasta", new FacesMessage(FacesMessage.SEVERITY_ERROR, "La fecha de inicio no puede ser mayor a la fecha de fin.","La fecha de inicio no puede ser mayor a la fecha de fin."));
+                     FacesContext.getCurrentInstance().addMessage("formdiez:fechahasta", new FacesMessage(FacesMessage.SEVERITY_ERROR, "La fecha Desde no puede ser mayor a la fecha Hasta.","La fecha Desde no puede ser mayor a la fecha Hasta."));
             }
         else
         {    

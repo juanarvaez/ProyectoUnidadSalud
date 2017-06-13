@@ -152,5 +152,13 @@
             <base-name>/BundleHistoricoGinecostetricosMed</base-name>
             <var>bundleHistoricoGinecostetricosMed</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleQuirurgicoMed</base-name>
+            <var>bundleQuirurgicoMed</var>
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>/BundleTipoHabito</base-name>
+            <var>bundleTipoHabito</var>
+        </resource-bundle>
     </application>
 </faces-config>

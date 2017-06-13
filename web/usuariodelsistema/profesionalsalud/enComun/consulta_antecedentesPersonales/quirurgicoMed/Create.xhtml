@@ -23,7 +23,7 @@
                                            itemValue="#{consultaMedicaMedIdxItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundleQuirurgicoMed.CreateQuirurgicoMedLabel_procedimientosCupsMedCodigo}" for="procedimientosCupsMedCodigo" />
-                        <p:selectOneMenu id="procedimientosCupsMedCodigo" value="#{quirurgicoMedController.selected.procedimientosCupsMedCodigo}" required="true" requiredMessage="#{bundleQuirurgicoMed.EditQuirurgicoMedRequiredMessage_procedimientosCupsMedCodigo}">
+                        <p:selectOneMenu id="procedimientosCupsMedCodigo" value="#{quirurgicoMedController.selected.procedimientosCupsMedCodigo}" >
                             <f:selectItems value="#{procedimientosCupsMedController.itemsAvailableSelectOne}"
                                            var="procedimientosCupsMedCodigoItem"
                                            itemValue="#{procedimientosCupsMedCodigoItem}"/>

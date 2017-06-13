@@ -46,8 +46,8 @@ public class QuirurgicoMed implements Serializable {
     @JoinColumn(name = "CONSULTA_MEDICA_MED_IDX", referencedColumnName = "IDX")
     @ManyToOne(optional = false)
     private ConsultaMedicaMed consultaMedicaMedIdx;
-    @JoinColumn(name = "PROCEDIMIENTOS_CUPS_MED_CODIGO", referencedColumnName = "CODIGO")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "procedimientos_cups_med_codigo", referencedColumnName = "CODIGO")
+    @ManyToOne
     private ProcedimientosCupsMed procedimientosCupsMedCodigo;
 
     public QuirurgicoMed() {

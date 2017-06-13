@@ -81,7 +81,7 @@
                             <p:inputText id="nombre" value="#{consultaMedicaMedController.acompaniante.nombre}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_nombre}" required="true">
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
-                                <p:ajax event = "keyup" update="nom" />                              
+                                <p:ajax event = "blur" update="nom" />                              
                             </p:inputText>
                             <p:message for="nombre" id="nom" class="message" />
                             
@@ -100,7 +100,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumerico"/>
                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>
-                                <p:ajax event = "keyup" update="nom1" />                              
+                                <p:ajax event = "blur" update="nom1" />                              
                             </p:inputText>
                             <p:message for="telefono" id="nom1" class="message" />
                             
@@ -110,7 +110,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumerico"/>
                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>                                
-                                <p:ajax event = "keyup" update="nom2" />                              
+                                <p:ajax event = "blur" update="nom2" />                              
                             </p:inputText>
                             <p:message for="celular" id="nom2" class="message" />
                             
@@ -130,7 +130,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
                                 <f:validator validatorId="ValidarCampoSoloLetrasNumerosGuionBajoPuntosYespacio"/>
-                                <p:ajax event = "keyup" update="nom3" />                              
+                                <p:ajax event = "blur" update="nom3" />                              
                         </p:inputTextarea>
                         <p:message for="motivo" id="nom3" class="message" />                        
                         <!--f:selectItems value="#{pacienteController.itemsAvailableSelectOne}"
@@ -149,7 +149,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
                                 <f:validator validatorId="ValidarCampoSoloLetrasNumerosGuionBajoPuntosYespacio"/>
-                                <p:ajax event = "keyup" update="nom4" />                              
+                                <p:ajax event = "blur" update="nom4" />                              
                         </p:inputTextarea>
                         <p:message for="enfermedadActual" id="nom4" class="message" />                          
                     </p:panelGrid>
@@ -242,8 +242,8 @@
                                 <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:300px">                                    
                                     <p:column headerText="Movie" >
                                         <h:inputTextarea id="obs" rows = "10" cols = "20">
-                                            <f:ajax listener="#{consultaMedicaMedController.recibirTexto}" execute="obs" event="keyup"></f:ajax>
-                                            <f:ajax listener="#{consultaMedicaMedController.guardarObservaciones(item)}" event="keyup"></f:ajax>                                            
+                                            <f:ajax listener="#{consultaMedicaMedController.recibirTexto}" execute="obs" event="blur"></f:ajax>
+                                            <f:ajax listener="#{consultaMedicaMedController.guardarObservaciones(item)}" event="blur"></f:ajax>                                            
                                         </h:inputTextarea>                                        
                                     </p:column>                                  
                                 </p:overlayPanel>                                                                
@@ -279,7 +279,7 @@
                         
                         <h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
                             <p:outputLabel value="Alergeno: "/>
-                            <p:selectOneMenu filter="true" id="tipoAlergeno" value="#{consultaMedicaMedController.tipoAlergenoSelect}" required="true">
+                            <p:selectOneMenu filter="true" id="tipoAlergeno" value="#{consultaMedicaMedController.tipoAlergenoSelect}">
                                 <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
                                 <f:selectItems value="#{tipoAlergenoMedController.itemsAvailableSelectOne}"
                                                var="tipoAlergenoItem"
@@ -327,6 +327,11 @@
                         </h:panelGrid>
                     </p:tab>
                     
+                    
+                    
+                    
+                    
+                    
                     <!-- TAB PARA REGISTRAR ANTECEDENTES QUIRURGICOS -->
                     <p:tab title="Quirurgicos">                        
                         <h:panelGrid style="margin-bottom:10px" cellpadding="5">
@@ -340,9 +345,7 @@
                             <p:outputLabel value="Procedimiento:  "/>                            
                             <p:selectOneMenu filter="true" 
                                              id="procedimiento" 
-                                             value="#{consultaMedicaMedController.procedimientoSelec}" 
-                                             required="true" 
-                                             requiredMessage="#{bundleProcedimientosCups.Required}">
+                                             value="#{consultaMedicaMedController.procedimientoSelec}">
                                 <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
                                 <f:selectItems value="#{procedimientosCupsMedController.itemsAvailableSelectOne}"
                                            var="procedimiento"
@@ -371,10 +374,13 @@
                         </h:panelGrid>                                                                                                
                     </p:tab>
                     
+                    
+                    
+                    
+                    
+                    
                     <!-- TAB PARA REGISTRAR ANTECEDENTES - HABITOS -->                                                                                                    
-                    <p:tab title="Habitos">
-                        
-                        
+                    <p:tab title="Habitos">                                                
                         <p:panelGrid columns="4" id="habitos" columnClasses="ui-grid-col-2,ui-grid-col-10" >
  
                             <f:facet name="header">
@@ -391,7 +397,8 @@
                                     <h:panelGroup id="contenedorAlcohol">
                                         <p:inputTextarea rows="6" autoResize="true"
                                                          value="#{consultaMedicaMedController.observacionesConsumeAlcohol}" 
-                                                         rendered="#{consultaMedicaMedController.habitosAlcohol == 1 ? true:false}">                        
+                                                         rendered="#{consultaMedicaMedController.habitosAlcohol == 1 ? true:false}">    
+                                            <f:ajax listener="#{consultaMedicaMedController.habitosAlcoholDesc()}" event="blur" />
                                         </p:inputTextarea>
                                     </h:panelGroup>
                                         
@@ -409,7 +416,8 @@
                                     <h:panelGroup id="contenedorTabaco">
                                     <p:inputTextarea rows="6" 
                                                      value="#{consultaMedicaMedController.observacionesConsumeTabaco}" 
-                                                     rendered="#{consultaMedicaMedController.habitosTabaco == 2 ? true:false}">                        
+                                                     rendered="#{consultaMedicaMedController.habitosTabaco == 2 ? true:false}">       
+                                        <f:ajax listener="#{consultaMedicaMedController.habitosTabacoDesc()}" event="blur" />
                                     </p:inputTextarea>
                                     </h:panelGroup>
                                 </h:panelGrid>
@@ -426,7 +434,8 @@
                                     <h:panelGroup id="contenedorDeporte">
                                         <p:inputTextarea rows="6" 
                                                          value="#{consultaMedicaMedController.observacionesDeporte}" 
-                                                         rendered="#{consultaMedicaMedController.habitosDeporte == 1 ? true:false}">                        
+                                                         rendered="#{consultaMedicaMedController.habitosDeporte == 1 ? true:false}"> 
+                                            <f:ajax listener="#{consultaMedicaMedController.habitosActividadFisicaDesc()}" event="blur" />
                                         </p:inputTextarea>
                                     </h:panelGroup>
                                 </h:panelGrid>
@@ -441,16 +450,18 @@
                                         <p:ajax update="contenedorOtros"/>
                                     </p:selectOneRadio>
                                     <h:panelGroup id="contenedorOtros">                                        
-                                        <p:autoComplete id="habitosOtrosComplete" placeholder="Ingrese un habito" 
+                                        <p:autoComplete id="habitosOtrosComplete" placeholder="Ingrese un nuevo habito" 
                                                         value="#{consultaMedicaMedController.habitoOtrosSelec}" 
                                                         completeMethod="#{consultaMedicaMedController.buscarHabitosOtros}" 
-                                                        rendered="#{consultaMedicaMedController.habitosOtros == 1 ? true:false}"/>                                        
-                                        <p:ajax event="click" update="contenedorHabitosOtros"/>
+                                                        rendered="#{consultaMedicaMedController.habitosOtros == 1 ? true:false}">                                        
+                                            <p:ajax event="itemSelect" update="contenedorHabitosOtros"/>
+                                        </p:autoComplete>
                                     </h:panelGroup>
                                     <h:panelGroup id="contenedorHabitosOtros">
                                         <p:inputTextarea rows="6" 
                                                          value="#{consultaMedicaMedController.nuevoHabitosOtros}" 
-                                                         rendered="#{consultaMedicaMedController.habitoOtrosSelec == 'OTROS' ? true:false}">                        
+                                                         rendered="#{consultaMedicaMedController.habitoOtrosSelec == 'OTROS' ? true:false}">    
+                                            <f:ajax listener="#{consultaMedicaMedController.habitosOtrosDesc()}" event="blur" />
                                         </p:inputTextarea>
                                     </h:panelGroup>
                                 </h:panelGrid>
@@ -514,7 +525,7 @@
                     </p:tab>
                 </p:tabView>
                 
-                <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, quirurgicoMedController.items, habitosMedController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
             </p:tab>
             
             
@@ -534,7 +545,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>                             
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
-                                <p:ajax event = "keyup" update="nom5" />                              
+                                <p:ajax event = "blur" update="nom5" />                              
                         </p:inputText>
                         <p:message for="peso" id="nom5" class="message" />                            
 
@@ -543,7 +554,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
-                                <p:ajax event = "keyup" update="nom6" />                              
+                                <p:ajax event = "blur" update="nom6" />                              
                         </p:inputText>
                         <p:message for="talla" id="nom6" class="message" />                               
                         
@@ -557,7 +568,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/>                                 
-                                <p:ajax event = "keyup" update="nom8" />                              
+                                <p:ajax event = "blur" update="nom8" />                              
                         </p:inputText>
                         <p:message for="temperatura" id="nom8" class="message" />                              
                         
@@ -566,7 +577,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>   
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
-                                <p:ajax event = "keyup" update="nom9" />                              
+                                <p:ajax event = "blur" update="nom9" />                              
                         </p:inputText>
                         <p:message for="frecCardiaca" id="nom9" class="message" />                              
                         
@@ -575,7 +586,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>  
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
-                                <p:ajax event = "keyup" update="nom10" />                              
+                                <p:ajax event = "blur" update="nom10" />                              
                         </p:inputText>
                         <p:message for="frecRespiratoria" id="nom10" class="message" />                              
                     </p:panelGrid>
@@ -598,16 +609,15 @@
                                     <p:overlayPanel id="moviePanel" for="botonFisico" hideEffect="fade" dynamic="true" style="width:300px">                                    
                                         <p:column headerText="Movie" >
                                             <h:inputTextarea id="obs" rows = "10" cols = "20">
-                                                <f:ajax listener="#{consultaMedicaMedController.recibirTextoExamenFisico}" execute="obs" event="keyup"></f:ajax>
-                                                <f:ajax listener="#{consultaMedicaMedController.guardarHallazgo(item)}" event="keyup"></f:ajax>                                                
+                                                <f:ajax listener="#{consultaMedicaMedController.recibirTextoExamenFisico}" execute="obs" event="blur"></f:ajax>
+                                                <f:ajax listener="#{consultaMedicaMedController.guardarHallazgo(item)}" event="blur"></f:ajax>                                                
                                         </h:inputTextarea>                                        
                                         </p:column>                                  
                                     </p:overlayPanel>                                                                          
                                 </p:selectBooleanCheckbox>
                                 <h:outputText value="  Hallazgo" />                                 
                             </p:column>                
-                        </p:dataTable>
-                        <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                        </p:dataTable>                        
                     </p:panelGrid>                                           
                 </p:panel>
             </p:tab>

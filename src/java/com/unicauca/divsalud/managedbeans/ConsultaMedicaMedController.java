@@ -34,6 +34,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -111,7 +112,13 @@ public class ConsultaMedicaMedController implements Serializable {
 
     private DiagnosticosController diagnosticosCon = new DiagnosticosController();
     private Diagnosticos diagnosticos;
+    private Diagnosticos diagnosticos_1;
+    private Diagnosticos diagnosticos_2;
+    private Diagnosticos diagnosticos_3;
     private DiagnosticosPK diagnosticospk;
+    private DiagnosticosPK diagnosticospk_1;
+    private DiagnosticosPK diagnosticospk_2;
+    private DiagnosticosPK diagnosticospk_3;
     
     public ConsultaMedicaMedController() {
     }
@@ -172,12 +179,60 @@ public class ConsultaMedicaMedController implements Serializable {
         this.diagnosticos = diagnosticos;
     }
 
+    public Diagnosticos getDiagnosticos_1() {
+        return diagnosticos_1;
+    }
+
+    public void setDiagnosticos_1(Diagnosticos diagnosticos_1) {
+        this.diagnosticos_1 = diagnosticos_1;
+    }
+
+    public Diagnosticos getDiagnosticos_2() {
+        return diagnosticos_2;
+    }
+
+    public void setDiagnosticos_2(Diagnosticos diagnosticos_2) {
+        this.diagnosticos_2 = diagnosticos_2;
+    }
+
+    public Diagnosticos getDiagnosticos_3() {
+        return diagnosticos_3;
+    }
+
+    public void setDiagnosticos_3(Diagnosticos diagnosticos_3) {
+        this.diagnosticos_3 = diagnosticos_3;
+    }
+
     public DiagnosticosPK getDiagnosticospk() {
         return diagnosticospk;
     }
 
     public void setDiagnosticospk(DiagnosticosPK diagnosticospk) {
         this.diagnosticospk = diagnosticospk;
+    }
+
+    public DiagnosticosPK getDiagnosticospk_1() {
+        return diagnosticospk_1;
+    }
+
+    public void setDiagnosticospk_1(DiagnosticosPK diagnosticospk_1) {
+        this.diagnosticospk_1 = diagnosticospk_1;
+    }
+
+    public DiagnosticosPK getDiagnosticospk_2() {
+        return diagnosticospk_2;
+    }
+
+    public void setDiagnosticospk_2(DiagnosticosPK diagnosticospk_2) {
+        this.diagnosticospk_2 = diagnosticospk_2;
+    }
+
+    public DiagnosticosPK getDiagnosticospk_3() {
+        return diagnosticospk_3;
+    }
+
+    public void setDiagnosticospk_3(DiagnosticosPK diagnosticospk_3) {
+        this.diagnosticospk_3 = diagnosticospk_3;
     }
 
     protected void setEmbeddableKeys() {
@@ -211,7 +266,7 @@ public class ConsultaMedicaMedController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-    
+    //NO UTILIZADO
     public void create(CargarVistaController cargarVista, List<AntFamiliaresMed> item) {
         ejbFacadeAcompaniante.create(acompaniante);        
         selected.setAcompanianteMedIdx(acompaniante);
@@ -470,7 +525,13 @@ public class ConsultaMedicaMedController implements Serializable {
         consultaSitemasCuerpo = new ConsultaSistemasCuerpoMed();   
 
         diagnosticos = new Diagnosticos();
+        diagnosticos_1 = new Diagnosticos();
+        diagnosticos_2 = new Diagnosticos();
+        diagnosticos_3 = new Diagnosticos();
         diagnosticospk = new DiagnosticosPK();
+        diagnosticospk_1 = new DiagnosticosPK();
+        diagnosticospk_2 = new DiagnosticosPK();
+        diagnosticospk_3 = new DiagnosticosPK();
         //diagnosticosCon.prepareCreate();
         
         prepararObjetosAntecedentesPersonales();
@@ -663,27 +724,54 @@ public class ConsultaMedicaMedController implements Serializable {
             textoHallazgo.set(pos, this.valorHallazgo);
         }        
     }
-    
+    //METODO DE CREACION UTILIZADO
     public void create(CargarVistaController cargarVista,   List<AntFamiliaresMed> itemsAntFamiliares, 
                                                             List<SistemaCuerpoMed> itemSistemasCuerpo,                                                            
                                                             List<TipoHabito> itemsHabitos,
                                                             List<PatologicosMed> itemsPatologicos) {
+        System.out.println("EN METODO CREAR 2");
         ejbFacadeAcompaniante.create(acompaniante);        
         selected.setAcompanianteMedIdx(acompaniante);
         selected.setPacienteIdx(paciente);
         BigDecimal imc = selected.getPeso().divide(selected.getTalla(), 1, RoundingMode.HALF_UP);
         selected.setImc(imc);
-        
+        //Fijar Fecha Consulta
+        selected.setFecha(getCurrentDate());        
         /*
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleConsultaMedicaMed").getString("ConsultaMedicaMedCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }*/
         
-        ejbFacade.create(selected);
+        selected.setIdMedico("10300000");
+//        ejbFacade.create(selected);//anterior forma de guardar
+        selected=ejbFacade.guardar(selected);//nueva forma de guardar la consulta para eliminar problemas al agregar los diagnosticos
         this.guardarAntecedentes(selected, itemsAntFamiliares);  
         this.guardarExamenFisico(selected, itemSistemasCuerpo);
         this.guardarAntecedentesPersonales(selected,itemsHabitos,itemsPatologicos);
+        
+        System.out.println("selected"+selected.getIdx()+" "+selected.getFecha());
+        
+        //Agregando diagnosticos
+        //Diagnostico principal
+        diagnosticospk.setIdxConsulta(selected.getIdx());
+        System.out.println("se fijo la consulta al diagnostico PK");
+        diagnosticos.setDiagnosticosPK(diagnosticospk);
+        System.out.println("Se fijo el diagnostico PK al diagnostico");
+        ejbFacadeDiagnosticos.create(diagnosticos);
+        System.out.println("Se creo el diagnostico");
+        //Diagnostico DX 1
+        diagnosticospk_1.setIdxConsulta(selected.getIdx());
+        diagnosticos_1.setDiagnosticosPK(diagnosticospk_1);
+        ejbFacadeDiagnosticos.create(diagnosticos_1);
+        //Diagnostico DX 2
+        diagnosticospk_2.setIdxConsulta(selected.getIdx());
+        diagnosticos_2.setDiagnosticosPK(diagnosticospk_2);
+        ejbFacadeDiagnosticos.create(diagnosticos_2);
+        //Diagnostico DX 3
+        diagnosticospk_3.setIdxConsulta(selected.getIdx());
+        diagnosticos_3.setDiagnosticosPK(diagnosticospk_3);
+        ejbFacadeDiagnosticos.create(diagnosticos_3);        
         cargarVista.cargarGestionarAgenda();
     }
     
@@ -1121,6 +1209,10 @@ public class ConsultaMedicaMedController implements Serializable {
         }        
     }
  
+    public Date getCurrentDate() {
+        Date currentDate = null;
+        return currentDate;
+    }     
     
     
     

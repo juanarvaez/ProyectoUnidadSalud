@@ -51,4 +51,10 @@ public class ConsultaMedicaMedFacade extends AbstractFacade<ConsultaMedicaMed> {
         resultList.add(0,"OTROS");
         return resultList;
     }
+    
+    public ConsultaMedicaMed guardar(ConsultaMedicaMed consultaMedica){
+        em.persist(consultaMedica);
+        em.flush();
+        return consultaMedica;
+    }    
 }

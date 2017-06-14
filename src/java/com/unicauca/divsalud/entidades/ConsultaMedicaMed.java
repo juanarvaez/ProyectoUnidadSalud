@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -55,6 +56,12 @@ import javax.xml.bind.annotation.XmlTransient;
             + ") and h.descripcion LIKE :texto")
 })
 public class ConsultaMedicaMed implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "ID_MEDICO")
+    private String idMedico;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "consultaMedicaMed")
     private Collection<HistoricoGinecostetricos> historicoGinecostetricosCollection;
@@ -332,6 +339,14 @@ public class ConsultaMedicaMed implements Serializable {
 
     public void setPatologicoConsultaMedCollection(Collection<PatologicoConsultaMed> patologicoConsultaMedCollection) {
         this.patologicoConsultaMedCollection = patologicoConsultaMedCollection;
+    }
+
+    public String getIdMedico() {
+        return idMedico;
+    }
+
+    public void setIdMedico(String idMedico) {
+        this.idMedico = idMedico;
     }
     
 }

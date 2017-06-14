@@ -51,8 +51,10 @@ import org.primefaces.model.chart.ChartSeries;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
 @Named(value = "estadisticasMedController")
@@ -431,6 +433,7 @@ public class EstadisticasMedController implements Serializable {
                         if (compararfechahasta < 0 || compararfechahasta == 0) {
                             diagnosticosEntreFecha.add(filtroDiagnosticos.get(i));
                         }
+                        
                     }
     }
     return diagnosticosEntreFecha;
@@ -702,6 +705,13 @@ public class EstadisticasMedController implements Serializable {
     
     public void generarTop10(){
 
+       Date fechaInicio=reportesmedicos.getFechadesde();
+       Date fechaFin=reportesmedicos.getFechahasta();
+        if(fechaInicio.compareTo(fechaFin)>0){
+                     FacesContext.getCurrentInstance().addMessage("formdiez:fechahasta", new FacesMessage(FacesMessage.SEVERITY_ERROR, "La fecha Desde no puede ser mayor a la fecha Hasta.","La fecha Desde no puede ser mayor a la fecha Hasta."));
+            }
+        else
+        {    
         List<Diagnosticos> diagnosticos = ejbDiagnosticos.findAll();
         rGeneral=OrganizarLista(listarDiagnosticos(validarFecha(listaDiagnosticos)));
         
@@ -769,6 +779,7 @@ public class EstadisticasMedController implements Serializable {
                Educacion.clear();
                Electronica.clear();
                Salud.clear();
+        }
 }
     
     public List<resultadoEstadistica> listarDiagnosticos(List<Diagnosticos> diagnosticos){

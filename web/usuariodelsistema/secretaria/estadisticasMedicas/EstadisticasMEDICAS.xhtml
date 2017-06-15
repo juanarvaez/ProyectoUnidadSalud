@@ -128,7 +128,7 @@ and open the template in the editor.
 
             </p:panelGrid>
 
-            <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.GenerarReporteMed()}" ajax="r"/>
+            <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.GenerarReporteMed()}" style="width:150px;height:45px;    border: 1px solid #85b2cb; color: black; background: #7DCEA0;" ajax="r"/>
 
             <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
                 <br/><br/><CENTER><h1> RESULTADO DE REPORTES GENERALES </h1></CENTER><br/><br/>
@@ -290,7 +290,7 @@ and open the template in the editor.
                         </h:commandButton>
                     </p:column>-->
                     <p:column>
-                        <p:commandButton  value="IMPRIMIR RESULTADOS" >
+                        <p:commandButton  value="IMPRIMIR RESULTADOS" style="width:150px;height:45px;    border: 1px solid #85b2cb; color: black; background: #7DCEA0;">
                             <p:printer target="panel"/>     
                         </p:commandButton>
                     </p:column>

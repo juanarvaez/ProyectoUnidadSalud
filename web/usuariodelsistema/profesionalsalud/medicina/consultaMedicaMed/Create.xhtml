@@ -524,9 +524,74 @@
                     
                     <!-- TAB PARA REGISTRAR ANTECEDENTES GINECOSTETRICOS -->
                     <p:tab title="Ginecostetricos">
-                        <h:panelGrid columns="1" cellpadding="10">
-                            <h:outputText value="columna 1" />                            
-                            <h:outputText value="columna 2" />
+                        <h:panelGrid  cellpadding="10">
+                            <p:row >
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                <p:outputLabel value="Fecha Ultima Mestruación FUM :" />
+                                <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar id="fechafum" value="#{estadisticasMedController.reportesmedicos.fechadesde}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
+                                </p:column>
+                            </p:row>
+                             <p:row >
+                                 <p:dataTable>
+                                     <p:column headerText="G">
+                                         
+                                          
+                                     </p:column>
+                                     <p:column headerText="P">
+                                         
+                                       
+                                     </p:column>
+                                     <p:column headerText="A">
+                                         
+                                          
+                                     </p:column>
+                                     <p:column headerText="C">
+                                         
+                                       
+                                     </p:column>
+                                     <p:column headerText="M">
+                                         
+                                       
+                                     </p:column>
+                                 
+                                 
+                                 </p:dataTable>
+                            </p:row>
+                    <p:row >
+                    <p:column style="font-size: 18px; font-weight:bold; color: black">
+                        <p:outputLabel value="Fecha Del Ultimo Parto:" />
+               
+                    </p:column>
+                    <p:column>
+                        <p:calendar id="fechaparto" value="#{estadisticasMedController.reportesmedicos.fechadesde}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
+                    </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:panelGrid styleClass="panelgrid" columns="3" id="panelDatos">
+                           
+                                 <p:outputLabel value="Método de Planificación: " />
+                                 <p:selectOneRadio  id="tipoplani" value="Si" valueChangeListener="#{estadisticasMedController.tipoReporteDiagnostico}" required="true" >
+                                    <f:selectItem itemLabel="Si" itemValue="No" />
+                                    <f:selectItem itemLabel="No" itemValue="Si" />    
+                                    <f:ajax execute="tipoplani" />
+                                </p:selectOneRadio>
+                                 <p:inputTextarea rows="4" cols="35"  disabled="true"/>
+                  
+                           
+                                 <p:outputLabel value="Citología: " />
+                                 <p:selectOneRadio  id="tipoRepo" value="Si" valueChangeListener="#{estadisticasMedController.tipoReporteDiagnostico}" required="true" >
+                                    <f:selectItem itemLabel="Si" itemValue="No" />
+                                    <f:selectItem itemLabel="No" itemValue="Si" />    
+                                    <f:ajax execute="tipoRepo" />
+                                </p:selectOneRadio>
+                                 <p:inputTextarea rows="4" cols="35" disabled="true"/>
+                         
+                        </p:panelGrid>
+                    </p:row>
+
                         </h:panelGrid>                        
                     </p:tab>
                 </p:tabView>

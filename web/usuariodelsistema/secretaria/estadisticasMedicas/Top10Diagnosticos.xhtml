@@ -46,7 +46,7 @@ and open the template in the editor.
 
                 
                 <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
-            <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                    <p:row >
                     <p:column>
                         <br/><br/><CENTER><h3>Reporte General </h3></CENTER>
                         <br/><br/><h4>Este reporte especifica los 10(diez) diagnósticos más comunes
@@ -60,7 +60,6 @@ and open the template in the editor.
                                 
                                  
                                  rows="10"
-                               
                                  emptyMessage="No hay diagnosticos con este criterio"
                                  widgetVar="ComisionListDialog"                                 
                                  >
@@ -85,7 +84,7 @@ and open the template in the editor.
                 <br/><br/><h4>Los resultados mostrados a continuación muestran los 10 diagnósticos más
                 comunes por facultad.
                 </h4>
-                <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row >
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Artes </h3></CENTER>
                         
@@ -117,12 +116,13 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                 <p:row>
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Ciencias Agrarias </h3></CENTER>
                         
                     </p:column>
                 </p:row>
+               
                 <p:dataTable id="datalist1" value="#{estadisticasMedController.rAgrarias}" var="item" 
                                  
                                 rows="10"
@@ -147,7 +147,7 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row> 
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Ciencias de la Salud </h3></CENTER>
                         
@@ -178,7 +178,7 @@ and open the template in the editor.
                 
                 
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row>
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Ciencias Contables </h3></CENTER>
                         
@@ -207,7 +207,7 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row>
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Ciencias Humanas </h3></CENTER>
                         
@@ -236,7 +236,7 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row> 
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Educacion </h3></CENTER>
                         
@@ -265,7 +265,7 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row> 
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Derecho </h3></CENTER>
                         
@@ -294,7 +294,7 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row> 
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Ingenieria Civil </h3></CENTER>
                         
@@ -323,7 +323,7 @@ and open the template in the editor.
                     
                 </p:dataTable>
                 
-                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
+                <p:row>
                     <p:column>
                         <br/><br/><CENTER><h3> Facultad de Ingenieria Electronica y Telecomunicaciones </h3></CENTER>
                         

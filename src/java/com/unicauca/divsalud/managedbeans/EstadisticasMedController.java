@@ -124,8 +124,15 @@ public class EstadisticasMedController implements Serializable {
     private PieChartModel modeloResultadosHombres;
     private PieChartModel modeloResultadosMujeres;
     private PieChartModel pieModel2; //nueva grafica
+    
+    private boolean banderaTabla;
+    private boolean banderaMensaje;//
 
     public EstadisticasMedController() {
+        
+        banderaTabla=false;
+        banderaMensaje=false;
+        
         //diagnosticos = new ArrayList<>();
         listaDiagnosticos = new ArrayList<>();
         listaConsultaMedicaMed = new ArrayList<>();
@@ -142,6 +149,24 @@ public class EstadisticasMedController implements Serializable {
         modeloResultadosMujeres = new PieChartModel();
         pieModel2 = new PieChartModel();
     }
+
+    public boolean isBanderaTabla() {
+        return banderaTabla;
+    }
+
+    public void setBanderaTabla(boolean banderaTabla) {
+        this.banderaTabla = banderaTabla;
+    }
+
+    public boolean isBanderaMensaje() {
+        return banderaMensaje;
+    }
+
+    public void setBanderaMensaje(boolean banderaMensaje) {
+        this.banderaMensaje = banderaMensaje;
+    }
+    
+    
 
     public List<resultadoEstadistica> getrGeneral() {
         return rGeneral;
@@ -705,6 +730,7 @@ public class EstadisticasMedController implements Serializable {
     
     public void generarTop10(){
 
+       
        Date fechaInicio=reportesmedicos.getFechadesde();
        Date fechaFin=reportesmedicos.getFechahasta();
         if(fechaInicio.compareTo(fechaFin)>0){
@@ -925,5 +951,7 @@ public class EstadisticasMedController implements Serializable {
         modeloResultadosHombres.setLegendPosition("e");
         modeloResultadosHombres.setShowDataLabels(true);
     }
+    
+   
 
 }

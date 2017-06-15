@@ -15,6 +15,9 @@ and open the template in the editor.
     </h:head>
 
     <body>
+        
+        
+
 
 
         <CENTER><h1> REPORTES ESTADISTICOS MEDICOS </h1></CENTER><br/>
@@ -128,7 +131,7 @@ and open the template in the editor.
             <p:commandButton value="GENERAR REPORTE" actionListener="#{estadisticasMedController.GenerarReporteMed()}" ajax="r"/>
 
             <h:panelGrid  id="panel" styleClass="panelgrid" columns="1" >
-                <br/><br/><CENTER><h1> RESULTADO DE REPOORTES GENERALES </h1></CENTER><br/><br/>
+                <br/><br/><CENTER><h1> RESULTADO DE REPORTES GENERALES </h1></CENTER><br/><br/>
                 <p:row>
                     <p:column style=" font-size: 18px; font-weight:bold; color: black;" colspan="4"  >
                         <p:outputLabel value="Datos de consulta: " style="font-weight:bold; color: black; font-size: 18px;" />
@@ -216,7 +219,7 @@ and open the template in the editor.
                     <!--<f:facet name="header">
                         <h:outputText value="Diagnostico general por programa"></h:outputText>
                     </f:facet>-->
-                    <p:column headerText="Diagnostico">
+                    <p:column headerText="Total">
                         <h:outputText value="#{resultadoG.diagnosticoTotal}" />
                     </p:column>
                     <p:column headerText="Hombres">
@@ -227,11 +230,7 @@ and open the template in the editor.
                     </p:column>
                 </p:dataTable>
 
-                 <!--<p:row rendered="#{estadisticasMedController.tipoReporte}">
-                    <p:column>
-                        <p:chart type="pie" widgetVar="browserChartFacultad" model="#{estadisticasMedController.modeloResultadosHombres}" style="width:250px;height:200px"  />
-                    </p:column>
-                </p:row>-->
+                 
                 <p:row rendered="#{estadisticasMedController.tipoReporte}">
                     <p:column>
                         <br/><br/><CENTER><h4> Diagnostico general por facultades </h4></CENTER>
@@ -244,7 +243,7 @@ and open the template in the editor.
                     <p:column headerText="Facultad">
                         <h:outputText value="#{resultadoF.facultad}" />
                     </p:column>
-                    <p:column headerText="Diagnostico">
+                    <p:column headerText="Total">
                         <h:outputText value="#{resultadoF.contDiagnosticoFacultad}" />
                     </p:column>
                     <p:column headerText="Hombres">
@@ -271,7 +270,7 @@ and open the template in the editor.
                     <p:column headerText="Programa">
                         <h:outputText value="#{resultadoP.programa}" />
                     </p:column>
-                    <p:column headerText="Diagnostico">
+                    <p:column headerText="Total">
                         <h:outputText value="#{resultadoP.contDiagnosticoPrograma}" />
                     </p:column>
                     <p:column headerText="Hombres">

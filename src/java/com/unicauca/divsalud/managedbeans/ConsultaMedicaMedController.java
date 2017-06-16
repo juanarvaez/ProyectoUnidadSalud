@@ -18,10 +18,11 @@ import com.unicauca.divsalud.entidades.ConsultaSistemasCuerpoMed;
 import com.unicauca.divsalud.entidades.Diagnosticos;
 import com.unicauca.divsalud.entidades.DiagnosticosPK;
 import com.unicauca.divsalud.entidades.HabitosMedPK;
+import com.unicauca.divsalud.entidades.HistoricoGinecostetricosPK;
 import com.unicauca.divsalud.entidades.Paciente;
 import com.unicauca.divsalud.entidades.PatologicoConsultaMed;
 import com.unicauca.divsalud.entidades.ProcedimientosCupsMed;
-import com.unicauca.divsalud.entidades.QuirurgicoMed_;
+import com.unicauca.divsalud.entidades.QuirurgicoMed;
 import com.unicauca.divsalud.entidades.SistemaCuerpoMed;
 import com.unicauca.divsalud.entidades.TipoAlergenoMed;
 import com.unicauca.divsalud.entidades.TipoHabito;
@@ -63,7 +64,7 @@ public class ConsultaMedicaMedController implements Serializable {
     @EJB
     private com.unicauca.divsalud.sessionbeans.ConsultaSistemasCuerpoMedFacade ejbFacadeConsultaSistemasCuerpoMed;
     @EJB
-    private com.unicauca.divsalud.sessionbeans.DiagnosticosFacade ejbFacadeDiagnosticos;
+    private com.unicauca.divsalud.sessionbeans.DiagnosticosFacade ejbFacadeDiagnosticos;    
     
     //Beans facade antecedentes familiares
     @EJB
@@ -77,7 +78,7 @@ public class ConsultaMedicaMedController implements Serializable {
     @EJB
     private com.unicauca.divsalud.sessionbeans.GinecostetricosMedFacade ejbFacadeGinecostetricosMed;
     @EJB
-    private com.unicauca.divsalud.sessionbeans.HistoricoGinecostetricosFacade ejbFacedeHistoricoGinecostetricosMed;
+    private com.unicauca.divsalud.sessionbeans.HistoricoGinecostetricosFacade ejbFacedeHistoricoGinecostetricosMed;        
     
     private ConsultaAlergenoMed consultaAlergeno;
     private QuirurgicoMed quirurgico;
@@ -349,6 +350,7 @@ public class ConsultaMedicaMedController implements Serializable {
         this.guardarQuirurgicos(select);
         this.guardarHabitos(select, itemsHabitos);
         this.guardarPatologicos(select, itemsPatologicos);
+        this.guardarGinecostetricos();
     }
 
     private void guardarAlergicos(ConsultaMedicaMed select) {                
@@ -361,7 +363,7 @@ public class ConsultaMedicaMedController implements Serializable {
         for (UtilidadesAntecedentesPersonalesAlergicos lstAlergenos : listaAlergenos) {                    
             consultaAlergeno.setObservaciones("");            
             consultaAlergeno.setConsultaAlergenoMedPK(new ConsultaAlergenoMedPK(select.getIdx(),lstAlergenos.getAlergeno().getIdx()));
-
+            
             ejbFacadeConsultaAlergenoMed.create(consultaAlergeno);
             System.out.println("antecedentes personales - alergicos almacenados satisefactoriamente");
             consultaAlergeno = new ConsultaAlergenoMed();
@@ -463,7 +465,58 @@ public class ConsultaMedicaMedController implements Serializable {
     }
 
     private void guardarPatologicos(ConsultaMedicaMed select, List<PatologicosMed> itemsPatologicos) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (PatologicosMed itemsPatologico : itemsPatologicos) {
+            patologicoConsulta.setConsultaMedicaMedIdx(selected);
+            
+            //si se escojio la opcion si
+            if(estadoPatologicoList.contains(itemsPatologico)){
+                patologicoConsulta.setEstadoSiNo(1);
+            }else
+                patologicoConsulta.setEstadoSiNo(0);
+            
+            patologicoConsulta.setDescripcion("");
+            patologicoConsulta.setPatologicosMedIdx(itemsPatologico);
+            ejbFacadePatologicoConsultaMed.create(patologicoConsulta);
+            patologicoConsulta = new PatologicoConsultaMed();
+        }        
+    }
+    
+    private void guardarGinecostetricos(){
+        
+        System.out.println("se almacenaran datos de ginescostetricos");
+        ginecostetricos.setA(Integer.parseInt(this.a));
+        ginecostetricos.setC(Integer.parseInt(this.c));
+        
+        //si se selcciono el check de citologia
+        if(citologia.equals("0"))
+            ginecostetricos.setCitologia("");
+        else
+            ginecostetricos.setCitologia(obsMetCitologia);
+        
+        ginecostetricos.setFechaUltimaMestruacion(fechaUltimaMestruacion);
+        ginecostetricos.setFechaUltimoParto(fechaUltimoParto);
+        ginecostetricos.setG(Integer.parseInt(g));
+        ginecostetricos.setM(Integer.parseInt(m));
+        
+        //si se selcciono el check de metodo de planificacion
+        if(metPlanificacion.equals("0"))
+            ginecostetricos.setMetodoPlanificacion("");
+        else
+            ginecostetricos.setMetodoPlanificacion(obsMetPlanificacion);
+        
+        ginecostetricos.setP(Integer.parseInt(p));
+        //ingresar ginecostetrico
+        ejbFacadeGinecostetricosMed.create(ginecostetricos);
+        
+        historicoGinecostetricos.setGinecostetricosMed(ginecostetricos);
+        historicoGinecostetricos.setConsultaMedicaMed(selected);
+        historicoGinecostetricos.setObservaciones("");        
+        historicoGinecostetricos.setHistoricoGinecostetricosPK(new HistoricoGinecostetricosPK(selected.getIdx(), ginecostetricos.getIdx()));
+        ejbFacedeHistoricoGinecostetricosMed.create(historicoGinecostetricos);
+        //ingresar historico ginecostetrico
+        
+        ginecostetricos = new GinecostetricosMed();
+        historicoGinecostetricos = new HistoricoGinecostetricos();                
     }
        
 
@@ -535,7 +588,7 @@ public class ConsultaMedicaMedController implements Serializable {
         //diagnosticosCon.prepareCreate();
         
         prepararObjetosAntecedentesPersonales();
-        prepararObjetosControlador_AntecedentesPersonales();
+        prepararObjetosControlador_AntecedentesPersonales();        
         
         cargarVista.cargarHistoriaMedicaMed();        
     }    
@@ -1138,8 +1191,8 @@ public class ConsultaMedicaMedController implements Serializable {
     private String estadoPatologico = "";
     private List<PatologicosMed> estadoPatologicoList = new ArrayList<>();
     List<String> textoEstadoPatologico = new ArrayList<>();
-    private boolean estadoNormalPatologico = true;
-    private List<PatologicosMed> estadoListCheck = new ArrayList<>();
+    private boolean estadoNormalPatologico = true;    
+    
 
     public boolean isEstadoNormalPatologico() {
         return estadoNormalPatologico;
@@ -1179,46 +1232,163 @@ public class ConsultaMedicaMedController implements Serializable {
 
     public void setPreguntadoNegadoPatologico(String preguntadoNegadoPatologico) {
         this.preguntadoNegadoPatologico = preguntadoNegadoPatologico;
-    }
+    }               
     
+//    public void recibirTextoPatologico(AjaxBehaviorEvent evt){
+//        //en esta variable se almacena lo que digito el usuario
+//        String texto = "" + ((UIOutput)evt.getSource()).getValue();
+//        this.estadoPatologico = texto;
+//        System.out.println("presiono en patologico " + texto);
+//    }
     
-    
-    public void checkBoxPatologicos(PatologicosMed it){
-        System.out.println(it.toString());
-        if(estadoListCheck.contains(it))
-            estadoListCheck.remove(it);
-        else
-            estadoListCheck.add(it);
-    }
-    
-    public void recibirTextoPatologico(AjaxBehaviorEvent evt){
-        //en esta variable se almacena lo que digito el usuario
-        String texto = "" + ((UIOutput)evt.getSource()).getValue();
-        this.estadoPatologico = texto;
-        System.out.println("presiono en patologico " + texto);
-    }
-    
-    public void guardarHallazgoPatologico(PatologicosMed item){
-        System.out.println("guardanddo estado hallazgo patologico");
+//    public void guardarHallazgoPatologico(PatologicosMed item){
+//        System.out.println("guardanddo estado hallazgo patologico");
+//        if(!estadoPatologicoList.contains(item)){
+//            estadoPatologicoList.add(item);
+//            textoEstadoPatologico.add(this.valorHallazgo);
+//        }else{           
+//            int pos = hallazgoList.indexOf(item);
+//            textoEstadoPatologico.set(pos, this.valorHallazgo);
+//        }        
+//    }        
+            
+    public void cambioRadioPatologico(PatologicosMed item){
+        System.out.println("cambio el radio button de patologico " + estadoPatologico );
+        System.out.println(item.toString());
         if(!estadoPatologicoList.contains(item)){
-            estadoPatologicoList.add(item);
-            textoEstadoPatologico.add(this.valorHallazgo);
+            estadoPatologicoList.add(item);            
         }else{           
-            int pos = hallazgoList.indexOf(item);
-            textoEstadoPatologico.set(pos, this.valorHallazgo);
-        }        
+            estadoPatologicoList.remove(item);
+        }                   
+            
+        System.out.println(estadoPatologicoList.toString());
     }
- 
-    public Date getCurrentDate() {
-        Date currentDate = null;
-        return currentDate;
-    }     
+                
+    
+    
+                    
+    //Antecedentes ginecostetricos
+    private Date fechaUltimaMestruacion;
+    private String g = "";
+    private String p = "";
+    private String a = "";
+    private String c = "";
+    private String m = "";
+    private Date fechaUltimoParto;        
+    private String metPlanificacion = "";
+    private String obsMetPlanificacion = "";
+    private String obsMetCitologia = "";
+    private String citologia = "";        
+
+    public String getG() {
+        return g;
+    }
+
+    public void setG(String g) {
+        this.g = g;
+    }
+
+    public String getP() {
+        return p;
+    }
+
+    public void setP(String p) {
+        this.p = p;
+    }
+
+    public String getA() {
+        return a;
+    }
+
+    public void mostrar(){
+        System.out.println("mostrando datos de ginecostetricos");
+        System.out.println(fechaUltimaMestruacion.toString());
+        System.out.println(g);
+        System.out.println(p);
+        System.out.println(a);
+        System.out.println(c);
+        System.out.println(m);                                
+        System.out.println(fechaUltimoParto.toString());
+        System.out.println(metPlanificacion);
+        System.out.println(citologia);
+        
+    }
+    public void setA(String a) {
+        this.a = a;
+    }
+
+    public String getC() {
+        return c;
+    }
+
+    public void setC(String c) {
+        this.c = c;
+    }
+
+    public String getM() {
+        return m;
+    }
+
+    public void setM(String m) {
+        this.m = m;
+    }
+
+    public Date getFechaUltimoParto() {
+        return fechaUltimoParto;
+    }
+
+    public void setFechaUltimoParto(Date fechaUltimoParto) {
+        this.fechaUltimoParto = fechaUltimoParto;
+    }
+
+    public String getObsMetPlanificacion() {
+        return obsMetPlanificacion;
+    }
+
+    public void setObsMetPlanificacion(String obsMetPlanificacion) {
+        this.obsMetPlanificacion = obsMetPlanificacion;
+    }
+
+    public String getObsMetCitologia() {
+        return obsMetCitologia;
+    }
+
+    public void setObsMetCitologia(String obsMetCitologia) {
+        this.obsMetCitologia = obsMetCitologia;
+    }
+
+    public String getCitologia() {
+        return citologia;
+    }
+
+    public void setCitologia(String citologia) {
+        this.citologia = citologia;
+    }
+
+    public String getMetPlanificacion() {
+        return metPlanificacion;
+    }
+
+    public void setMetPlanificacion(String metPlanificacion) {
+        this.metPlanificacion = metPlanificacion;
+    }
+
+    public Date getFechaUltimaMestruacion() {
+        return fechaUltimaMestruacion;
+    }
+
+    public void setFechaUltimaMestruacion(Date fechaUltimaMestruacion) {
+        this.fechaUltimaMestruacion = fechaUltimaMestruacion;
+    }
+
     
     
     
     
     
+    public Date getCurrentDate() {        
+        return new Date();
+    }              
     
-    //GUARDAR DATOS
     
 }

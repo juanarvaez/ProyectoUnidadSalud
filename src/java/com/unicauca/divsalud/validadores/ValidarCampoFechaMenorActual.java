@@ -17,8 +17,8 @@ import javax.faces.validator.ValidatorException;
  *
  * @author geovanny
  */
-@FacesValidator(value="ValidarCampoFechaNacimiento")
-public class ValidarCampoFechaNacimiento implements Validator
+@FacesValidator(value="ValidarCampoFechaActual")
+public class ValidarCampoFechaMenorActual implements Validator
 {
 
     @Override
@@ -26,7 +26,7 @@ public class ValidarCampoFechaNacimiento implements Validator
          Date fecha= (Date)value;
          if(!validarFechaNacimiento(fecha))
          {
-            FacesMessage msg= new FacesMessage(FacesMessage.SEVERITY_ERROR,"Campo fecha de nacimiento no puede ser mayor a la fecha actual.","Campo fecha de nacimiento no puede ser mayor a la fecha actual.");
+            FacesMessage msg= new FacesMessage(FacesMessage.SEVERITY_ERROR,"Campo fecha no puede ser mayor a la fecha actual.","Campo fecha no puede ser mayor a la fecha actual.");
             throw new ValidatorException(msg);
          }
     }

@@ -279,7 +279,7 @@
                         
                         <h:panelGrid columns="4" style="margin-bottom:10px" cellpadding="5">
                             <p:outputLabel value="Alergeno: "/>
-                            <p:selectOneMenu filter="true" id="tipoAlergeno" value="#{consultaMedicaMedController.tipoAlergenoSelect}">
+                            <p:selectOneMenu filter="true" id="tipoAlergeno" value="#{consultaMedicaMedController.tipoAlergenoSelect}" >
                                 <f:selectItem itemLabel="Seleccione..." itemValue="0"/>
                                 <f:selectItems value="#{tipoAlergenoMedController.itemsAvailableSelectOne}"
                                                var="tipoAlergenoItem"
@@ -403,12 +403,12 @@
                                         <f:selectItem itemLabel="Exfumador" itemValue="2" />
                                         <p:ajax update="contenedorTabaco"/>
                                     </p:selectOneRadio>
-                                    <h:panelGroup id="contenedorTabaco">
-                                    <p:inputTextarea rows="6" 
-                                                     value="#{consultaMedicaMedController.observacionesConsumeTabaco}" 
-                                                     rendered="#{consultaMedicaMedController.habitosTabaco == 2 ? true:false}">       
-                                        <f:ajax listener="#{consultaMedicaMedController.habitosTabacoDesc()}" event="blur" />
-                                    </p:inputTextarea>
+                                    <h:panelGroup id="contenedorTabaco">    
+                                        <p:inputTextarea rows="6" 
+                                                         value="#{consultaMedicaMedController.observacionesConsumeTabaco}" 
+                                                         rendered="#{consultaMedicaMedController.habitosTabaco == 2 ? true:false}">       
+                                            <f:ajax listener="#{consultaMedicaMedController.habitosTabacoDesc()}" event="blur" />
+                                        </p:inputTextarea>
                                     </h:panelGroup>
                                 </h:panelGrid>
                             </p:panel>
@@ -476,51 +476,30 @@
                         </h:panelGrid>
                         
                         <h:panelGrid style="margin-bottom:10px" cellpadding="5">
-                            <p:dataTable id="tablePatologicos" value="#{patologicosMedController.items}" var="item">  
+                            <p:dataTable id="tablePatologicos" value="#{patologicosMedController.items}" var="item">                                  
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Enfermedades Patologicas"/>
                                     </f:facet>
                                     <h:outputLabel value="#{item.nombre}" />
                                 </p:column>
-                                
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="Estado normal"/>
                                     </f:facet>
-                                    <p:selectBooleanCheckbox label="" value="true" />                                    
-                                    <h:outputText value="Si" />                                                                        
-                                </p:column>
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Estado normal"/>
-                                    </f:facet>                                                                        
-                                    <p:selectBooleanCheckbox label="" value="1" id="ventana" >
-                                        <!--<p:ajax listener="#{consultaMedicaMedController.checkBoxPatologicos(item)}" />-->
-                                        <p:overlayPanel id="ventanaPatologico" for="ventana" hideEffect="fade" dynamic="true" style="width:300px">                                    
-                                            <p:column headerText="Movie" >
-                                                <h:inputTextarea id="obs" rows = "10" cols = "20">
-                                                    <!--<f:ajax listener="#{consultaMedicaMedController.recibirTextoPatologico}" execute="obs" event="keyup"></f:ajax>
-                                                    <f:ajax listener="#{consultaMedicaMedController.guardarHallazgoPatologico(item)}" event="keyup"></f:ajax>-->
-                                                </h:inputTextarea>                                        
-                                            </p:column>                                  
-                                        </p:overlayPanel>                                                                          
-                                    </p:selectBooleanCheckbox>
-                                    <h:outputText value="No" />
-                                </p:column>
-                                
-                                
+                                    <p:selectOneRadio id="radioPatologico" value="#{consultaMedicaMedController.estadoPatologico}">                                        
+                                        <f:selectItem itemLabel="No" itemValue="0" /> 
+                                        <f:selectItem itemLabel="Si" itemValue="1" id="pat"/>
+                                        <p:ajax listener="#{consultaMedicaMedController.cambioRadioPatologico(item)}"/>
+                                    </p:selectOneRadio>
+                                </p:column>                                                                                                
                             </p:dataTable>  
                         </h:panelGrid>        
                         
                     </p:tab>
                     
                     
-                    
-                    
-                    
-                    
-                    
+                         
                     
                     <!-- TAB PARA REGISTRAR ANTECEDENTES GINECOSTETRICOS -->
                     <p:tab title="Ginecostetricos">
@@ -531,69 +510,100 @@
                                 <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar id="fechafum" value="#{estadisticasMedController.reportesmedicos.fechadesde}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
+                                    <p:calendar id="fechafum" value="#{consultaMedicaMedController.fechaUltimaMestruacion}" showOn="button"/>
+                                     <!--   <f:validator validatorId="ValidarCampoFechaMenorActual"/>
+                                        <p:ajax event = "blur" update="validatefechaMestruacion" />                              
+                                    </p:calendar>
+                                    <p:message for="enfermedadActual" id="validatefechaMestruacion" class="message" />-->                                                            
+                        
                                 </p:column>
                             </p:row>
-                             <p:row >
-                                 <p:dataTable>
-                                     <p:column headerText="G">
-                                         
-                                          
-                                     </p:column>
-                                     <p:column headerText="P">
-                                         
-                                       
-                                     </p:column>
-                                     <p:column headerText="A">
-                                         
-                                          
-                                     </p:column>
-                                     <p:column headerText="C">
-                                         
-                                       
-                                     </p:column>
-                                     <p:column headerText="M">
-                                         
-                                       
-                                     </p:column>
-                                 
-                                 
-                                 </p:dataTable>
-                            </p:row>
-                    <p:row >
-                    <p:column style="font-size: 18px; font-weight:bold; color: black">
-                        <p:outputLabel value="Fecha Del Ultimo Parto:" />
-               
-                    </p:column>
-                    <p:column>
-                        <p:calendar id="fechaparto" value="#{estadisticasMedController.reportesmedicos.fechadesde}" placeholder="dd-mm-aaaa" pattern="dd-MM-yyyy" showOn="button"/>
-                    </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:panelGrid styleClass="panelgrid" columns="3" id="panelDatos">
-                           
-                                 <p:outputLabel value="Método de Planificación: " />
-                                 <p:selectOneRadio  id="tipoplani" value="Si" valueChangeListener="#{estadisticasMedController.tipoReporteDiagnostico}" required="true" >
-                                    <f:selectItem itemLabel="Si" itemValue="No" />
-                                    <f:selectItem itemLabel="No" itemValue="Si" />    
-                                    <f:ajax execute="tipoplani" />
-                                </p:selectOneRadio>
-                                 <p:inputTextarea rows="4" cols="35"  disabled="true"/>
-                  
-                           
-                                 <p:outputLabel value="Citología: " />
-                                 <p:selectOneRadio  id="tipoRepo" value="Si" valueChangeListener="#{estadisticasMedController.tipoReporteDiagnostico}" required="true" >
-                                    <f:selectItem itemLabel="Si" itemValue="No" />
-                                    <f:selectItem itemLabel="No" itemValue="Si" />    
-                                    <f:ajax execute="tipoRepo" />
-                                </p:selectOneRadio>
-                                 <p:inputTextarea rows="4" cols="35" disabled="true"/>
-                         
-                        </p:panelGrid>
-                    </p:row>
+                            <p:row >
+                                <h3>Grouping</h3>
+                                <p:panelGrid style="margin-top:20px">
+                                    <f:facet name="header">        
+                                        <p:row>
+                                            <p:column>G</p:column>
+                                            <p:column>P</p:column>
+                                            <p:column>A</p:column>
+                                            <p:column>C</p:column>
+                                            <p:column>M</p:column>
+                                        </p:row>
+                                    </f:facet>
 
+                                    <p:row>
+                                        <p:column>
+                                            <p:inputText id="g" 
+                                                 value="#{consultaMedicaMedController.g}" 
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_g}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="p" 
+                                                 value="#{consultaMedicaMedController.p}" 
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_p}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="a" 
+                                                 value="#{consultaMedicaMedController.a}" 
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_a}"/>
+                                        </p:column>
+                                        <p:column><p:inputText id="c" 
+                                                 value="#{consultaMedicaMedController.c}" 
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_c}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText id="m" 
+                                                 value="#{consultaMedicaMedController.m}" 
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_m}">                                                
+                                            </p:inputText>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>                                
+                            </p:row>                                                                                                                
+                            
+                            <p:row >
+                                <p:column style="font-size: 18px; font-weight:bold; color: black">
+                                    <p:outputLabel value="Fecha Del Ultimo Parto: " />
+                                </p:column>
+                                <p:column>
+                                    <p:calendar id="fechaparto" value="#{consultaMedicaMedController.fechaUltimoParto}" showOn="button"/>
+                                </p:column>
+                            </p:row>                    
+                            <p:row>
+                                <p:panelGrid styleClass="panelgrid" columns="3" id="panelDatos">                           
+                                    <p:outputLabel value="Método de Planificación: " />                                                                                                     
+                                    <p:selectOneRadio id="metPlanificacion" value="#{consultaMedicaMedController.metPlanificacion}">
+                                        <f:selectItem itemLabel="No" itemValue="0" />
+                                        <f:selectItem itemLabel="Si" itemValue="1" />
+                                        <p:ajax update="contenedorPlanificacion"/>
+                                    </p:selectOneRadio>                                                                
+                                    <h:panelGroup id="contenedorPlanificacion">
+                                        <p:inputTextarea rows="6" cols="40" autoResize="true"
+                                                         value="#{consultaMedicaMedController.obsMetPlanificacion}" 
+                                                         rendered="#{consultaMedicaMedController.metPlanificacion == 1 ? true:false}">                                        
+                                        </p:inputTextarea>
+                                    </h:panelGroup>
+
+                                    <p:outputLabel value="Citología: " />                                                                                                     
+                                    <p:selectOneRadio id="citologia" value="#{consultaMedicaMedController.citologia}">
+                                        <f:selectItem itemLabel="No" itemValue="0" />
+                                        <f:selectItem itemLabel="Si" itemValue="1" />
+                                        <p:ajax update="contenedorCitologia"/>
+                                    </p:selectOneRadio>                                                                
+                                    <h:panelGroup id="contenedorCitologia">
+                                        <p:inputTextarea rows="6" cols="40" autoResize="true"
+                                                         value="#{consultaMedicaMedController.obsMetCitologia}" 
+                                                         rendered="#{consultaMedicaMedController.citologia == 1 ? true:false}">                                        
+                                        </p:inputTextarea>
+                                    </h:panelGroup>                                                                                          
+                                </p:panelGrid>
+                            </p:row>
                         </h:panelGrid>                        
                     </p:tab>
+                    
+                    
+                    
+               
                 </p:tabView>
                 
                 <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>

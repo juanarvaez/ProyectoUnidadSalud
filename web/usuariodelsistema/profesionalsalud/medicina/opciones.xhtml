@@ -23,10 +23,8 @@
                     <h1>#{usuarioSessionController.actual.nombres} </h1> 
                     <p>Esta es la información que puedes gestionar: </p>
                     <h:form> 
-                    <div class="row">
-                        <div class="col-sm-3">
-                        </div>
-                      <div class="col-sm-3">
+                    <div class="row">                        
+                      <div class="col-sm-4">
                             <p:commandLink  actionListener="#{cargarVistaController.cargarGestionarAgenda()}" ajax="false">
                                 <div id="service" class="panel panel-primary">
                                       <i class="fa fa-address-card fa-5x"></i> 
@@ -34,17 +32,15 @@
                                 </div>
                             </p:commandLink>
                       </div>
-                      <div class="col-sm-3">
+                      <div class="col-sm-4">
                           <p:commandLink  actionListener="#{consultaMedicaMedController.prepareCreateconsultaMedicaMed(cargarVistaController)}" ajax="false">
                             <div id="service" class="panel panel-primary">
                               <i class="fa fa-heartbeat fa-5x"></i> 
                               <p>Historias</p>
                             </div>
                           </p:commandLink>
-                      </div>
-                        <div class="col-sm-3">
-                        </div>
-                        <div class="col-sm-3">
+                      </div>                        
+                        <div class="col-sm-4">
                           <p:commandLink  actionListener="#{cargarVistaController.cargarReportes()}" ajax="false">
                           <div id="service" class="panel panel-primary">
                             <i class="fa fa-file-pdf-o fa-5x"></i> 

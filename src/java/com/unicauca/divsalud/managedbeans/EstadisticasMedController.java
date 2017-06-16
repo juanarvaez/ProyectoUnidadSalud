@@ -432,7 +432,7 @@ public class EstadisticasMedController implements Serializable {
             for (int j = 0; j < listaConsultaMedicaMed.size(); j++) {
                 int idConsultaMedicadeDiagnostico = filtroDiagnosticos.get(i).getDiagnosticosPK().getIdxConsulta();
                 int idConsultaMedica = listaConsultaMedicaMed.get(j).getIdx();
-                if (idConsultaMedicadeDiagnostico == idConsultaMedicadeDiagnostico) {
+                if (idConsultaMedicadeDiagnostico == idConsultaMedica) {
                     compararfechadesde = listaConsultaMedicaMed.get(j).getFecha().compareTo(reportesmedicos.getFechadesde());
                     compararfechahasta = listaConsultaMedicaMed.get(j).getFecha().compareTo(reportesmedicos.getFechahasta());
                     if (compararfechadesde > 0 || compararfechadesde == 0) {
@@ -463,16 +463,51 @@ public class EstadisticasMedController implements Serializable {
     }
     return diagnosticosEntreFecha;
     }
+    //devuelve una lista de consultas sin repetir pacientes con el mismo diagnostico
+    public List<ConsultaMedicaMed> EliminarDuplicados(List<ConsultaMedicaMed> filtroConsultas)
+    {
+        int bandera=0;
+        int idPacienteEnConsulta=0;
+        int idPacienteNoRepetido=0;
+        List<ConsultaMedicaMed> lista2 = new ArrayList<>();
+        lista2.add(filtroConsultas.get(0));
+        
+        for(int i=1;i<filtroConsultas.size();i++)
+        {
+            bandera=0;
+            for(int j=0;j<lista2.size();j++)
+            {
+                idPacienteEnConsulta=filtroConsultas.get(i).getPacienteIdx().getId();
+                idPacienteNoRepetido=lista2.get(j).getPacienteIdx().getId();
+                if(idPacienteEnConsulta==idPacienteNoRepetido)
+                {
+                    bandera=1;
+                    j=lista2.size();
+                }
+            }
+            if(bandera==0)
+            {
+                lista2.add(filtroConsultas.get(i));
+            }
+            
+        }
+        return lista2;
+    }
+            
 
    
     //devuelve una lista de pacientes que estan en una lista de consulta
     public List<Paciente> filtroPaciente(List<ConsultaMedicaMed> filtroConsultas) {
 
         List<Paciente> filtroPacientes = new ArrayList<>();
+        List<ConsultaMedicaMed> auxiliar = new ArrayList<>();
+        auxiliar = EliminarDuplicados(filtroConsultas);
 
-        for (int i = 0; i < filtroConsultas.size(); i++) {
+
+        for (int i = 0; i < auxiliar.size(); i++) {
             for (int j = 0; j < listaPaciente.size(); j++) {
-                if (filtroConsultas.get(i).getPacienteIdx().getId() == listaPaciente.get(j).getId()) {
+                System.out.println("pacientes en consulta" + auxiliar.get(i).getPacienteIdx().getId());
+                if (auxiliar.get(i).getPacienteIdx().getId() == listaPaciente.get(j).getId()) {
                     filtroPacientes.add(listaPaciente.get(j));
                 }
             }
@@ -700,6 +735,13 @@ public class EstadisticasMedController implements Serializable {
         List<Paciente> filtroPaciente = new ArrayList<>();
         List<Facultad> filtroFacultades = new ArrayList<>();
         List<Programas> filtroProgramas = new ArrayList<>();
+        
+        filtroDiagnosticos.clear();
+        filtroConsultaMedicaMed.clear();
+        filtroPaciente.clear(); 
+        filtroFacultades.clear();
+        filtroProgramas.clear();
+                
         filtroDiagnosticos = this.diagnosticoElegido();
         filtroConsultaMedicaMed = this.filtroConsultaMedica(filtroDiagnosticos);
         filtroPaciente = this.filtroPaciente(filtroConsultaMedicaMed);

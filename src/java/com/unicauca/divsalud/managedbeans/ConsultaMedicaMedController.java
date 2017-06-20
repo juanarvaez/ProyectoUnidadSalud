@@ -14,6 +14,7 @@ import com.unicauca.divsalud.entidades.CitaMedicaMed;
 import com.unicauca.divsalud.entidades.ConsultaAlergenoMed;
 import com.unicauca.divsalud.entidades.ConsultaAlergenoMedPK;
 import com.unicauca.divsalud.entidades.ConsultaMedicaMed;
+import com.unicauca.divsalud.entidades.ConsultaMedicaMed_;
 import com.unicauca.divsalud.entidades.ConsultaSistemasCuerpoMed;
 import com.unicauca.divsalud.entidades.Diagnosticos;
 import com.unicauca.divsalud.entidades.DiagnosticosPK;
@@ -1391,4 +1392,15 @@ public class ConsultaMedicaMedController implements Serializable {
     }              
     
     
+    
+    
+    //BigDecimal imc = selected.getPeso().divide(selected.getTalla(), 1, RoundingMode.HALF_UP);
+    
+    public void atualizarImc(){
+        if (selected.getPeso() != null){
+            if(selected.getTalla() != null){
+                selected.setImc(selected.getPeso().divide(selected.getTalla(), 1, RoundingMode.HALF_UP));
+            }
+        }
+    }
 }

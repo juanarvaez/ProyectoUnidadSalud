@@ -78,8 +78,7 @@
                     <h:panelGroup id="display">
                         <h:panelGrid columns="6" rendered="#{consultaMedicaMedController.acompaniante != null}" cellpadding="5">
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_nombre}" for="nombre" />
-                            <p:inputText id="nombre" value="#{consultaMedicaMedController.acompaniante.nombre}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_nombre}" required="true">
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                            <p:inputText id="nombre" value="#{consultaMedicaMedController.acompaniante.nombre}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_nombre}" >                                
                                 <f:validator validatorId="ValidarCampoSoloLetrasYespacio"/>
                                 <p:ajax event = "blur" update="nom" />                              
                             </p:inputText>
@@ -96,8 +95,7 @@
                             <h:outputText value=""/>
                             
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_telefono}" for="telefono" />
-                            <p:inputText id="telefono" value="#{consultaMedicaMedController.acompaniante.telefono}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_telefono}" required="true" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                            <p:inputText id="telefono" value="#{consultaMedicaMedController.acompaniante.telefono}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_telefono}"  >                                
                                 <f:validator validatorId="ValidarCampoNumerico"/>
                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>
                                 <p:ajax event = "blur" update="nom1" />                              
@@ -106,8 +104,7 @@
                             
                             
                             <p:outputLabel value="#{bundleAcompanianteMed.CreateAcompanianteMedLabel_celular}" for="celular" />
-                            <p:inputText id="celular" value="#{consultaMedicaMedController.acompaniante.celular}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_celular}" required="true" >
-                                <f:validator validatorId="ValidarCampoObligatorio"/>
+                            <p:inputText id="celular" value="#{consultaMedicaMedController.acompaniante.celular}" title="#{bundleAcompanianteMed.CreateAcompanianteMedTitle_celular}">                                
                                 <f:validator validatorId="ValidarCampoNumerico"/>
                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>                                
                                 <p:ajax event = "blur" update="nom2" />                              
@@ -149,7 +146,7 @@
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoMinimo6Caracteres"/>
                                 <f:validator validatorId="ValidarCampoSoloLetrasNumerosGuionBajoPuntosYespacio"/>
-                                <p:ajax event = "blur" update="nom4" />                              
+                                <p:ajax event = "blur" update="nom4" />
                         </p:inputTextarea>
                         <p:message for="enfermedadActual" id="nom4" class="message" />                          
                     </h:panelGrid>
@@ -251,7 +248,7 @@
                             
                         </p:dataTable>
                     </h:panelGrid>                            
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                    <!--<p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>-->
                 </p:panel>
             </p:tab>
             
@@ -510,8 +507,8 @@
                                 <p:outputLabel style="font-style: italic; font-size: 16px; text-align: left; color: red;"  value="* " />
                                 </p:column>
                                 <p:column>
-                                    <p:calendar id="fechafum" value="#{consultaMedicaMedController.fechaUltimaMestruacion}" showOn="button"/>
-                                     <!--   <f:validator validatorId="ValidarCampoFechaMenorActual"/>
+                                    <p:calendar id="fechafum" value="#{consultaMedicaMedController.fechaUltimaMestruacion}" showOn="button" required="true"/>                                        
+                                    <!--   <f:validator validatorId="ValidarCampoFechaMenorActual"/>
                                         <p:ajax event = "blur" update="validatefechaMestruacion" />                              
                                     </p:calendar>
                                     <p:message for="enfermedadActual" id="validatefechaMestruacion" class="message" />-->                                                            
@@ -521,7 +518,7 @@
                             <p:row >
                                 <h3>Grouping</h3>
                                 <p:panelGrid style="margin-top:20px">
-                                    <f:facet name="header">        
+                                    <f:facet name="header">
                                         <p:row>
                                             <p:column>G</p:column>
                                             <p:column>P</p:column>
@@ -535,26 +532,40 @@
                                         <p:column>
                                             <p:inputText id="g" 
                                                  value="#{consultaMedicaMedController.g}" 
-                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_g}"/>
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_g}">
+                                                 <f:validator validatorId="ValidarCampoNumerico"/>
+                                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                            </p:inputText>
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="p" 
                                                  value="#{consultaMedicaMedController.p}" 
-                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_p}"/>
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_p}">
+                                                <f:validator validatorId="ValidarCampoNumerico"/>
+                                                <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                            </p:inputText>
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="a" 
                                                  value="#{consultaMedicaMedController.a}" 
-                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_a}"/>
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_a}">
+                                                 <f:validator validatorId="ValidarCampoNumerico"/>
+                                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                            </p:inputText>
                                         </p:column>
                                         <p:column><p:inputText id="c" 
                                                  value="#{consultaMedicaMedController.c}" 
-                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_c}"/>
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_c}">
+                                                 <f:validator validatorId="ValidarCampoNumerico"/>
+                                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>
+                                            </p:inputText>                                            
                                         </p:column>
                                         <p:column>
                                             <p:inputText id="m" 
                                                  value="#{consultaMedicaMedController.m}" 
-                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_m}">                                                
+                                                 title="#{bundleGinecostetricosMed.CreateGinecostetricosMedTitle_m}">
+                                                 <f:validator validatorId="ValidarCampoNumerico"/>
+                                                 <f:validator validatorId="ValidarCampoNumericoPositivo"/>                                            
                                             </p:inputText>
                                         </p:column>
                                     </p:row>
@@ -606,7 +617,7 @@
                
                 </p:tabView>
                 
-                <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                <!--<p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>-->
             </p:tab>
             
             
@@ -620,13 +631,14 @@
             <p:tab title="Examen físico">
                 <p:panel header="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_sigosVitales}">
                     
-                    <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
+                    <h:panelGrid columns="3" rendered="#{consultaMedicaMedController.selected != null}">
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_peso}" for="peso" />
                         <p:inputText id="peso" value="#{consultaMedicaMedController.selected.peso}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_peso}" required="true" >
                                 <f:validator validatorId="ValidarCampoObligatorio"/>
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>                             
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
                                 <p:ajax event = "blur" update="nom5" />                              
+                                <p:ajax event = "blur" update="imc" listener="#{consultaMedicaMedController.atualizarImc()}"/>
                         </p:inputText>
                         <p:message for="peso" id="nom5" class="message" />                            
 
@@ -636,12 +648,13 @@
                                 <f:validator validatorId="ValidarCampoNumericoConComa"/>
                                 <f:validator validatorId="ValidarCampoNumericoNoCero"/> 
                                 <p:ajax event = "blur" update="nom6" />                              
+                                <p:ajax event = "blur" update="imc" listener="#{consultaMedicaMedController.atualizarImc()}"/>
                         </p:inputText>
-                        <p:message for="talla" id="nom6" class="message" />                               
+                        <p:message for="talla" id="nom6" class="message" />
                         
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_imc}" for="imc" />
-                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" >                                
-                        </p:inputText>
+                        <p:inputText id="imc" value="#{consultaMedicaMedController.selected.imc}" 
+                                     title="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedTitle_imc}" />
                         <p:message for="imc" id="nom7" class="message" />                            
 
                         <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_temperatura}" for="temperatura" />
@@ -670,7 +683,7 @@
                                 <p:ajax event = "blur" update="nom10" />                              
                         </p:inputText>
                         <p:message for="frecRespiratoria" id="nom10" class="message" />                              
-                    </p:panelGrid>
+                    </h:panelGrid>
                     
                     <h4>Examen físico</h4>                                        
                     <p:panelGrid columns="3" rendered="#{consultaMedicaMedController.consultaSitemasCuerpo != null}">
@@ -774,7 +787,7 @@
                             </h:panelGrid>
                         </h:panelGroup>
                     <!--<p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>                        -->
-                    <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
+                    <!--<p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>-->
                     </p:panel>
                 </p:tab>
             
@@ -783,6 +796,7 @@
             <p:tab title="Análisis y conducta">
                 <p:panel header="Analisis y conducta">                                                       
                     <p:tabView>
+                        
                         <p:tab title="Analisis">
                             <h:panelGrid columns="1" cellpadding="10">                                                                
                                 <p:outputLabel value="#{bundleConsultaMedicaMed.CreateConsultaMedicaMedLabel_analisis}" for="resumen" />
@@ -794,14 +808,16 @@
                                 </p:inputTextarea>
                                 <p:message for="resumen" id="analisis" class="message" />                        
                             </h:panelGrid>
+                            
+                            <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items, tipoHabitoController.items, patologicosMedController.items)}" value="#{bundleConsultaMedicaMed.Save}" onclick="ConsultaMedicaMedEditDialog.hide()"/>
                         </p:tab>
                         
-                        <p:tab title="Formulacion">
-                            <h:panelGrid columns="2" cellpadding="10">                 
+                    <!--    <p:tab title="Formulacion">
+                            <h:panelGrid columns="2" cellpadding="10">
                                 <h:outputText value="" />
                                 <h:outputText value="" />
                             </h:panelGrid>
-                        </p:tab>
+                        </p:tab>-->
                         
                         <p:tab title="Evolución">
 
@@ -861,7 +877,7 @@
                                         </p:column>                                    
                                     </p:dataTable>
                                 </p:panel>
-                                                        <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items)}" value="#{bundleConsultaMedicaMed.Save}"/>
+                               <p:commandButton actionListener="#{consultaMedicaMedController.create(cargarVistaController,antFamiliaresMedController.items, sistemaCuerpoMedController.items)}" value="#{bundleConsultaMedicaMed.Save}"/>
                             </h:form>
 
                         </p:tab>
